@@ -23,8 +23,6 @@ public class characterController : MonoBehaviour
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(target.position);
         X = (Input.GetAxis("Horizontal") * moveSpeed) * -1;
         Y = Input.GetAxis("Vertical") * moveSpeed;
-        print(Screen.height);
-        print(Screen.width);
 
         //On vérifie si le joueur quitte le champ d'action de la caméra et on l'en empêche
         if (screenPos.y > 1F)
