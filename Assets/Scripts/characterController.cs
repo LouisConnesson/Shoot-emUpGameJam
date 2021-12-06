@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class characterController : MonoBehaviour
 {
@@ -11,6 +12,18 @@ public class characterController : MonoBehaviour
     private float X;
     private float Y;
     private Vector3 moveDir;
+
+    //bullet
+    [SerializeField]
+    private float shootRate = 10f;
+    public GameObject bulletPrefab;
+    public Stopwatch timer;
+    public Transform bulletSpawn;
+    private void Awake()
+    {
+        timer = new Stopwatch();
+        timer.Start();  
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -45,5 +58,15 @@ public class characterController : MonoBehaviour
         moveDir = new Vector3(X, Y, moveDir.z);
 
         cc.Move(moveDir * Time.deltaTime);
+
+        //instancier les tirs
+        if(Input.GetKey(KeyCode.Space))
+        {
+            if (timer.ElapsedMilliseconds >= 1000/shootRate)
+            {
+                Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(0f, 0f, 90f));
+                timer.Restart();
+            }
+        }
     }
 }
