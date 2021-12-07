@@ -29,13 +29,13 @@ public class EnemiesManager : MonoBehaviour
         {
             Enemy m = Instantiate(Mob) as Enemy;
             m.Initalize(player);
-            m.transform.position = new Vector3(Random.Range(-8, 10), 25, -5);
+            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
         }
         else
         {
             EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
             m.Initalize(player);
-            m.transform.position = new Vector3(Random.Range(-8, 10), 25, -5);
+            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
         }
     }
     private void spawnWave()

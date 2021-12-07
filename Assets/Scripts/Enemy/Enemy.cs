@@ -35,7 +35,7 @@ public class Enemy : Entity
         if (Time.timeScale == 1)
         {
             Vector3 screenPos = Enemy.m_mainCamera.WorldToViewportPoint(target.position);
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.02F, this.transform.position.z);
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
             if (screenPos.y < 0.0F)
             {
                 Destroy(gameObject);

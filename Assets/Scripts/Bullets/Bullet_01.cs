@@ -32,7 +32,7 @@ public class Bullet_01 : MonoBehaviour
         Vector3 moveDir = new Vector3(0, 0,1);
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
-        rb.velocity = new Vector3(0,speed*Time.deltaTime, 0);
+        rb.velocity = transform.TransformDirection(new Vector3(speed,0,0) * 0.007f);
     }
 
     private void OnTriggerEnter(Collider other)
