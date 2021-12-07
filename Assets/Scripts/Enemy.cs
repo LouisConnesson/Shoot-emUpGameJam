@@ -22,12 +22,16 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        Vector3 screenPos = Enemy.m_mainCamera.WorldToViewportPoint(target.position);
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.02F, this.transform.position.z);
-        if(screenPos.y < 0.0F)
+        if(Time.timeScale ==1)
         {
-            Destroy(gameObject);
+            Vector3 screenPos = Enemy.m_mainCamera.WorldToViewportPoint(target.position);
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.02F, this.transform.position.z);
+            if (screenPos.y < 0.0F)
+            {
+                Destroy(gameObject);
+            }
         }
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,13 +39,11 @@ public class Enemy : Entity
         if (other.gameObject.tag == "Player")
         {   
             currentHealth = 0;
-            Debug.Log("player");
 
         }
         if (other.gameObject.tag == "Bullet")
         {
             currentHealth -= 10;
-            Debug.Log("bullet");
 
         }
 
@@ -49,7 +51,6 @@ public class Enemy : Entity
         {
             OnKilledEnemy?.Invoke();
             Destroy(gameObject);
-            Debug.Log("j'appelle levent");
 
         }
 

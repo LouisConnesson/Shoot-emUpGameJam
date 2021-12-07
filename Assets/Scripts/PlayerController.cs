@@ -30,10 +30,11 @@ public class PlayerController : Entity
 
 
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 200;
+        maxHealth = 300;
         currentHealth = maxHealth;
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemy
   - Bullet
+  - Starship
   layers:
   - Default
   - TransparentFX
