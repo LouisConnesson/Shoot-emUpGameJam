@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     private float speed = 10f;
     private Camera m_MainCamera;
 
+
+
     private void Awake()
     {
         m_MainCamera = Camera.main;
@@ -31,5 +33,14 @@ public class Bullet : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = new Vector3(0,speed*Time.deltaTime, 0);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "enemy")
+        {
+            Destroy(gameObject);
+
+        }
     }
 }

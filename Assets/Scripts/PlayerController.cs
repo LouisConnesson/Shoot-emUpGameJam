@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
 
-public class characterController : MonoBehaviour
+public class PlayerController : Entity
 {
     public CharacterController cc;
     public Transform target;
@@ -19,15 +19,22 @@ public class characterController : MonoBehaviour
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform bulletSpawn;
+
+    [SerializeField]
+    private int p_score;
     private void Awake()
     {
         timer = new Stopwatch();
-        timer.Start();  
+        timer.Start();
+
+
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHealth = 200;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -68,5 +75,23 @@ public class characterController : MonoBehaviour
                 timer.Restart();
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "enemy")
+        {
+            addDamage(50);
+            if (currentHealth <= 0)
+                Destroy(gameObject);
+        }
+    }
+    private void addDamage(int dmg)
+    {
+        currentHealth -= dmg;
+    }
+    public void OnBulletHit()
+    {
+        p_score += 1;
     }
 }
