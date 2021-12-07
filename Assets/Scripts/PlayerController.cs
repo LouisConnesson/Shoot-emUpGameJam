@@ -26,15 +26,15 @@ public class PlayerController : Entity
     {
         timer = new Stopwatch();
         timer.Start();
-
+        maxHealth = 200;
+        currentHealth = maxHealth;
 
 
     }
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 200;
-        currentHealth = maxHealth;
+        
     }
 
     // Update is called once per frame
@@ -67,9 +67,9 @@ public class PlayerController : Entity
         cc.Move(moveDir * Time.deltaTime);
 
         //instancier les tirs
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            if (timer.ElapsedMilliseconds >= 1000/shootRate)
+            if (timer.ElapsedMilliseconds >= 1000 / shootRate)
             {
                 Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(0f, 0f, 90f));
                 timer.Restart();
@@ -77,14 +77,31 @@ public class PlayerController : Entity
         }
     }
 
+    public int getPlayerScore()
+    {
+        return p_score;
+    }
+    public int getmaxHealth()
+    {
+        return maxHealth;
+    }
+    public int getmcurrentHealth()
+    {
+        return currentHealth;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "enemy")
         {
             addDamage(50);
-            if (currentHealth <= 0)
-                Destroy(gameObject);
         }
+        if (other.gameObject.tag == "bulletEnemy")
+        {
+            addDamage(10); 
+        }
+        if (currentHealth <= 0)
+            Destroy(gameObject);
     }
     private void addDamage(int dmg)
     {
