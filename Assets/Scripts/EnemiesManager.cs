@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
-    public GameObject Mob;
+    public Enemy Mob;
     public Transform target;
-
+    [SerializeField]
+    PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,8 @@ public class EnemiesManager : MonoBehaviour
     }
     private void spawnEnemy()
     {
-        GameObject m = Instantiate(Mob) as GameObject;
+        Enemy m = Instantiate(Mob) as Enemy;
+        m.Initalize(player);
         m.transform.position = new Vector3(Random.Range(-5, 15), 18, -5);
     }
     IEnumerator Spawner()
