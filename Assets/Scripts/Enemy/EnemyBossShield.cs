@@ -15,6 +15,8 @@ public class EnemyBossShield : Entity
     private int nbShieldMaker = 2;
 
     public Slider lifeBar;
+    public delegate void NoShield();
+    public event NoShield OnNoShield;
 
     public void Initalize(PlayerController player)
     {
@@ -44,13 +46,17 @@ public class EnemyBossShield : Entity
                 Destroy(gameObject);
             }
         }
+        
     }
 
     public void ShieldMakerKilled()
     {
         nbShieldMaker--;
     }
-
+    public void NoShieldEvent(EnemyBossBody boss)
+    {
+        OnNoShield += boss.NoShield;
+    }
     IEnumerator Hurt()
     {
         couleur = shield.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
@@ -66,13 +72,14 @@ public class EnemyBossShield : Entity
         if (other.gameObject.tag == "Bullet" && nbShieldMaker == 0)
         {
             StartCoroutine("Hurt");
-            currentHealth -= 35;
+            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             //Debug.Log("bullet");
 
         }
 
         if (currentHealth <= 0)
         {
+            OnNoShield?.Invoke();
             OnKilledEnemy?.Invoke();
             Destroy(gameObject);
             //Debug.Log("j'appelle levent");

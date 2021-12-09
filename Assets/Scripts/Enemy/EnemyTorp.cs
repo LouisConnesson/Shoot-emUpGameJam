@@ -12,12 +12,12 @@ public class EnemyTorp : Entity
     public delegate void KilledEnemy();
     public event KilledEnemy OnKilledEnemy;
     //bullet
-    private float shootRate = 1.5f;
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
 
     private Color couleur;
+    private float shootRate;
 
     public GameObject torpedo;
     private bool isnotDied = true;
@@ -26,6 +26,7 @@ public class EnemyTorp : Entity
     {
         timer = new Stopwatch();
         timer.Start();
+        shootRate = bulletPrefab.GetComponent<BulletEnemy>().GetBulletRate();
     }
 
     public void Initalize(PlayerController player)

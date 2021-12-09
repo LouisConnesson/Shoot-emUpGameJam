@@ -34,7 +34,7 @@ public class BulletSimple : Bullet
         Vector3 moveDir = new Vector3(0, 0,1);
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
-        rb.velocity = transform.TransformDirection(new Vector3(speed,0,0) * 0.007f);
+        rb.velocity = transform.TransformDirection(new Vector3(0, 0, speed) * 0.007f);
     }
 
     private void OnTriggerEnter(Collider other)

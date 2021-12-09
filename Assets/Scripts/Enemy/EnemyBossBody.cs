@@ -31,6 +31,7 @@ public class EnemyBossBody : Entity
     private bool timerFlag = false;
 
     public Transform[] bulletSpawn = new Transform[3];
+    private bool shield = true;
 
    
 
@@ -155,13 +156,32 @@ public class EnemyBossBody : Entity
         }
     }
 
+    public void NoShield()
+    {
+        shield = false;
+        UnityEngine.Debug.Log("y'a splus de shielkd");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+<<<<<<< HEAD
         if (other.gameObject.tag == "Bullet")
         {
             if (isnotDied)
                 StartCoroutine("Hurt");
             currentHealth -= 35;
+=======
+        if (other.gameObject.tag == "Player")
+        {
+            currentHealth = 0;
+            //Debug.Log("player");
+
+        }
+        if (other.gameObject.tag == "Bullet" && shield == false)
+        {
+            StartCoroutine("Hurt");
+            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
+>>>>>>> origin/main
             //Debug.Log("bullet");
 
         }
