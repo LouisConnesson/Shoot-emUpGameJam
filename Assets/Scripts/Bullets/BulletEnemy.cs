@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletEnemy : MonoBehaviour
+public class BulletEnemy : Bullet
 {
     // Start is called before the first frame update
     [SerializeField]
@@ -14,6 +14,8 @@ public class BulletEnemy : MonoBehaviour
     private void Awake()
     {
         m_MainCamera = Camera.main;
+        damage = 20;
+        shootRate = 1.5f;
     }
 
     // Update is called once per frame

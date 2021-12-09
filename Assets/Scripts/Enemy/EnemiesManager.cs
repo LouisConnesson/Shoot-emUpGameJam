@@ -6,6 +6,7 @@ using System.Diagnostics;
 public class EnemiesManager : MonoBehaviour
 {
     public Enemy Mob;
+    public EnemyKamikaze MobKamikaze;
     public EnemyTorp MobTorp;
     public EnemyBossBody BossBody;
     public EnemyBossShield BossShield;
@@ -21,6 +22,7 @@ public class EnemiesManager : MonoBehaviour
     {
         timer = new Stopwatch();
         timer.Start();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,7 @@ public class EnemiesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer.ElapsedMilliseconds >= 10000 & flag == false)
+        if (timer.ElapsedMilliseconds >= 30000 & flag == false)
         {
             StopAllCoroutines();
             EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
@@ -49,6 +51,7 @@ public class EnemiesManager : MonoBehaviour
             EnemyBossShieldMaker o2 = Instantiate(BossShieldMakerRight) as EnemyBossShieldMaker;
             o2.Initalize(player);
             o2.ShieldEvent(n);
+            n.NoShieldEvent(m);
             o2.transform.position = new Vector3(-7, 19, -5);
             flag = true;
 
@@ -64,7 +67,11 @@ public class EnemiesManager : MonoBehaviour
         }
         else
         {
-            EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
+            /*EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
+            m.Initalize(player);
+            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);*/
+
+            EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
             m.Initalize(player);
             m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
         }

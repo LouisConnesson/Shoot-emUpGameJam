@@ -30,6 +30,7 @@ public class EnemyBossBody : Entity
     private bool timerFlag = false;
 
     public Transform[] bulletSpawn = new Transform[3];
+    private bool shield = true;
 
     private void Awake()
     {
@@ -148,6 +149,12 @@ public class EnemyBossBody : Entity
         body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
     }
 
+    public void NoShield()
+    {
+        shield = false;
+        UnityEngine.Debug.Log("y'a splus de shielkd");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -156,10 +163,10 @@ public class EnemyBossBody : Entity
             //Debug.Log("player");
 
         }
-        if (other.gameObject.tag == "Bullet")
+        if (other.gameObject.tag == "Bullet" && shield == false)
         {
             StartCoroutine("Hurt");
-            currentHealth -= 35;
+            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             //Debug.Log("bullet");
 
         }

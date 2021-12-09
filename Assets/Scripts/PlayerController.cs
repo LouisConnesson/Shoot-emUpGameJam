@@ -16,8 +16,16 @@ public class PlayerController : Entity
     //bullet
     [SerializeField]
     private float shootRate =0;
-    public GameObject bulletPrefab;
+    [SerializeField]
+    private float shootRate2 = 0;
+    [SerializeField]
+    private GameObject bulletPrefab;
+
+    [SerializeField]
+    private GameObject bulletPrefab2;
+
     public Stopwatch timer;
+    public Stopwatch timer2;
     public Transform bulletSpawn;
 
     [SerializeField]
@@ -26,19 +34,35 @@ public class PlayerController : Entity
     {
         timer = new Stopwatch();
         timer.Start();
+
+        timer2 = new Stopwatch();
+        timer2.Start();
+
         maxHealth = 500;
         currentHealth = maxHealth;
+        //selection des armes
+        int main_id = PlayerPrefs.GetInt("MainWeapon");
+        int second_id = PlayerPrefs.GetInt("SecondWeapon");
+        bulletPrefab = FindObjectOfType<GameManager>().mainWeapon[main_id];
+        bulletPrefab2 = FindObjectOfType<GameManager>().secondWeapons[second_id];
+
         shootRate = bulletPrefab.GetComponent<Bullet>().GetBulletRate();
+        shootRate2 = bulletPrefab2.GetComponent<Bullet>().GetBulletRate();
+
+        m_MainCamera = FindObjectOfType<Camera>();
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        m_MainCamera = FindObjectOfType<Camera>();
+
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(target.position);
         X = (Input.GetAxis("Horizontal") * moveSpeed) * -1;
         Y = Input.GetAxis("Vertical") * moveSpeed;
-        UnityEngine.Debug.Log(Y);
 
         //On vérifie si le joueur quitte le champ d'action de la caméra et on l'en empêche
         if (screenPos.y > 1F)
@@ -67,8 +91,16 @@ public class PlayerController : Entity
         {
             if (timer.ElapsedMilliseconds >= 1000 / shootRate)
             {
-                Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(0f, 0f, 90f));
+                Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
                 timer.Restart();
+            }
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (timer2.ElapsedMilliseconds >= 1000 / shootRate2)
+            {
+                Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
+                timer2.Restart();
             }
         }
     }
@@ -94,7 +126,7 @@ public class PlayerController : Entity
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
-            addDamage(10); 
+            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
         }
         if (currentHealth <= 0)
             Destroy(gameObject);

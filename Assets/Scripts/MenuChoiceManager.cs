@@ -33,14 +33,17 @@ public class MenuChoiceManager : MonoBehaviour
         starships = GameObject.FindGameObjectsWithTag("Starship");
         isStarshipEnable = new bool[starships.Length];
         id_starship = 0;
+        PlayerPrefs.SetInt("Starship", 0);
 
         //main weapon
         isMainWeaponEnable = new bool[2];
         id_mainWeapon = 0;
-
+        PlayerPrefs.SetInt("MainWeapon", 0);
         //second weapon
         isSecondWeaponEnable = new bool[4];
         id_secondWeapon = 0;
+        PlayerPrefs.SetInt("SecondWeapon", 0);
+
     }
 
     // Update is called once per frame
@@ -109,6 +112,8 @@ public class MenuChoiceManager : MonoBehaviour
         isStarshipEnable[id_starship] = false;
         id_starship = (id_starship + 1) % (isStarshipEnable.Length);
         isStarshipEnable[id_starship] = true;
+        PlayerPrefs.SetInt("Starship", id_starship);
+
     }
     public void LeftClickStarship()
     {
@@ -117,6 +122,8 @@ public class MenuChoiceManager : MonoBehaviour
         if (id_starship < 0)
             id_starship = isStarshipEnable.Length-1;
         isStarshipEnable[id_starship] = true;
+        PlayerPrefs.SetInt("Starship", id_starship);
+
     }
 
     public void mainWeaponRightClick()
@@ -124,6 +131,7 @@ public class MenuChoiceManager : MonoBehaviour
         isMainWeaponEnable[id_mainWeapon] = false;
         id_mainWeapon = (id_mainWeapon + 1) % (isMainWeaponEnable.Length);
         isMainWeaponEnable[id_mainWeapon] = true;
+        PlayerPrefs.SetInt("MainWeapon", id_mainWeapon);
     }
 
     public void mainWeaponleftClick()
@@ -133,6 +141,7 @@ public class MenuChoiceManager : MonoBehaviour
         if (id_mainWeapon < 0)
             id_mainWeapon = isMainWeaponEnable.Length - 1;
         isMainWeaponEnable[id_mainWeapon] = true;
+        PlayerPrefs.SetInt("MainWeapon", id_mainWeapon);
     }
 
     //second weapon
@@ -141,6 +150,7 @@ public class MenuChoiceManager : MonoBehaviour
         isSecondWeaponEnable[id_secondWeapon] = false;
         id_secondWeapon = (id_secondWeapon + 1) % (isSecondWeaponEnable.Length);
         isSecondWeaponEnable[id_secondWeapon] = true;
+        PlayerPrefs.SetInt("SecondWeapon", id_secondWeapon);
     }
 
     public void secondWeaponleftClick()
@@ -150,6 +160,7 @@ public class MenuChoiceManager : MonoBehaviour
         if (id_secondWeapon < 0)
             id_secondWeapon = isSecondWeaponEnable.Length - 1;
         isSecondWeaponEnable[id_secondWeapon] = true;
+        PlayerPrefs.SetInt("SecondWeapon", id_secondWeapon);
     }
 }
 

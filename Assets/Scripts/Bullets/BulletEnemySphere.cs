@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletEnemySphere : MonoBehaviour
+public class BulletEnemySphere : Bullet
 {
     // Start is called before the first frame update
     [SerializeField]
     private float speed = 6f;
     private Camera m_MainCamera;
-
+ 
+ 
 
 
     private void Awake()
     {
         m_MainCamera = Camera.main;
+        damage = 20;
+        shootRate = 2f;
     }
 
     // Update is called once per frame

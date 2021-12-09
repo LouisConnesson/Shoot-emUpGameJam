@@ -9,23 +9,35 @@ public class UserInterface : MonoBehaviour
     public GameObject pause;
     public GameObject gameOver;
     private bool flag = false;
-    public GameObject player;
+    [SerializeField]
+    private GameObject player;
     public TMP_Text scoreTxt;
     private int score;
-    public PlayerController scriptPlayer;
+    [SerializeField]
+    private PlayerController scriptPlayer;
     private int maxHealth;
     private int currentHealth;
     public Slider lifeBar;
     // Start is called before the first frame update
-    void Start()
-    {
-        maxHealth = scriptPlayer.getmaxHealth();
-        lifeBar.value = 1;
-    }
+
 
     // Update is called once per frame
     void Update()
     {
+        // on ne l'appelle qu'une seul fois
+        if(!player && Time.timeScale != 0)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            Debug.Log("accc");
+            if(player)
+            {
+                scriptPlayer = player.GetComponent<PlayerController>();
+                maxHealth = scriptPlayer.getmaxHealth();
+                lifeBar.value = 1;
+            }
+        }
+
+
         score = scriptPlayer.getPlayerScore();
         scoreTxt.text = $"Score : {score} ";
         currentHealth = scriptPlayer.getmcurrentHealth();

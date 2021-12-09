@@ -12,16 +12,17 @@ public class EnemyTorp : Entity
     public delegate void KilledEnemy();
     public event KilledEnemy OnKilledEnemy;
     //bullet
-    private float shootRate = 1.5f;
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
     private Color couleur;
+    private float shootRate;
 
     private void Awake()
     {
         timer = new Stopwatch();
         timer.Start();
+        shootRate = bulletPrefab.GetComponent<BulletEnemy>().GetBulletRate();
     }
 
     public void Initalize(PlayerController player)
@@ -82,13 +83,9 @@ public class EnemyTorp : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
-<<<<<<< HEAD
             StartCoroutine("Hurt");
-            currentHealth -= 35;
-=======
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
->>>>>>> origin/main
             //Debug.Log("bullet");
 
         }

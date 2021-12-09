@@ -86,14 +86,10 @@ public class Enemy : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
-<<<<<<< HEAD
             //StartCoroutine("Hurt");
-            currentHealth -= 35;
             //Debug.Log("bullet");
-=======
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
->>>>>>> origin/main
 
         }
 
