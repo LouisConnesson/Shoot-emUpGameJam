@@ -14,6 +14,9 @@ public class Enemy : Entity
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
+    public GameObject spikeball;
+
+    private bool isnotDied = true;
 
    // public GameObject spike;
     //private Color couleur;
@@ -35,7 +38,7 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && isnotDied)
         {
             Vector3 screenPos = Enemy.m_mainCamera.WorldToViewportPoint(target.position);
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
@@ -86,14 +89,10 @@ public class Enemy : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
-<<<<<<< HEAD
             //StartCoroutine("Hurt");
-            currentHealth -= 35;
             //Debug.Log("bullet");
-=======
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
->>>>>>> origin/main
 
         }
 
@@ -101,7 +100,8 @@ public class Enemy : Entity
         {
             OnKilledEnemy?.Invoke();
             Vector3 tmpos= transform.position;
-            Destroy(gameObject);
+            this.GetComponent<BoxCollider>().enabled = false;
+            StartCoroutine("died");
 
             if (other.GetComponent<BulletFragment>())
             {
@@ -113,6 +113,14 @@ public class Enemy : Entity
             //Debug.Log("j'appelle levent");
 
         }
-
     }
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;
+        this.GetComponent<AudioSource>().Play();
+        Destroy(spikeball);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
 }

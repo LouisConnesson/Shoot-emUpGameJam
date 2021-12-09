@@ -22,6 +22,7 @@ public class EnemyBossBody : Entity
 
     private Color couleur;
     public GameObject body;
+    private bool isnotDied = true;
 
     public Slider lifeBar;
 
@@ -30,6 +31,8 @@ public class EnemyBossBody : Entity
     private bool timerFlag = false;
 
     public Transform[] bulletSpawn = new Transform[3];
+
+   
 
     private void Awake()
     {
@@ -51,7 +54,7 @@ public class EnemyBossBody : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && isnotDied)
         {
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
 
@@ -140,25 +143,24 @@ public class EnemyBossBody : Entity
 
     IEnumerator Hurt()
     {
-        couleur = body.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
-        couleur.r = 1f;
-        body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
-        yield return new WaitForSeconds(0.15f);
-        couleur.r = 0.302f;
-        body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        if (isnotDied != false)
+        {
+            couleur = body.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
+            couleur.r = 1f;
+            body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+            yield return new WaitForSeconds(0.15f);
+            couleur.r = 0.302f;
+            if (isnotDied)
+                body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            currentHealth = 0;
-            //Debug.Log("player");
-
-        }
         if (other.gameObject.tag == "Bullet")
         {
-            StartCoroutine("Hurt");
+            if (isnotDied)
+                StartCoroutine("Hurt");
             currentHealth -= 35;
             //Debug.Log("bullet");
 
@@ -167,10 +169,19 @@ public class EnemyBossBody : Entity
         if (currentHealth <= 0)
         {
             OnKilledEnemy?.Invoke();
-            Destroy(gameObject);
+            body.GetComponent<SphereCollider>().enabled = false;
+            StartCoroutine("died");
             //Debug.Log("j'appelle levent");
 
         }
 
+    }
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;
+        this.GetComponent<AudioSource>().Play();
+        Destroy(body);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

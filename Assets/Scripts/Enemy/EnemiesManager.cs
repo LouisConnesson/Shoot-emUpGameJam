@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+using UnityEngine.UI;
 
 public class EnemiesManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class EnemiesManager : MonoBehaviour
     private bool flag = false;
     private int waveFlag = 0;
     public Transform target;
+
+    public Dialogue dialogue;
+    public Image imgFont;
+
     [SerializeField]
     PlayerController player;
     private void Awake()
@@ -33,30 +38,50 @@ public class EnemiesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer.ElapsedMilliseconds >= 10000 & flag == false)
+        if (Time.timeScale == 1)
         {
-            StopAllCoroutines();
-            EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
-            m.Initalize(player);
-            m.transform.position = new Vector3(0, 25, -5);
-            EnemyBossShield n = Instantiate(BossShield) as EnemyBossShield;
-            n.Initalize(player);
-            n.transform.position = new Vector3(0, 25, -5);
-            EnemyBossShieldMaker o = Instantiate(BossShieldMaker) as EnemyBossShieldMaker;
-            o.Initalize(player);
-            o.ShieldEvent(n);
-            o.transform.position = new Vector3(7, 19, -5);
-            EnemyBossShieldMaker o2 = Instantiate(BossShieldMakerRight) as EnemyBossShieldMaker;
-            o2.Initalize(player);
-            o2.ShieldEvent(n);
-            o2.transform.position = new Vector3(-7, 19, -5);
-            flag = true;
+            timer.Start();
+            if (timer.ElapsedMilliseconds >= 5000 & flag == false)
+            {
+                StopAllCoroutines();
+                Time.timeScale = 0;
+                dialogue.StartDialogue(); // On commence le dialogue du boss
 
+                EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
+                m.Initalize(player);
+                m.transform.position = new Vector3(0, 25, -5);
+                EnemyBossShield n = Instantiate(BossShield) as EnemyBossShield;
+                n.Initalize(player);
+                n.transform.position = new Vector3(0, 25, -5);
+                EnemyBossShieldMaker o = Instantiate(BossShieldMaker) as EnemyBossShieldMaker;
+                o.Initalize(player);
+                o.ShieldEvent(n);
+                o.transform.position = new Vector3(7, 19, -5);
+                EnemyBossShieldMaker o2 = Instantiate(BossShieldMakerRight) as EnemyBossShieldMaker;
+                o2.Initalize(player);
+                o2.ShieldEvent(n);
+                o2.transform.position = new Vector3(-7, 19, -5);
+                flag = true;
+                imgFont.enabled = true;
+            }
+        }
+        else if (flag == true && Input.GetKeyDown(KeyCode.Space)) //si le boss a pop ET qu'on est en dialogue
+        {
+            dialogue.NextLine();
+            if (dialogue.currentDialogue == 0) //si le dialogue est finit on remet le temps
+            {
+                Time.timeScale = 1;
+                imgFont.enabled = false;
+            }
+        }
+        else //si le temps est arrêté on stop le temps du boss
+        {
+            timer.Stop();
         }
     }
     private void spawnEnemy()
     {
-        if (Random.Range(0f, 100f) < 10) //Probabilité de faire apparaitre un type de mob
+        if (Random.Range(0f, 100f) < 90) //Probabilité de faire apparaitre un type de mob
         {
             Enemy m = Instantiate(Mob) as Enemy;
             m.Initalize(player);

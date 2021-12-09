@@ -16,6 +16,9 @@ public class EnemyBossShieldMaker : Entity
     public GameObject sonde;
     private Color couleur;
 
+    public GameObject sonde2;
+    private bool isnotDied = true;
+
     public void Initalize(PlayerController player)
     {
         OnKilledEnemy += player.OnBulletHit;
@@ -35,7 +38,7 @@ public class EnemyBossShieldMaker : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && isnotDied)
         {
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
             Vector3 screenPos = EnemyBossShieldMaker.m_mainCamera.WorldToViewportPoint(target.position);
@@ -56,19 +59,24 @@ public class EnemyBossShieldMaker : Entity
 
     IEnumerator Hurt()
     {
-        couleur = sonde.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
-        couleur.r = 0.2f;
-        sonde.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
-        yield return new WaitForSeconds(0.15f);
-        couleur.r = 1f;
-        sonde.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        if (isnotDied != false)
+        {
+            couleur = sonde.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
+            couleur.r = 0.2f;
+            sonde.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+            yield return new WaitForSeconds(0.15f);
+            couleur.r = 1f;
+            if (isnotDied) 
+                sonde.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Bullet")
         {
-            StartCoroutine("Hurt");
+            if (isnotDied)
+                StartCoroutine("Hurt");
             currentHealth -= 35;
             //Debug.Log("bullet");
 
@@ -78,10 +86,21 @@ public class EnemyBossShieldMaker : Entity
         {
             OnDeathShield?.Invoke();
             OnKilledEnemy?.Invoke();
-            Destroy(gameObject);
+            sonde.GetComponent<SphereCollider>().enabled = false;
+            StartCoroutine("died");
             //Debug.Log("j'appelle levent");
 
         }
 
+    }
+
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;
+        this.GetComponent<AudioSource>().Play();
+        Destroy(sonde);
+        Destroy(sonde2);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

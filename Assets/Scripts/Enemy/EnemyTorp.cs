@@ -16,7 +16,11 @@ public class EnemyTorp : Entity
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
+
     private Color couleur;
+
+    public GameObject torpedo;
+    private bool isnotDied = true;
 
     private void Awake()
     {
@@ -35,7 +39,7 @@ public class EnemyTorp : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && isnotDied)
         {
             Vector3 screenPos = EnemyTorp.m_mainCamera.WorldToViewportPoint(target.position);
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
@@ -82,31 +86,36 @@ public class EnemyTorp : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
-<<<<<<< HEAD
             StartCoroutine("Hurt");
-            currentHealth -= 35;
-=======
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
->>>>>>> origin/main
             //Debug.Log("bullet");
 
         }
 
         if (currentHealth <= 0)
         {
+            this.GetComponent<BoxCollider>().enabled = false;
             OnKilledEnemy?.Invoke();
             if (other.GetComponent<BulletFragment>())
             {
                 for (int i = 0; i < 8; i++)
                     Instantiate(other.gameObject, transform.position, Quaternion.Euler(0, 0, i * 45));
-
             }
-            Destroy(gameObject);
+            StartCoroutine("died");
 
             //Debug.Log("j'appelle levent");
 
         }
 
+    }
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;
+        this.GetComponent<MeshRenderer>().enabled = false;
+        this.GetComponent<AudioSource>().Play();
+        Destroy(torpedo);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

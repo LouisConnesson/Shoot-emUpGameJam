@@ -38,7 +38,6 @@ public class PlayerController : Entity
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(target.position);
         X = (Input.GetAxis("Horizontal") * moveSpeed) * -1;
         Y = Input.GetAxis("Vertical") * moveSpeed;
-        UnityEngine.Debug.Log(Y);
 
         //On vérifie si le joueur quitte le champ d'action de la caméra et on l'en empêche
         if (screenPos.y > 1F)
@@ -63,12 +62,15 @@ public class PlayerController : Entity
         cc.Move(moveDir * Time.deltaTime);
 
         //instancier les tirs
-        if (Input.GetKey(KeyCode.Space))
+        if (Time.timeScale == 1) //si le temps n'est pas en pause
         {
-            if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+            if (Input.GetKey(KeyCode.Space))
             {
-                Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(0f, 0f, 90f));
-                timer.Restart();
+                if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+                {
+                    Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(0f, 0f, 90f));
+                    timer.Restart();
+                }
             }
         }
     }
