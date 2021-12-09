@@ -15,6 +15,7 @@ public class EnemyTorp : Entity
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
+    private Color couleur;
 
     private void Awake()
     {
@@ -59,6 +60,17 @@ public class EnemyTorp : Entity
         }
     }
 
+    IEnumerator Hurt()
+    {
+        
+        couleur = this.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
+        couleur.r = 1f;
+
+        this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        yield return new WaitForSeconds(0.15f);
+        couleur.r = 0.509434f;
+        this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -69,6 +81,7 @@ public class EnemyTorp : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
+            StartCoroutine("Hurt");
             currentHealth -= 35;
             //Debug.Log("bullet");
 

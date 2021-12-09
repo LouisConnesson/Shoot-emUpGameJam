@@ -26,7 +26,7 @@ public class PlayerController : Entity
     {
         timer = new Stopwatch();
         timer.Start();
-        maxHealth = 200;
+        maxHealth = 500;
         currentHealth = maxHealth;
 
 

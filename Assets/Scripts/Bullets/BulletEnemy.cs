@@ -33,8 +33,8 @@ public class BulletEnemy : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
        
-            rb.velocity = transform.TransformDirection(new Vector3(this.transform.rotation.z, -speed, 0) * 0.007f);
-       // rb.transform.position = new Vector3(rb.transform.position.x * Time.deltaTime, rb.transform.position.y * Time.deltaTime, rb.transform.position.z);
+        rb.velocity = transform.TransformDirection(new Vector3(this.transform.rotation.z, -speed, 0) * 0.007f);
+        // rb.transform.position = new Vector3(rb.transform.position.x * Time.deltaTime, rb.transform.position.y * Time.deltaTime, rb.transform.position.z);
         
     }
 

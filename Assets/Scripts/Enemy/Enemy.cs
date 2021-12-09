@@ -15,6 +15,9 @@ public class Enemy : Entity
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
 
+   // public GameObject spike;
+    //private Color couleur;
+
     private void Awake()
     {
         timer = new Stopwatch();
@@ -62,6 +65,17 @@ public class Enemy : Entity
         }
     }
 
+   /* IEnumerator Hurt()
+    {
+        couleur = spike.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
+        print(couleur.r);
+        couleur.r = 0.2f;
+        spike.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        yield return new WaitForSeconds(0.15f);
+        couleur.r = 1f;
+        spike.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+    }*/
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -72,6 +86,7 @@ public class Enemy : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
+            //StartCoroutine("Hurt");
             currentHealth -= 35;
             //Debug.Log("bullet");
 

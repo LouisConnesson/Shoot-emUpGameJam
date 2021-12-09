@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UserInterface : MonoBehaviourSingleton<UserInterface>
+public class UserInterface : MonoBehaviour
 {
     public GameObject pause;
     public GameObject gameOver;
