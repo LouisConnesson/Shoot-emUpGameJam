@@ -55,7 +55,6 @@ public class BulletAOE : Bullet
         {
             if (c.tag == "enemy")
             {
-                Debug.Log("ENNEMIS");
                 Entity tmp = c.GetComponent<Entity>();
                 if (tmp != null)
                 {

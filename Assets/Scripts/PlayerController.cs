@@ -91,24 +91,20 @@ public class PlayerController : Entity
         {
             if (Input.GetKey(KeyCode.Space))
             {
-<<<<<<< HEAD
                 if (timer.ElapsedMilliseconds >= 1000 / shootRate)
                 {
-                    Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(0f, 0f, 90f));
+                    Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
                     timer.Restart();
                 }
-=======
-                Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
-                timer.Restart();
->>>>>>> origin/main
             }
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            if (timer2.ElapsedMilliseconds >= 1000 / shootRate2)
+
+            if (Input.GetKey(KeyCode.E))
             {
-                Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
-                timer2.Restart();
+                if (timer2.ElapsedMilliseconds >= 1000 / shootRate2)
+                {
+                    Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
+                    timer2.Restart();
+                }
             }
         }
     }

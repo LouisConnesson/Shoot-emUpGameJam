@@ -28,7 +28,6 @@ public class UserInterface : MonoBehaviour
         if(!player && Time.timeScale != 0)
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            Debug.Log("accc");
             if(player)
             {
                 scriptPlayer = player.GetComponent<PlayerController>();

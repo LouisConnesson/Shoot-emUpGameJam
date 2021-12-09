@@ -75,14 +75,9 @@ public class EnemyBossShieldMaker : Entity
     {
         if (other.gameObject.tag == "Bullet")
         {
-<<<<<<< HEAD
             if (isnotDied)
                 StartCoroutine("Hurt");
-            currentHealth -= 35;
-=======
-            StartCoroutine("Hurt");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
->>>>>>> origin/main
             //Debug.Log("bullet");
 
         }

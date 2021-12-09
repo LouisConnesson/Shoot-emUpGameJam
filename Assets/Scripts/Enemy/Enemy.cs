@@ -92,7 +92,6 @@ public class Enemy : Entity
             //StartCoroutine("Hurt");
             //Debug.Log("bullet");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
-            UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
 
         }
 
