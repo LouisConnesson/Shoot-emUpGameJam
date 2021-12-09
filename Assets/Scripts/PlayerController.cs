@@ -15,7 +15,7 @@ public class PlayerController : Entity
 
     //bullet
     [SerializeField]
-    private float shootRate = 10f;
+    private float shootRate =0;
     public GameObject bulletPrefab;
     public Stopwatch timer;
     public Transform bulletSpawn;
@@ -28,13 +28,8 @@ public class PlayerController : Entity
         timer.Start();
         maxHealth = 500;
         currentHealth = maxHealth;
+        shootRate = bulletPrefab.GetComponent<Bullet>().GetBulletRate();
 
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -43,6 +38,7 @@ public class PlayerController : Entity
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(target.position);
         X = (Input.GetAxis("Horizontal") * moveSpeed) * -1;
         Y = Input.GetAxis("Vertical") * moveSpeed;
+        UnityEngine.Debug.Log(Y);
 
         //On vérifie si le joueur quitte le champ d'action de la caméra et on l'en empêche
         if (screenPos.y > 1F)

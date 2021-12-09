@@ -152,7 +152,7 @@ BoxCollider:
   m_GameObject: {fileID: 3971223427365414726}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.3088255, y: 1.194807, z: 1.6556253}
   m_Center: {x: 0.00039434433, y: -0.0072107315, z: -0.021918774}
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 4169938365287614162}
   - component: {fileID: -2249658616181081844}
   - component: {fileID: 6730439846328137973}
+  - component: {fileID: 761780405901364525}
   m_Layer: 0
   m_Name: MobSpike
   m_TagString: enemy
@@ -183,7 +184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5679946504139487513}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 18, z: -5}
+  m_LocalPosition: {x: 0, y: 18, z: -5.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3971223427365518182}
@@ -249,6 +250,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &761780405901364525
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679946504139487513}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4887028, y: 1.194807, z: 21.72171}
+  m_Center: {x: 0.27331758, y: -0.0072107315, z: -3.654508}
 --- !u!1 &7731364666284299924
 GameObject:
   m_ObjectHideFlags: 0

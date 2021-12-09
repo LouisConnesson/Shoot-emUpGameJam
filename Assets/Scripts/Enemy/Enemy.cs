@@ -86,16 +86,30 @@ public class Enemy : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
+<<<<<<< HEAD
             //StartCoroutine("Hurt");
             currentHealth -= 35;
             //Debug.Log("bullet");
+=======
+            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
+            UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
+>>>>>>> origin/main
 
         }
 
         if (currentHealth <= 0)
         {
             OnKilledEnemy?.Invoke();
+            Vector3 tmpos= transform.position;
             Destroy(gameObject);
+
+            if (other.GetComponent<BulletFragment>())
+            {
+                for (int i = 0; i < 8; i++)
+                    Instantiate(other.gameObject, tmpos, Quaternion.Euler(0, 0, i * 45));
+
+            }
+
             //Debug.Log("j'appelle levent");
 
         }

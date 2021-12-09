@@ -286,7 +286,7 @@ BoxCollider:
   m_GameObject: {fileID: 6906004737674032225}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1.7249612}
   m_Center: {x: 0, y: 0, z: -0.3624809}
@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 8852108041350706936}
   - component: {fileID: 4042246738707589214}
   - component: {fileID: 3728025041147742931}
+  - component: {fileID: 1344545940448691433}
   m_Layer: 0
   m_Name: MobTorp
   m_TagString: enemy
@@ -441,3 +442,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1344545940448691433
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829767374479329908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 8.908422}
+  m_Center: {x: 0, y: 0, z: -0.31942832}

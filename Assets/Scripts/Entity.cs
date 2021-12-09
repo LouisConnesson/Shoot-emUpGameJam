@@ -17,6 +17,10 @@ public class Entity : MonoBehaviour
         currentHealth -= dmg;
     }*/
     // Update is called once per frame
+    public void TakeDamage(int dmg)
+    {
+        currentHealth -= dmg;
+    }
     void Update()
     {
         
