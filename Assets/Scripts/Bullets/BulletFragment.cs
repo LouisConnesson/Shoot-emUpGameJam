@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet_03 : MonoBehaviour
+public class BulletFragment : Bullet
 {
     // Start is called before the first frame update
     [SerializeField]
@@ -14,6 +14,8 @@ public class Bullet_03 : MonoBehaviour
     private void Awake()
     {
         m_MainCamera = Camera.main;
+        damage = 500;
+        shootRate = 10f;
     }
 
     // Update is called once per frame
@@ -32,24 +34,15 @@ public class Bullet_03 : MonoBehaviour
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
         //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
-        rb.velocity = new Vector3(0, speed * Time.deltaTime, 0);
+        rb.velocity = transform.TransformDirection(new Vector3(speed, 0, 0) * 0.007f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "enemy")
         {
-            CheckForDestructibles();
+            Destroy(gameObject,0.2f);
 
-            Destroy(gameObject);
-        }
-    }
-    private void CheckForDestructibles()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position,14f);
-        foreach(Collider c in colliders)
-        {
-            Debug.Log("TOUCHER ZONE ???");
         }
     }
 }

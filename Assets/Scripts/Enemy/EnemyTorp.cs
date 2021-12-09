@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+
 public class EnemyTorp : Entity
 {
     static Camera m_mainCamera;
@@ -69,7 +70,8 @@ public class EnemyTorp : Entity
         }
         if (other.gameObject.tag == "Bullet")
         {
-            currentHealth -= 35;
+            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
+            UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
             //Debug.Log("bullet");
 
         }
@@ -77,7 +79,14 @@ public class EnemyTorp : Entity
         if (currentHealth <= 0)
         {
             OnKilledEnemy?.Invoke();
+            if (other.GetComponent<BulletFragment>())
+            {
+                for (int i = 0; i < 8; i++)
+                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(0, 0, i * 45));
+
+            }
             Destroy(gameObject);
+
             //Debug.Log("j'appelle levent");
 
         }
