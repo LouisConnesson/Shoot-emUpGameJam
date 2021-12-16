@@ -4,8 +4,10 @@ using UnityEngine;
 using System.Diagnostics;
 using UnityEngine.UI;
 
+
 public class EnemiesManager : MonoBehaviour
 {
+    public GameObject gura;
     public Enemy Mob;
     public EnemyKamikaze MobKamikaze;
     public EnemyTorp MobTorp;
@@ -23,7 +25,7 @@ public class EnemiesManager : MonoBehaviour
     public Image imgFont;
 
     [SerializeField]
-    PlayerController player;
+    private PlayerController player;
     private void Awake()
     {
         timer = new Stopwatch();
@@ -46,7 +48,7 @@ public class EnemiesManager : MonoBehaviour
             if (player)
                 foundPlayer = true;
         }
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && player) 
         {
             timer.Start();
             if (timer.ElapsedMilliseconds >= 5000 & flag == false)
@@ -54,7 +56,7 @@ public class EnemiesManager : MonoBehaviour
                 StopAllCoroutines();
                 Time.timeScale = 0;
                 dialogue.StartDialogue(); // On commence le dialogue du boss
-                EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
+                /*EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
                 m.Initalize(player);
                 m.transform.position = new Vector3(0, 25, -5);
                 EnemyBossShield n = Instantiate(BossShield) as EnemyBossShield;
@@ -68,8 +70,13 @@ public class EnemiesManager : MonoBehaviour
                 o2.Initalize(player);
                 o2.ShieldEvent(n);
                 n.NoShieldEvent(m);
-                o2.transform.position = new Vector3(-7, 19, -5);
-                flag = true;
+                o2.transform.position = new Vector3(-7, 19, -5);*/
+                GameObject guramob = Instantiate(gura) as GameObject;
+                guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
+                //guramob.GetComponent<BossGura>().Initalize(player);
+                guramob.transform.position = new Vector3(-7, 19, -5);
+
+                 flag = true;
                 imgFont.enabled = true;
             }
         }
@@ -89,7 +96,7 @@ public class EnemiesManager : MonoBehaviour
     }
     private void spawnEnemy()
     {
-        if (Random.Range(0f, 100f) < 90) //Probabilité de faire apparaitre un type de mob
+        if (Random.Range(0f, 100f) < 10) //Probabilité de faire apparaitre un type de mob
         {
             Enemy m = Instantiate(Mob) as Enemy;
             m.Initalize(player);
@@ -97,13 +104,13 @@ public class EnemiesManager : MonoBehaviour
         }
         else
         {
-            EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
+            /*EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
+            m.Initalize(player);
+            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5); */
+
+           EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
             m.Initalize(player);
             m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
-
-            /*EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
-            m.Initalize(player);
-            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);*/
         }
     }
     private void spawnWave()

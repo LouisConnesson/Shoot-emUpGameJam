@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+using UnityEngine.Experimental.VFX;
+using UnityEngine.VFX;
+using UnityEditor.VFX;
+
 
 public class PlayerController : Entity
 {
@@ -30,6 +34,11 @@ public class PlayerController : Entity
 
     [SerializeField]
     private int p_score;
+
+    public GameObject muzzle;
+    private float radius = 1f;
+
+    private int numberproj = 5;
     private void Awake()
     {
         timer = new Stopwatch();
@@ -44,6 +53,7 @@ public class PlayerController : Entity
         int main_id = PlayerPrefs.GetInt("MainWeapon");
         int second_id = PlayerPrefs.GetInt("SecondWeapon");
         bulletPrefab = FindObjectOfType<GameManager>().mainWeapon[main_id];
+
         bulletPrefab2 = FindObjectOfType<GameManager>().secondWeapons[second_id];
 
         shootRate = bulletPrefab.GetComponent<Bullet>().GetBulletRate();
@@ -93,12 +103,20 @@ public class PlayerController : Entity
             {
                 if (timer.ElapsedMilliseconds >= 1000 / shootRate)
                 {
-                    Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
+                    Vector3 bulletpos = new Vector3(bulletSpawn.position.x, bulletSpawn.position.y, bulletSpawn.position.z+1);
+                    GameObject bullet = Instantiate(bulletPrefab, bulletpos, Quaternion.Euler(-90f, 0f, 0f)) as GameObject;
+                    if(bullet.GetComponent<BulletDrone>())
+                    {
+                        bullet.GetComponent<BulletDrone>().GetPlayer(this.gameObject);
+                    }
+                    //Instantiate(bulletPrefab, bulletpos, Quaternion.Euler(-90f, 0f, 0f));
                     timer.Restart();
+                    Destroy(Instantiate(muzzle, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f)),0.2f);
+
                 }
             }
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.E) && PlayerPrefs.GetInt("SecondWeapon") != 0)
             {
                 if (timer2.ElapsedMilliseconds >= 1000 / shootRate2)
                 {
@@ -126,7 +144,12 @@ public class PlayerController : Entity
     {
         if (other.gameObject.tag == "enemy")
         {
-            addDamage(50);
+            if(other.GetComponent<EnemyKamikaze>())
+            {
+                currentHealth -= other.GetComponent<EnemyKamikaze>().GetDamage();
+            }
+            else
+                addDamage(50);
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
