@@ -6,7 +6,7 @@ public class BulletEnemySphere : Bullet
 {
     // Start is called before the first frame update
     [SerializeField]
-    private float speed = 6f;
+    private float speed = 0.1f;
     private Camera m_MainCamera;
  
  
@@ -25,10 +25,10 @@ public class BulletEnemySphere : Bullet
         bulletMovment();
 
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(transform.position);
-        if (screenPos.y < -0.1F || screenPos.y > 1.1F ||screenPos.x >1.1F || screenPos.x <-0.1F)
-        {
+       if (screenPos.y < -0.5F || screenPos.y > 1.5F ||screenPos.x >1.5F || screenPos.x <-0.5F)
+       {
             Destroy(gameObject);
-        }
+       }
     }
     void bulletMovment()
     {

@@ -144,6 +144,7 @@ MonoBehaviour:
   bulletPrefab2: {fileID: 0}
   bulletSpawn: {fileID: 6736447455851973992}
   p_score: 0
+  muzzle: {fileID: 8313131594746184350, guid: d1b185f6ed1a5204cba2f4a01e2197d8, type: 3}
 --- !u!143 &5890077831361882055
 CharacterController:
   m_ObjectHideFlags: 0

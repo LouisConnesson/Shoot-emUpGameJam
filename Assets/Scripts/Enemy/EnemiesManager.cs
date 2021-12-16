@@ -27,15 +27,10 @@ public class EnemiesManager : MonoBehaviour
     public Dialogue dialogue;
     public Image imgFont;
 
-    [SerializeField]
-<<<<<<< HEAD
     PlayerController player;
     public MusicManager zicManager;
     public Dialogue dialogueChan;
     public Dialogue dialogueChanEsquive;
-=======
-    private PlayerController player;
->>>>>>> origin/main
     private void Awake()
     {
         timer = new Stopwatch();
@@ -63,7 +58,6 @@ public class EnemiesManager : MonoBehaviour
             timer.Start();
             if (Random.Range(0f, 100f) < 0) //Probabilité de faire apparaitre un type de boss
             {
-<<<<<<< HEAD
                 if (timer.ElapsedMilliseconds >= 50000 && flag == false && flagChan == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
@@ -86,34 +80,12 @@ public class EnemiesManager : MonoBehaviour
                     o2.transform.position = new Vector3(-7, 19, -5);
                     flag = true;
                     imgFont.enabled = true;
-                }//////////////////////BOSS
-=======
-                StopAllCoroutines();
-                Time.timeScale = 0;
-                dialogue.StartDialogue(); // On commence le dialogue du boss
-                /*EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
-                m.Initalize(player);
-                m.transform.position = new Vector3(0, 25, -5);
-                EnemyBossShield n = Instantiate(BossShield) as EnemyBossShield;
-                n.Initalize(player);
-                n.transform.position = new Vector3(0, 25, -5);
-                EnemyBossShieldMaker o = Instantiate(BossShieldMaker) as EnemyBossShieldMaker;
-                o.Initalize(player);
-                o.ShieldEvent(n);
-                o.transform.position = new Vector3(7, 19, -5);
-                EnemyBossShieldMaker o2 = Instantiate(BossShieldMakerRight) as EnemyBossShieldMaker;
-                o2.Initalize(player);
-                o2.ShieldEvent(n);
-                n.NoShieldEvent(m);
-                o2.transform.position = new Vector3(-7, 19, -5);*/
+                }
+                /*
                 GameObject guramob = Instantiate(gura) as GameObject;
                 guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
                 //guramob.GetComponent<BossGura>().Initalize(player);
-                guramob.transform.position = new Vector3(-7, 19, -5);
-
-                 flag = true;
-                imgFont.enabled = true;
->>>>>>> origin/main
+                guramob.transform.position = new Vector3(-7, 19, -5);*/
             }
             else if (flagChan == false && flag == false) //////////////////////BOSS CHAN
             {
@@ -143,11 +115,7 @@ public class EnemiesManager : MonoBehaviour
     }
     private void spawnEnemy()
     {
-<<<<<<< HEAD
-        if (Random.Range(0f, 100f) < 50) //Probabilité de faire apparaitre un type de mob
-=======
         if (Random.Range(0f, 100f) < 10) //Probabilité de faire apparaitre un type de mob
->>>>>>> origin/main
         {
             Enemy m = Instantiate(Mob) as Enemy;
             m.Initalize(player);

@@ -152,17 +152,13 @@ public class PlayerController : Entity
     {
         if (other.gameObject.tag == "enemy")
         {
-<<<<<<< HEAD
             this.GetComponent<AudioSource>().Play();
-            addDamage(50);
-=======
             if(other.GetComponent<EnemyKamikaze>())
             {
                 currentHealth -= other.GetComponent<EnemyKamikaze>().GetDamage();
             }
             else
                 addDamage(50);
->>>>>>> origin/main
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
