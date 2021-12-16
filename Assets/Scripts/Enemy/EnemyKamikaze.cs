@@ -10,47 +10,59 @@ public class EnemyKamikaze : Entity
     private Color couleur;
     [SerializeField]
     private GameObject m_player;
-    public float moveSpeed = 10f;
+    public float moveSpeed = 500f;
     private Rigidbody rb;
     [SerializeField]
     private Vector2 movement;
 
     [SerializeField]
-    private Vector2 directionpub;
+
+    private int damage = 200;
 
     public void Initalize(PlayerController player)
     {
         maxHealth = 50;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
-        m_player = player.gameObject;
-        rb = m_player.GetComponent<Rigidbody>();
+        if(player)
+        {
+            m_player = player.gameObject;
+            rb = m_player.GetComponent<Rigidbody>();
+
+        }
     }
     // Update is called once per frame
     void Update()
     {
         if (Time.timeScale == 1)
         {
-            Vector3 direction = (m_player.transform.position - transform.position);
-            directionpub = direction;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y,0));
-            transform.rotation = Quaternion.Slerp(transform.rotation,lookRotation,Time.deltaTime * 5f);
+            if (m_player)
+            {
+                Vector3 direction = (m_player.transform.position - transform.position);
+                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, 0));
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
-      
-            movement = direction;
+
+                movement = direction;
+            }
+
         }
 
     }
     private void FixedUpdate()
     {
-        Move(movement);
+        if (m_player)
+            Move(movement);
     }
 
     private void Move(Vector2 direction)
     {
+        
         float step = moveSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, m_player.transform.position, step);
         //rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+        
+
     }
 
 
@@ -94,5 +106,8 @@ public class EnemyKamikaze : Entity
 
         }
 
+    }
+    public int GetDamage(){
+        return damage;
     }
 }

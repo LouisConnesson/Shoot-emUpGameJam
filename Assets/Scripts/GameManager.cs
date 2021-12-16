@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         int id_starship = PlayerPrefs.GetInt("Starship");
-        Instantiate(starships[id_starship], new Vector3(0, 8, -5), Quaternion.Euler(180f, 180f, 0f));
+        GameObject starship = Instantiate(starships[id_starship], new Vector3(0, 8, -5), Quaternion.Euler(180f, 180f, 0f));
+        starship.transform.position = new Vector3(0, 5, -5);
     }
+
 
     // Update is called once per frame
     void Update()

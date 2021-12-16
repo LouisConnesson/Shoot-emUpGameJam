@@ -15,7 +15,7 @@ public class BulletPen : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 30;
+        damage = 30 + PlayerPrefs.GetInt("MainWeaponWeaponLevel01") * 2;
         shootRate = 5f;
         pierce = 2;
     }

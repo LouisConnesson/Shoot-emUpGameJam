@@ -14,7 +14,7 @@ public class BulletSimple : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 20;
+        damage = 20 + PlayerPrefs.GetInt("MainWeaponWeaponLevel01")*2;
         shootRate = 10f;
     }
     
