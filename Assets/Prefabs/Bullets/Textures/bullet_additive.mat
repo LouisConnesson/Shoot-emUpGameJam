@@ -77,3 +77,4 @@ Material:
     - _Gradient_Color_1: {r: 0.41176468, g: 0.6835697, b: 1, a: 1}
     - _Gradient_Color_2: {r: 1, g: 0.85537523, b: 0.5441177, a: 1}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+  m_BuildTextureStacks: []

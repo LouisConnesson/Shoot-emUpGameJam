@@ -15,7 +15,6 @@ public class BulletEnemySphere : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 20;
         shootRate = 2f;
     }
 
@@ -25,7 +24,7 @@ public class BulletEnemySphere : Bullet
         bulletMovment();
 
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(transform.position);
-        if (screenPos.y < -0.1F || screenPos.y > 1.1F ||screenPos.x >1.1F || screenPos.x <-0.1F)
+        if (screenPos.y < -0.5F || screenPos.y > 1.5F ||screenPos.x >1.5F || screenPos.x <-0.5F)
         {
             Destroy(gameObject);
         }

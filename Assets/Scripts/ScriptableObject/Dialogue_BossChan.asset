@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5da428a9c27cc48b4eba6b751ab203, type: 3}
+  m_Name: Dialogue_BossChan
+  m_EditorClassIdentifier: 
+  dialogue:
+  - 'Commandant : C''est quoi ce truc ???'
+  - 'BossChan : UwU est ce que tu me gnoni ?'
+  - 'Commandant : Jvais te percuter tu vas rien comprendre.'
+  - 'BossChan : Haha baka, regarde comment j''imite Bakugo...'
+  - 'Commandant : AAAAAAAAAAAAAAAAAAAAAAAAA'
+  portrait:
+  - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}
+  - {fileID: -2939166644293162222, guid: 50d20bb436d2e3c44a78a8ef18bec451, type: 3}
+  - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}
+  - {fileID: -2939166644293162222, guid: 50d20bb436d2e3c44a78a8ef18bec451, type: 3}
+  - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}

@@ -6,6 +6,7 @@ using System.Diagnostics;
 public class PlayerController : Entity
 {
     public CharacterController cc;
+    public GameObject hitBox;
     public Transform target;
     public Camera m_MainCamera;
     public float moveSpeed;
@@ -106,6 +107,13 @@ public class PlayerController : Entity
                     timer2.Restart();
                 }
             }
+            if (Input.GetKey(KeyCode.Z))
+            {
+                hitBox.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+                hitBox.GetComponent<MeshRenderer>().enabled = false;
+
         }
     }
 
@@ -126,10 +134,12 @@ public class PlayerController : Entity
     {
         if (other.gameObject.tag == "enemy")
         {
+            this.GetComponent<AudioSource>().Play();
             addDamage(50);
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
+            this.GetComponent<AudioSource>().Play();
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
         }
         if (currentHealth <= 0)

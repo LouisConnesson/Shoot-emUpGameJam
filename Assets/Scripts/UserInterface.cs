@@ -42,7 +42,7 @@ public class UserInterface : MonoBehaviour
         currentHealth = scriptPlayer.getmcurrentHealth();
         lifeBar.value = ((float)currentHealth / (float)maxHealth);
 
-        if (lifeBar.value <= 0)
+        if (lifeBar.value <= 0) //SI LE JOUEUR EST MORT
         {
             gameOver.SetActive(true);
         }
