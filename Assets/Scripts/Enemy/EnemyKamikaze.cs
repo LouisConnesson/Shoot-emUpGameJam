@@ -75,13 +75,12 @@ public class EnemyKamikaze : Entity
 
     IEnumerator Hurt()
     {
-
         couleur = this.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
         couleur.r = 1f;
 
         this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
         yield return new WaitForSeconds(0.15f);
-        couleur.r = 0.509434f;
+        couleur.r = 0.0f;
         this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
     }
     private void OnTriggerEnter(Collider other)
@@ -123,6 +122,7 @@ public class EnemyKamikaze : Entity
     {
         isnotDied = false;
         this.GetComponent<AudioSource>().Play();
+        this.GetComponent<MeshRenderer>().enabled = false;
         //Destroy(spikeball);
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);

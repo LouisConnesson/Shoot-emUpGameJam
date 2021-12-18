@@ -239,7 +239,7 @@ MonoBehaviour:
   shootRate2: 0
   bulletPrefab: {fileID: 0}
   bulletPrefab2: {fileID: 0}
-  bulletSpawn: {fileID: 0}
+  bulletSpawn: {fileID: 1313835560117618440}
   p_score: 0
   muzzle: {fileID: 8313131594746184350, guid: d1b185f6ed1a5204cba2f4a01e2197d8, type: 3}
   shield: {fileID: 3373496041935837028}
