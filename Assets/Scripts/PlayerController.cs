@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
-using UnityEngine.Experimental.VFX;
-using UnityEngine.VFX;
-using UnityEditor.VFX;
 
 
 public class PlayerController : Entity
@@ -31,6 +28,8 @@ public class PlayerController : Entity
 
     public Stopwatch timer;
     public Stopwatch timer2;
+    public Stopwatch timer3;
+    public Stopwatch timer4;
     public Transform bulletSpawn;
 
     [SerializeField]
@@ -39,6 +38,11 @@ public class PlayerController : Entity
     public GameObject muzzle;
     private float radius = 1f;
 
+    public GameObject shield;
+    private bool isShielEnable = false;
+    private bool isShielActivated = false;
+    [SerializeField]
+    private float shieldTime = 0f;
     private int numberproj = 5;
     private void Awake()
     {
@@ -47,6 +51,11 @@ public class PlayerController : Entity
 
         timer2 = new Stopwatch();
         timer2.Start();
+
+        timer3 = new Stopwatch();
+        timer3.Start();
+
+        timer4 = new Stopwatch();
 
         maxHealth = 500;
         currentHealth = maxHealth;
@@ -63,7 +72,7 @@ public class PlayerController : Entity
         m_MainCamera = FindObjectOfType<Camera>();
 
 
-
+        shieldTime = (2 + PlayerPrefs.GetInt("Shield") * 0.5f)*1000;
     }
 
     // Update is called once per frame
@@ -125,6 +134,16 @@ public class PlayerController : Entity
                     timer2.Restart();
                 }
             }
+            if (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0)
+            {
+                if (timer3.ElapsedMilliseconds >= 5000)
+                {
+                    //Instantiate(shield, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f));
+                    timer3.Restart();
+                    timer4.Restart();
+                    isShielActivated = true;
+                }
+            }
             if (Input.GetKey(KeyCode.Z))
             {
                 hitBox.GetComponent<MeshRenderer>().enabled = true;
@@ -132,6 +151,17 @@ public class PlayerController : Entity
             else
                 hitBox.GetComponent<MeshRenderer>().enabled = false;
 
+            if(timer4.ElapsedMilliseconds >= shieldTime)
+            {
+                shield.SetActive(false);
+                isShielEnable = false;
+                isShielActivated = false;
+            }
+            else if(isShielActivated && timer4.ElapsedMilliseconds < shieldTime)
+            {
+                shield.SetActive(true);
+                isShielEnable = true;
+            }
         }
     }
 
@@ -150,20 +180,23 @@ public class PlayerController : Entity
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "enemy")
+        if (other.gameObject.tag == "enemy" )
         {
             this.GetComponent<AudioSource>().Play();
             if(other.GetComponent<EnemyKamikaze>())
             {
-                currentHealth -= other.GetComponent<EnemyKamikaze>().GetDamage();
+                if (isShielEnable == false)
+                    currentHealth -= other.GetComponent<EnemyKamikaze>().GetDamage();
             }
             else
-                addDamage(50);
+                if (isShielEnable == false)
+                    addDamage(50);
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
             this.GetComponent<AudioSource>().Play();
-            currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
+            if(isShielEnable == false)
+                currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
         }
         if (other.gameObject.tag == "Bonus")
         {
@@ -178,6 +211,7 @@ public class PlayerController : Entity
     }
     private void addDamage(int dmg)
     {
+        print("bb");
         currentHealth -= dmg;
     }
     public void OnBulletHit()

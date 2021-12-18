@@ -15,13 +15,19 @@ public class EnemyKamikaze : Entity
     [SerializeField]
     private Vector2 movement;
 
-    [SerializeField]
-    private bool isnotDied = true;
 
+    public delegate void KilledEnemy();
+    public event KilledEnemy OnKilledEnemy;
+
+    [SerializeField]
     private int damage = 200;
 
+    private bool isnotDied = true;
     public void Initalize(PlayerController player)
     {
+
+        OnKilledEnemy += player.OnBulletHit;
+
         maxHealth = 50;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
@@ -78,14 +84,6 @@ public class EnemyKamikaze : Entity
         couleur.r = 0.509434f;
         this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
     }
-    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
-    {
-        isnotDied = false;   
-        this.GetComponent<AudioSource>().Play();
-        this.GetComponent<MeshRenderer>().enabled = false;
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -104,17 +102,30 @@ public class EnemyKamikaze : Entity
 
         if (currentHealth <= 0)
         {
-            if (other.GetComponent<BulletFragment>())
-            {
-                for (int i = 0; i < 8; i++)
-                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(0, 0, i * 45));
-
-            }
+            OnKilledEnemy?.Invoke();
+            Vector3 tmpos = transform.position;
             this.GetComponent<BoxCollider>().enabled = false;
             StartCoroutine("died");
 
+            if (other.GetComponent<BulletFragment>())
+            {
+                for (int i = 0; i < 8; i++)
+                    Instantiate(other.gameObject, tmpos, Quaternion.Euler(0, 0, i * 45));
+
+            }
+
+            //Debug.Log("j'appelle levent");
+
         }
 
+    }
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;
+        this.GetComponent<AudioSource>().Play();
+        //Destroy(spikeball);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
     public int GetDamage(){
         return damage;

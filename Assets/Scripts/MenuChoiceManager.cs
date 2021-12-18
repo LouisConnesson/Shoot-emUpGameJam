@@ -32,7 +32,6 @@ public class MenuChoiceManager : MonoBehaviour
     void Start()
     {
         //starship
-        starships = GameObject.FindGameObjectsWithTag("Starship");
         isStarshipEnable = new bool[starships.Length];
         id_starship = 0;
         PlayerPrefs.SetInt("Starship", 0);
