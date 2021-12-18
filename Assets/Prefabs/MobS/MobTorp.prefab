@@ -423,11 +423,12 @@ MonoBehaviour:
   currentHealth: 0
   target: {fileID: 8834390794026649330}
   torpRotation: {fileID: 1329689834433980711}
+  bonus: {fileID: 4157395779436269834, guid: 1f07867e18259de4aadd7f8f39191492, type: 3}
   bulletPrefab: {fileID: 367579149949152050, guid: 8d3c8de4294d06444b29594aaf639c6f, type: 3}
-  torpedo: {fileID: 1921816951017198085}
   bulletSpawn:
   - {fileID: 2960848571482222555}
   - {fileID: 2390613656322563325}
+  torpedo: {fileID: 1921816951017198085}
 --- !u!54 &3728025041147742931
 Rigidbody:
   m_ObjectHideFlags: 0

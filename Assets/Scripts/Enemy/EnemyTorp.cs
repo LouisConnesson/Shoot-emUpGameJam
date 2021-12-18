@@ -8,6 +8,7 @@ public class EnemyTorp : Entity
     static Camera m_mainCamera;
     public Transform target;
     public Transform torpRotation;
+    public BonusScript bonus;
 
     public delegate void KilledEnemy();
     public event KilledEnemy OnKilledEnemy;
@@ -33,7 +34,7 @@ public class EnemyTorp : Entity
     {
         OnKilledEnemy += player.OnBulletHit;
 
-        maxHealth = 300;
+        maxHealth = 200;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
     }
@@ -116,6 +117,8 @@ public class EnemyTorp : Entity
         this.GetComponent<MeshRenderer>().enabled = false;
         this.GetComponent<AudioSource>().Play();
         Destroy(torpedo);
+        BonusScript m = Instantiate(bonus) as BonusScript;
+        m.transform.position = target.position;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

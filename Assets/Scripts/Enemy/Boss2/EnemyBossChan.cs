@@ -12,6 +12,8 @@ public class EnemyBossChan : Entity
     public event KilledEnemy OnKilledEnemy;
     public delegate void BossMusic();
     public event BossMusic OnBossMusic;
+    public delegate void InterfaceVictory();
+    public event InterfaceVictory OnInterfaceVictory;
     [SerializeField]
     private GameObject m_player;
     private Rigidbody rb;
@@ -56,6 +58,7 @@ public class EnemyBossChan : Entity
     private bool flagDialogueEsquive = true;
     Dialogue dialogueChan;
     Dialogue dialogueChanEsquive;
+   
     Image font;
     public AudioSource PaternSound;
 
@@ -72,12 +75,16 @@ public class EnemyBossChan : Entity
         flagCoroutine[2] = false;
     }
 
-    public void Initalize(PlayerController player, Dialogue dialogue, Dialogue dialogueEsquive, Image imgFont, MusicManager zicManager)
+    public void Initalize(PlayerController player, Dialogue dialogue, Dialogue dialogueEsquive, Image imgFont, MusicManager zicManager, UserInterface userInterface)
     {
         OnKilledEnemy += player.OnBulletHit;
         OnBossMusic += zicManager.BossOnMap;
         OnBossMusic?.Invoke();
         OnBossMusic += zicManager.BossNoMoreOnMap;
+
+        OnInterfaceVictory += userInterface.setVictoryScene;
+
+
 
         maxHealth = 1000;
         currentHealth = maxHealth;
@@ -311,6 +318,7 @@ public class EnemyBossChan : Entity
         this.GetComponent<AudioSource>().Play();
         Destroy(body);
         yield return new WaitForSeconds(1f);
+        OnInterfaceVictory?.Invoke();
         Destroy(gameObject);
     }
     IEnumerator sniping() //coroutine qui gère le tire de sniper

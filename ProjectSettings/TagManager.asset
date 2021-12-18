@@ -9,6 +9,9 @@ TagManager:
   - bulletEnemy
   - shieldRadius
   - DialogueBox
+  - Starship
+  - Bonus
+  - BonusTorp
   layers:
   - Default
   - TransparentFX

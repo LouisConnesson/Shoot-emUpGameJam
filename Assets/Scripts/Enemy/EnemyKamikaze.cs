@@ -16,6 +16,7 @@ public class EnemyKamikaze : Entity
     private Vector2 movement;
 
     [SerializeField]
+    private bool isnotDied = true;
 
     private int damage = 200;
 
@@ -34,7 +35,7 @@ public class EnemyKamikaze : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && isnotDied)
         {
             if (m_player)
             {
@@ -77,6 +78,14 @@ public class EnemyKamikaze : Entity
         couleur.r = 0.509434f;
         this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
     }
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;   
+        this.GetComponent<AudioSource>().Play();
+        this.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -101,8 +110,8 @@ public class EnemyKamikaze : Entity
                     Instantiate(other.gameObject, transform.position, Quaternion.Euler(0, 0, i * 45));
 
             }
-            Destroy(gameObject);
-
+            this.GetComponent<BoxCollider>().enabled = false;
+            StartCoroutine("died");
 
         }
 

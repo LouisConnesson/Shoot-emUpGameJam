@@ -216,6 +216,7 @@ MonoBehaviour:
   - {fileID: 6303557659263376864}
   - {fileID: 1223774479456394885}
   spikeball: {fileID: 3971223427365414726}
+  bonus: {fileID: 4157395779436269834, guid: f43ae9de9b7a0424a86c677e2042c662, type: 3}
 --- !u!54 &-2249658616181081844
 Rigidbody:
   m_ObjectHideFlags: 0

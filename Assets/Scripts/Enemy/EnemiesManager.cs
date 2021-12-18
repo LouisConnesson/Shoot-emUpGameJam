@@ -31,6 +31,8 @@ public class EnemiesManager : MonoBehaviour
     public MusicManager zicManager;
     public Dialogue dialogueChan;
     public Dialogue dialogueChanEsquive;
+    public UserInterface userInterface;
+    private int level = 1;
     private void Awake()
     {
         timer = new Stopwatch();
@@ -41,6 +43,8 @@ public class EnemiesManager : MonoBehaviour
     {
         StartCoroutine(Spawner());
         StartCoroutine(SpawnerWave());
+        if (level > 0)
+            StartCoroutine(SpawnerWaveKamikaze());
 
     }
 
@@ -55,16 +59,17 @@ public class EnemiesManager : MonoBehaviour
         }
         if (Time.timeScale == 1 && player) 
         {
-            timer.Start();
-            if (Random.Range(0f, 100f) < 0) //Probabilité de faire apparaitre un type de boss
+            if (level == 0)
             {
-                if (timer.ElapsedMilliseconds >= 50000 && flag == false && flagChan == false) //////////////////////BOSS
+                timer.Start();
+
+                if (timer.ElapsedMilliseconds >= 30000 && flag == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     Time.timeScale = 0;
                     dialogue.StartDialogue(); // On commence le dialogue du boss
                     EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
-                    m.Initalize(player, zicManager);
+                    m.Initalize(player, zicManager, userInterface);
                     m.transform.position = new Vector3(0, 25, -5);
                     EnemyBossShield n = Instantiate(BossShield) as EnemyBossShield;
                     n.Initalize(player);
@@ -86,18 +91,43 @@ public class EnemiesManager : MonoBehaviour
                 guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
                 //guramob.GetComponent<BossGura>().Initalize(player);
                 guramob.transform.position = new Vector3(-7, 19, -5);*/
-            }
-            else if (flagChan == false && flag == false) //////////////////////BOSS CHAN
-            {
-                if (timer.ElapsedMilliseconds >= 1000 && flag == false && flagChan == false) //////////////////////BOSS
+
+                /*if (timer.ElapsedMilliseconds >= 50000 && flag == false && flagChan == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
-                    chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager);
+                    chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
+                    chan.transform.position = new Vector3(2, 25, -5);
+                    flagChan = true;
+                }*/
+            }
+            else if (level == 1)
+            {
+                timer.Start();
+
+                if (timer.ElapsedMilliseconds >= 30000 && flag == false) //////////////////////BOSS
+                {
+                    StopAllCoroutines();
+                    GameObject guramob = Instantiate(gura) as GameObject;
+                    guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
+                    //guramob.GetComponent<BossGura>().Initalize(player);
+                    guramob.transform.position = new Vector3(-7, 19, -5);
+                    flag = true;
+                }
+            }
+            else if (level == 2)
+            {
+                timer.Start();
+
+                if (timer.ElapsedMilliseconds >= 30000 && flagChan == false) //////////////////////BOSS
+                {
+                    StopAllCoroutines();
+                    EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
+                    chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
                     chan.transform.position = new Vector3(2, 25, -5);
                     flagChan = true;
                 }
-            }//////////////////////////BOSS CHAN
+            }
         }
         else if (flag == true && Input.GetKeyDown(KeyCode.Space)) //si le boss a pop ET qu'on est en dialogue
         {
@@ -115,28 +145,74 @@ public class EnemiesManager : MonoBehaviour
     }
     private void spawnEnemy()
     {
-        if (Random.Range(0f, 100f) < 10) //Probabilité de faire apparaitre un type de mob
+        if ((level != 0 && Random.Range(0f, 100f) < 50) || level == 0) //Probabilité de faire apparaitre un type de mob
         {
             Enemy m = Instantiate(Mob) as Enemy;
             m.Initalize(player);
             m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
         }
-        else
+        else if ((level != 1 && Random.Range(0f, 100f) < 40 )|| level == 1)
         {
-            /*EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
-            m.Initalize(player);
-            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5); */
-
-           EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
+            for (int i = 0; i < 2; i++)
+            {
+                EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
+                m.Initalize(player);
+                m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
+            }
+        }
+        else
+        {  
+            EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
             m.Initalize(player);
             m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
+
         }
     }
     private void spawnWave()
     {
         if (waveFlag == 0)
         {
-            if (Random.Range(0f, 100f) < 50) //Probabilité de faire apparaitre un type de mob
+            if ((level == 2 && Random.Range(0f, 100f) < 50) || level < 2) //Probabilité de faire apparaitre un type de mob
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Enemy m = Instantiate(Mob) as Enemy;
+                    m.Initalize(player);
+                    m.transform.position = new Vector3(-6 + i * 11, 20 , -2.8F);
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    Enemy m = Instantiate(Mob) as Enemy;
+                    m.Initalize(player);
+                    m.transform.position = new Vector3(-6 + i * 11, 25, -2.8F);
+                }
+                Enemy m2 = Instantiate(Mob) as Enemy;
+                m2.Initalize(player);
+                m2.transform.position = new Vector3(-0.5f, 22.5f, -2.8F);
+            }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
+                    m.Initalize(player);
+                    m.transform.position = new Vector3(-6 + i * 11, 20, -2.8F);
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
+                    m.Initalize(player);
+                    m.transform.position = new Vector3(-6 + i * 11, 25, -2.8F);
+                }
+                EnemyTorp m2 = Instantiate(MobTorp) as EnemyTorp;
+                m2.Initalize(player);
+                m2.transform.position = new Vector3(-0.5f, 22.5f, -2.8F);
+            }
+            waveFlag++;
+        }
+        else if (waveFlag == 1)
+        {
+            if ((level == 2 && Random.Range(0f, 100f) < 50) || level < 2) //Probabilité de faire apparaitre un type de mob
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -156,9 +232,9 @@ public class EnemiesManager : MonoBehaviour
             }
             waveFlag++;
         }
-        else if (waveFlag == 1)
+        else if (waveFlag == 2)
         {
-            if (Random.Range(0f, 100f) < 50) //Probabilité de faire apparaitre un type de mob
+            if ((level == 2 && Random.Range(0f, 100f) < 50) || level <2) //Probabilité de faire apparaitre un type de mob
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -179,11 +255,21 @@ public class EnemiesManager : MonoBehaviour
             waveFlag = 0;
         }
     }
-    IEnumerator Spawner()
+
+    private void spawnWaveKamikaze()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
+            m.Initalize(player);
+            m.transform.position = new Vector3(Random.Range(-8, 9), Random.Range(20,25), -5);
+        }
+    }
+        IEnumerator Spawner()
     {
         while (true)
         {
-            yield return new WaitForSeconds(4.0f);
+            yield return new WaitForSeconds(3.0f);
             spawnEnemy();
         }
     }
@@ -191,8 +277,16 @@ public class EnemiesManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(10.0f);
+            yield return new WaitForSeconds(12.0f);
             spawnWave();
+        }
+    }
+    IEnumerator SpawnerWaveKamikaze()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(6.0f);
+            spawnWaveKamikaze();
         }
     }
 }

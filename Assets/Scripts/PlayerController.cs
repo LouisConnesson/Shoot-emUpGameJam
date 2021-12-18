@@ -165,6 +165,14 @@ public class PlayerController : Entity
             this.GetComponent<AudioSource>().Play();
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
         }
+        if (other.gameObject.tag == "Bonus")
+        {
+            p_score += 2;
+        }
+        if (other.gameObject.tag == "BonusTorp")
+        {
+            p_score += 4;
+        }
         if (currentHealth <= 0)
             Destroy(gameObject);
     }

@@ -35,7 +35,10 @@ public class EnemyBossBody : Entity
     public Transform[] bulletSpawn = new Transform[3];
     private bool shield = true;
 
-   
+    public delegate void InterfaceVictory();
+    public event InterfaceVictory OnInterfaceVictory;
+
+
 
     private void Awake()
     {
@@ -46,13 +49,15 @@ public class EnemyBossBody : Entity
         lifeBar.value = 1;
     }
 
-    public void Initalize(PlayerController player, MusicManager zicManager)
+    public void Initalize(PlayerController player, MusicManager zicManager, UserInterface userInterface)
     {
         OnKilledEnemy += player.OnBulletHit;
         ////////On mute la musique de fond et on met la musique de BOSS
         OnBossMusic += zicManager.BossOnMap;
         OnBossMusic?.Invoke();
         OnBossMusic += zicManager.BossNoMoreOnMap;
+
+        OnInterfaceVictory += userInterface.setVictoryScene;
         ////////
         maxHealth = 1000;
         currentHealth = maxHealth;
@@ -91,6 +96,7 @@ public class EnemyBossBody : Entity
 
                 if (currentHealth > 500 && paternFlag == 0)
                 {
+                    body.GetComponent<AudioSource>().volume = 0.05f;
                     if (body.GetComponent<AudioSource>().isPlaying == false)
                         body.GetComponent<AudioSource>().Play();
                     shootRate = 10F;
@@ -118,7 +124,7 @@ public class EnemyBossBody : Entity
                     Instantiate(bulletPrefab, bulletSpawn[0].position, Quaternion.Euler(0f, 0f, patern));
                 }
                 //ATTAQUE ULTIME DU BOSS
-                if (currentHealth < 500)
+                if (currentHealth <= 500)
                 {
                     shootRate = 500F;
                     if (body.GetComponent<AudioSource>().isPlaying == false)
@@ -207,6 +213,7 @@ public class EnemyBossBody : Entity
         this.GetComponent<AudioSource>().Play();
         Destroy(body);
         yield return new WaitForSeconds(1f);
+        OnInterfaceVictory?.Invoke();
         Destroy(gameObject);
     }
 }

@@ -15,6 +15,7 @@ public class Enemy : Entity
     public Stopwatch timer;
     public Transform[] bulletSpawn = new Transform[3];
     public GameObject spikeball;
+    public BonusScript bonus;
 
     private bool isnotDied = true;
 
@@ -118,6 +119,8 @@ public class Enemy : Entity
         isnotDied = false;
         this.GetComponent<AudioSource>().Play();
         Destroy(spikeball);
+        BonusScript m = Instantiate(bonus) as BonusScript;
+        m.transform.position = target.position;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

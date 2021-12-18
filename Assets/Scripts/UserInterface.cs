@@ -8,6 +8,7 @@ public class UserInterface : MonoBehaviour
 {
     public GameObject pause;
     public GameObject gameOver;
+    public GameObject victoryScene;
     private bool flag = false;
     [SerializeField]
     private GameObject player;
@@ -25,10 +26,10 @@ public class UserInterface : MonoBehaviour
     void Update()
     {
         // on ne l'appelle qu'une seul fois
-        if(!player && Time.timeScale != 0)
+        if (!player && Time.timeScale != 0)
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            if(player)
+            if (player)
             {
                 scriptPlayer = player.GetComponent<PlayerController>();
                 maxHealth = scriptPlayer.getmaxHealth();
@@ -59,6 +60,11 @@ public class UserInterface : MonoBehaviour
             Time.timeScale = 1;
             flag = false;
         }
+    }
+
+    public void setVictoryScene()
+    {
+        victoryScene.SetActive(true);
     }
 
     public void rerunTime()
