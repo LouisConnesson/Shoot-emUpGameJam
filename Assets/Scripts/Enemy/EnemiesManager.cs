@@ -92,10 +92,14 @@ public class EnemiesManager : MonoBehaviour
                 if (timer.ElapsedMilliseconds >= 1000 && flag == false && flagChan == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
-                    EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
+                    /*EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
                     chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager);
-                    chan.transform.position = new Vector3(2, 25, -5);
-                    flagChan = true;
+                    chan.transform.position = new Vector3(2, 25, -5);*/
+                    flagChan = true; 
+                    GameObject guramob = Instantiate(gura) as GameObject;
+                    guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
+                    //guramob.GetComponent<BossGura>().Initalize(player);
+                    guramob.transform.position = new Vector3(-7, 19, -5);
                 }
             }//////////////////////////BOSS CHAN
         }

@@ -15,12 +15,19 @@ public class EnemyKamikaze : Entity
     [SerializeField]
     private Vector2 movement;
 
-    [SerializeField]
 
+    public delegate void KilledEnemy();
+    public event KilledEnemy OnKilledEnemy;
+
+    [SerializeField]
     private int damage = 200;
 
+    private bool isnotDied = true;
     public void Initalize(PlayerController player)
     {
+
+        OnKilledEnemy += player.OnBulletHit;
+
         maxHealth = 50;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
@@ -34,7 +41,7 @@ public class EnemyKamikaze : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && isnotDied)
         {
             if (m_player)
             {
@@ -95,17 +102,30 @@ public class EnemyKamikaze : Entity
 
         if (currentHealth <= 0)
         {
+            OnKilledEnemy?.Invoke();
+            Vector3 tmpos = transform.position;
+            this.GetComponent<BoxCollider>().enabled = false;
+            StartCoroutine("died");
+
             if (other.GetComponent<BulletFragment>())
             {
                 for (int i = 0; i < 8; i++)
-                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(0, 0, i * 45));
+                    Instantiate(other.gameObject, tmpos, Quaternion.Euler(0, 0, i * 45));
 
             }
-            Destroy(gameObject);
 
+            //Debug.Log("j'appelle levent");
 
         }
 
+    }
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    {
+        isnotDied = false;
+        this.GetComponent<AudioSource>().Play();
+        //Destroy(spikeball);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
     public int GetDamage(){
         return damage;
