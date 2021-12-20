@@ -24,7 +24,7 @@ public class BulletEnemy : Bullet
         bulletMovment();
 
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(transform.position);
-        if (screenPos.y < -0.1F)
+        if (screenPos.y < -0.5F || screenPos.y > 1.5F || screenPos.x > 1.5F || screenPos.x < -0.5F)
         {
             Destroy(gameObject);
         }

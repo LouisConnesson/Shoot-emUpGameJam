@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuChoiceManager : MonoBehaviour
 {
@@ -28,6 +29,14 @@ public class MenuChoiceManager : MonoBehaviour
 
     public bool isMenu = true;
     public SkillTree skillTree;
+
+    public string[] weaponsNamePr;
+    public string[] weaponsNameSd;
+
+    public TMP_Text weaponNamePrTMP;
+    public TMP_Text weaponNameSdTMP;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +56,13 @@ public class MenuChoiceManager : MonoBehaviour
 
         isMainWeaponAvailable = new bool[2] { true, false };
         isisSecondWeaponAvailable = new bool[5] { true, false, false, false, false };
+
+        weaponsNamePr = new string[2] { "Balles simples", "Balles penetrantes" };
+        weaponsNameSd = new string[5] {"", "Multi tir", 
+            "Balles a fragmentation",
+            "Balles a degats de zone",
+            "Plasma",
+            };
     }
 
     // Update is called once per frame
@@ -63,10 +79,20 @@ public class MenuChoiceManager : MonoBehaviour
         RotateStarship();
         SelectMainWeapon();
         SelectSecondWeapon();
+
+        weaponNamePrTMP.text = weaponsNamePr[id_mainWeapon];
+        weaponNameSdTMP.text = weaponsNameSd[id_secondWeapon];
     }
     public void setMenu()
     {
         isMenu = !isMenu;
+  
+        for (int i = 0; i < 3; i++)
+            if(isMenu)
+                starships[i].SetActive(false);
+            else
+                starships[i].SetActive(true);
+
         isStarshipEnable[id_starship] = !isMenu;
     }
     public void SelectSecondWeapon()

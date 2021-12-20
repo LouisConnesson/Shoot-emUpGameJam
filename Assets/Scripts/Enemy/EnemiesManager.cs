@@ -19,6 +19,7 @@ public class EnemiesManager : MonoBehaviour
 
     private Stopwatch timer;
     private bool flag = false;
+    private bool flagGura = false;
     private bool flagChan = false;
     private int waveFlag = 0;
     public Transform target;
@@ -29,6 +30,7 @@ public class EnemiesManager : MonoBehaviour
 
     PlayerController player;
     public MusicManager zicManager;
+    public Dialogue dialogueGura;
     public Dialogue dialogueChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
@@ -105,14 +107,15 @@ public class EnemiesManager : MonoBehaviour
             {
                 timer.Start();
 
-                if (timer.ElapsedMilliseconds >= 30000 && flag == false) //////////////////////BOSS
+                if (timer.ElapsedMilliseconds >= 0 && flag == false && flagGura == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     GameObject guramob = Instantiate(gura) as GameObject;
-                    guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
+                    guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player,dialogueGura, imgFont,userInterface);
                     //guramob.GetComponent<BossGura>().Initalize(player);
                     guramob.transform.position = new Vector3(-7, 19, -5);
-                    flag = true;
+                    flagGura = true;
+
                 }
             }
             else if (level == 2)
@@ -134,6 +137,7 @@ public class EnemiesManager : MonoBehaviour
             dialogue.NextLine();
             if (dialogue.currentDialogue == 0) //si le dialogue est finit on remet le temps
             {
+                print("4");
                 Time.timeScale = 1;
                 imgFont.enabled = false;
             }

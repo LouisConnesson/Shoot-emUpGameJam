@@ -19,13 +19,14 @@ public class UserInterface : MonoBehaviour
     private int maxHealth;
     private int currentHealth;
     public Slider lifeBar;
+    public Slider ammoPR;
+    public Slider ammoSD;
+
+    public float test;
     // Start is called before the first frame update
 
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        // on ne l'appelle qu'une seul fois
         if (!player && Time.timeScale != 0)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -36,13 +37,37 @@ public class UserInterface : MonoBehaviour
                 lifeBar.value = 1;
             }
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        // on ne l'appelle qu'une seul fois
+        if (player)
+        {
+            if (player.GetComponent<PlayerController>().main_id == 0)
+                ammoPR.value = 1;
+            if (player.GetComponent<PlayerController>().main_id == 1)
+                ammoPR.value = (float)(PlayerPrefs.GetInt("Current1") / (float)PlayerPrefs.GetInt("MaxWeapon1"));
+
+            if (player.GetComponent<PlayerController>().second_id == 0)
+                ammoSD.value = 0;
+            if (player.GetComponent<PlayerController>().second_id == 1)
+                ammoSD.value = (float)(PlayerPrefs.GetInt("Current2") / (float)PlayerPrefs.GetInt("MaxWeapon2"));
+            if (player.GetComponent<PlayerController>().second_id == 2)
+                ammoSD.value = (float)(PlayerPrefs.GetInt("Current3") / (float)PlayerPrefs.GetInt("MaxWeapon3"));
+            if (player.GetComponent<PlayerController>().second_id == 3)
+                ammoSD.value = (float)(PlayerPrefs.GetInt("Current4") / (float)PlayerPrefs.GetInt("MaxWeapon4"));
+            if (player.GetComponent<PlayerController>().second_id == 4)
+                ammoSD.value = (float)(PlayerPrefs.GetInt("Current5") / (float)PlayerPrefs.GetInt("MaxWeapon5"));
+
+        }
+
 
 
         score = scriptPlayer.getPlayerScore();
         scoreTxt.text = $"Score : {score} ";
         currentHealth = scriptPlayer.getmcurrentHealth();
         lifeBar.value = ((float)currentHealth / (float)maxHealth);
-
         if (lifeBar.value <= 0) //SI LE JOUEUR EST MORT
         {
             gameOver.SetActive(true);

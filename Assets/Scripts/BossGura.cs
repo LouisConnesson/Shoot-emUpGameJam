@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class BossGura : Entity
 {
+    public AudioClip explosion;
     static Camera m_mainCamera;
     public Transform target;
 
     public GameObject bulletPrefab;
     public GameObject bulletPrefab2;
+    public GameObject bulletPrefab3;
 
     private Color couleur;
    // public GameObject body;
@@ -29,10 +31,10 @@ public class BossGura : Entity
     private float shootRate = 300;
     private float[] shootRates;
     private int flagPattern;
-   
+
+    public Slider lifeBar;
 
     [SerializeField]
-
     private bool patternFlag = false;
 
     private bool[] firstmove;
@@ -68,20 +70,34 @@ public class BossGura : Entity
     private bool pattern06flag = false;
 
     private IEnumerator coroutine;
+    private Image imageFont;
+    private Dialogue dialogueGura;
 
+    public delegate void InterfaceVictory();
+    public event InterfaceVictory OnInterfaceVictory;
+
+    [SerializeField]
+    private bool flagDialogue = true;
+    [SerializeField]
+    private int flag0tmp;
     private void Awake()
     {
         //lifeBar.value = 1;
     }
-    public void Initalize(PlayerController player)
+    public void Initalize(PlayerController player, Dialogue dialogue, Image imgFont, UserInterface userInterface)
     {
         OnKilledEnemy += player.OnBulletHit;
+        OnInterfaceVictory += userInterface.setVictoryScene;
 
-        maxHealth = 1000;
+        maxHealth = 4000;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
 
-        m_player = player.gameObject;
+        if(player)
+            m_player = player.gameObject;
+
+        dialogueGura = dialogue;
+        imageFont = imgFont;
     }
     // Start is called before the first frame update
     private void Start()
@@ -94,7 +110,7 @@ public class BossGura : Entity
         timerFlag.Start();
         timerPattern.Start();
 
-        shootRates = new float[] { 300, 400, 400, 15 };
+        shootRates = new float[] { 300, 10, 10, 15 };
         flagPattern = 0;
         firstmove = new bool[] { false, false, false, false };
         //patern01
@@ -121,17 +137,38 @@ public class BossGura : Entity
 
         //coroutine = CiblePlayer(3.0f);
         //InvokeRepeating("MoveSpawners", 20f, 0.2f);
+        lifeBar.value = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        
-        if (Time.timeScale == 1)
+        if (flagDialogue && Time.timeScale == 1)
         {
-            //lifeBar.value = ((float)currentHealth / (float)maxHealth);
-           
+            print("1");
+
+            Time.timeScale = 0;
+            dialogueGura.StartDialogue(); // On commence le dialogue du boss
+            imageFont.enabled = true;
+        }
+        else if (Time.timeScale == 0 && Input.GetKeyDown(KeyCode.Space) && flagDialogue) //si le boss a pop ET qu'on est en dialogue
+        {
+            print("2");
+            dialogueGura.NextLine();
+            if(dialogueGura.currentDialogue == 0)
+            {
+                print("3");
+                Time.timeScale = 1;
+                flagDialogue = false;
+                imageFont.enabled = false;
+            }
+        }
+
+
+        if (Time.timeScale == 1 && isnotDied)
+        {
+            lifeBar.value = ((float)currentHealth / (float)maxHealth);
+
             Vector3 screenPos = BossGura.m_mainCamera.WorldToViewportPoint(target.position);
             Vector3 targetPos = new Vector3(0, 10, -5);
             transform.position = Vector3.MoveTowards(transform.position,targetPos,Time.deltaTime*3f);
@@ -148,7 +185,7 @@ public class BossGura : Entity
                 else
                     flagPattern = 2;
 
-                if (currentHealth > maxHealth * 0.9f)
+                if (currentHealth > maxHealth * 0.7f)
                     flagPattern = 0;
                 if (currentHealth < maxHealth * 0.20f)
                     flagPattern = 3;
@@ -160,11 +197,11 @@ public class BossGura : Entity
             if (timer.ElapsedMilliseconds >= 1000 / shootRate)
             {
 
-                //pattern01 laser
+                //cercle
                 if(flagPattern == 0)
                 {
 
-                    if (timerPattern.ElapsedMilliseconds > 2000)
+                    if (timerPattern.ElapsedMilliseconds > 500)
                     {
                         pattern01Step = 20;
                         pattern01StartAngle = Random.Range(0, 360);
@@ -180,7 +217,9 @@ public class BossGura : Entity
                             float posX = transform.position.x + Mathf.Sin((pattern01Angles[i] * Mathf.PI) / 180);
                             float posY = transform.position.y + Mathf.Cos((pattern01Angles[i] * Mathf.PI) / 180);
                             Vector3 pos = new Vector3(posX, posY, transform.position.z);
-                            Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern01Angles[i]));
+                            GameObject bullet = Instantiate(bulletPrefab2, transform.position, Quaternion.Euler(0f, 0f, pattern01Angles[i]));
+                            Vector3 scale = new Vector3(bullet.transform.localScale.x, bullet.transform.localScale.y, bullet.transform.localScale.z);
+                            bullet.transform.localScale = scale*5;
 
                         }
 
@@ -192,29 +231,35 @@ public class BossGura : Entity
                 //pattern03 quadrpule spinner  shootRate = 200
                 if (flagPattern == 1)
                 {
-
+                    GameObject[] bullets = new GameObject[12];
                     //droite
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f,pattern03Angle-15));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f,pattern03Angle));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f,pattern03Angle+15));
+                    bullets[0] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f,pattern03Angle-15));
+                    bullets[1] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f,pattern03Angle));
+                    bullets[2] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f,pattern03Angle+15));
+                    //gauche  
+                    bullets[3] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angleb - 15));
+                    bullets[4] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angleb));
+                    bullets[5] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angleb + 15));
+                    //gauche   
+                    bullets[6] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Anglec - 15));
+                    bullets[7] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Anglec));
+                    bullets[8] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Anglec + 15));
+                    //gauche   
+                    bullets[9] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angled - 15));
+                    bullets[10] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angled));
+                    bullets[11] = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angled + 15));
 
-                    //gauche
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angleb - 15));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angleb));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angleb + 15));
-                    //gauche
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Anglec - 15));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Anglec));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Anglec + 15));
-                    //gauche
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angled - 15));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angled));
-                    Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, pattern03Angled + 15));
 
-                    pattern03Angle += 1 % 360;
-                    pattern03Angleb += 1 % 360;
-                    pattern03Anglec += 1 % 360;
-                    pattern03Angled += 1 % 360;
+                    for (int i =0;i<12;i++)
+                    {
+                        Vector3 scale = new Vector3(bullets[i].transform.localScale.x, bullets[i].transform.localScale.y, bullets[i].transform.localScale.z);
+                        bullets[i].transform.localScale = scale * 3;
+
+                    }
+                    pattern03Angle += 4 % 360;
+                    pattern03Angleb += 4 % 360;
+                    pattern03Anglec += 4 % 360;
+                    pattern03Angled += 4 % 360;
 
                 }
                 //pattern04
@@ -241,7 +286,15 @@ public class BossGura : Entity
                 {
 
                     for (int i = 0;i< pattern05AngleNumber;i++)
-                        Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (360/ pattern05AngleNumber)*i + pattern05Angle));
+                    {
+                        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (360 / pattern05AngleNumber) * i + pattern05Angle -15));
+                        GameObject bullet1 = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (360 / pattern05AngleNumber) * i + pattern05Angle));
+                        GameObject bullet2 = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (360 / pattern05AngleNumber) * i + pattern05Angle+15));
+
+                        bullet.transform.localScale *=3;
+                        bullet1.transform.localScale *=3;
+                        bullet2.transform.localScale *=3;
+                    }
 
                     if (pattern05Angle > 90)
                         pattern05Dir = true;
@@ -263,16 +316,16 @@ public class BossGura : Entity
                         pattern05Angle -= 0.5f;
 
                     if (pattern05Angle < 75 && pattern05Dir == false)
-                        pattern05Angle += 1;
+                        pattern05Angle += 4;
 
                     if (pattern05Angle > 15 && pattern05Dir == false)
-                        pattern05Angle += 1;
+                        pattern05Angle += 4;
 
                     if (pattern05Angle < 75 && pattern05Dir == true)
-                        pattern05Angle -= 1f;
+                        pattern05Angle -= 4f;
 
                     if (pattern05Angle > 15 && pattern05Dir == true)
-                        pattern05Angle -= 1f;
+                        pattern05Angle -= 4f;
 
 
                 }
@@ -283,37 +336,50 @@ public class BossGura : Entity
                     int nbLines = 4;
                     for (int i = 0; i < nbLines; i++)
                     {
-                        Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (pattern02Angle + (360 / nbLines) * i) % 360));
+                        GameObject  bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (pattern02Angle + (360 / nbLines) * i) % 360));
                         pattern02Angle += 1 % 360;
+
+                        bullet.transform.localScale *= 2f;
 
                     }
                     for (int i = 0; i < nbLines; i++)
                     {
-                        Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (pattern02Angleb + (360 / nbLines) * i) % 360));
+                        GameObject bullet1 = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, (pattern02Angleb + (360 / nbLines) * i) % 360));
                         pattern02Angleb -= 1 % 360;
                         if (pattern02Angleb < 0)
                             pattern02Angleb += 360;
+                        bullet1.transform.localScale *= 2f;
+
 
                     }
                 }
                 //lasers mais pas interessant
-                if (currentHealth > 1800)
+                if (currentHealth < 0.9f*maxHealth && currentHealth > 0.75f * maxHealth)
                 {
                     for(int i =0;i<360/15; i++)
-                        Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, (360 / 15)*i));
+                    {
+                        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, (360 / 15) * i));
+                        bullet.transform.localScale *= 1.5f ;
+
+                    }
 
 
                 }
                 timer.Restart();
 
             }
+
         }
     }
     private void FixedUpdate()
     {
-        Vector3 direction = (m_player.transform.position - transform.position);
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, -direction.y, 0));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        if(m_player)
+        {
+            Vector3 direction = (m_player.transform.position - transform.position);
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, -direction.y, 0));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+       
 
        
 
@@ -411,8 +477,8 @@ public class BossGura : Entity
     {
         if (other.gameObject.tag == "Bullet")
         {
-           // if (isnotDied)
-               // StartCoroutine("Hurt");
+           if (isnotDied)
+               StartCoroutine("Hurt");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             //Debug.Log("bullet");
 
@@ -421,32 +487,36 @@ public class BossGura : Entity
         if (currentHealth <= 0)
         {
             OnKilledEnemy?.Invoke();
-            //StartCoroutine("died");
+            StartCoroutine("died");
             //Debug.Log("j'appelle levent");
 
         }
 
     }
-    /*IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
+    IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
     {
         isnotDied = false;
-        this.GetComponent<AudioSource>().Play();
-        Destroy(body);
-        yield return new WaitForSeconds(1f);
+        couleur.r = 1f;
+        GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        this.GetComponent<AudioSource>().PlayOneShot(explosion);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
+        OnInterfaceVictory?.Invoke();
+
     }
+    
     IEnumerator Hurt()
     {
         if (isnotDied != false)
         {
-            couleur = body.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
+            couleur = GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
             couleur.r = 1f;
-            body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+            GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
             yield return new WaitForSeconds(0.15f);
             couleur.r = 0.302f;
             if (isnotDied)
-                body.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+                GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
         }
-    }*/
+    }
 
 }

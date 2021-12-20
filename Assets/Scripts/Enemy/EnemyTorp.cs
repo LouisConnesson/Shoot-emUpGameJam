@@ -101,8 +101,9 @@ public class EnemyTorp : Entity
             OnKilledEnemy?.Invoke();
             if (other.GetComponent<BulletFragment>())
             {
+                print("AHAHAHAHHAHAHAHAHHHHHHHHHHHHH");
                 for (int i = 0; i < 8; i++)
-                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(0, 0, i * 45));
+                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(0,90f,  i * 45));
             }
             StartCoroutine("died");
 

@@ -20,7 +20,6 @@ public class SkillTree : MonoBehaviour
     public List<GameObject> connectorList;
     public GameObject connectorManager;
 
-    public int SkillPoint;
     private float shieldTime;
 
     public TMP_Text skillPointsText;
@@ -28,30 +27,30 @@ public class SkillTree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SkillPoint = 300;
+        PlayerPrefs.SetInt("Points", 300);
         skillLevels = new int[7] { 0, 0, 0, 0, 0 ,0,0};
         skillCaps = new[] {4,5,5,2,10,10,4 };
         skillCost = new[] {1,3,5,10,15,20,30};
         skillNames = new[]
         {
             "Balles simples",
-            "Balles pénétrantes",
+            "Balles penetrantes",
             "Multi tir",
-            "Balles à fragmentation",
-            "Balles à dégats de zone",
+            "Balles a fragmentation",
+            "Balles a degats de zone",
             "Plasma",
             "Bouclier"
         };
 
         skillDescriptions = new[]
         {
-            "Balles sans effets ayant de bon dégats",
+            "Balles sans effets ayant de bon degats",
             "Balles pouvant travers plusieurs ennemis",
-            "Tir plusieurs balles en même temps",
-            "Créé une multitude de balles à la mort d'un ennemi",
-            "Créé une onde de choc au contact d'un ennemi",
-            "Créé une énorme explosion si touchée par un projectile allié ou ennemi",
-            "Bouclier de plasma rendant invulnérable pendant quelques secondes"
+            "Tir plusieurs balles en meme temps",
+            "Cree une multitude de balles a la mort d'un ennemi",
+            "Cree une onde de choc au contact d'un ennemi",
+            "Cree une enorme explosion si touchee par un projectile allie ou ennemi",
+            "Bouclier de plasma rendant invulnerable pendant quelques secondes"
 
         };
         foreach(var skill in skillManager.GetComponentsInChildren<Skill>())
@@ -87,7 +86,7 @@ public class SkillTree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        skillPointsText.text = $"Points : {SkillPoint}"; 
+        skillPointsText.text = $"Points : {PlayerPrefs.GetInt("Points")}"; 
 
         bonusText[0].text = $"+{skillLevels[0]} atq";
         bonusText[1].text = $"+{skillLevels[1]} atq";
@@ -95,7 +94,7 @@ public class SkillTree : MonoBehaviour
         bonusText[3].text = $"+{skillLevels[3]} atq";
         bonusText[4].text = $"+{skillLevels[4]} atq";
         bonusText[5].text = $"+{skillLevels[5]} atq";
-        bonusText[6].text = $"+{skillLevels[6]/2}s";
+        bonusText[6].text = $"+{skillLevels[6]/2} sec";
 
         PlayerPrefs.SetInt("MainWeaponWeaponLevel01", skillLevels[0]);
         PlayerPrefs.SetInt("MainWeaponWeaponLevel02", skillLevels[1]);

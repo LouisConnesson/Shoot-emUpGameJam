@@ -15,7 +15,7 @@ public class BulletAOE2 : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 50 + +PlayerPrefs.GetInt("SecondWeaponWeaponLevel04")*2;
+        damage = 50 + +PlayerPrefs.GetInt("SecondWeaponWeaponLevel04") *2;
         shootRate = 2f;
     }
 
