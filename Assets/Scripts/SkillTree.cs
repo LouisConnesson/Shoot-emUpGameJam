@@ -27,7 +27,7 @@ public class SkillTree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("Points", 300);
+        //PlayerPrefs.SetInt("Points", 300);
         skillLevels = new int[7] { 0, 0, 0, 0, 0 ,0,0};
         skillCaps = new[] {4,5,5,2,10,10,4 };
         skillCost = new[] {1,3,5,10,15,20,30};

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2085fba4b0f4b04458e2bed972c6eed9
+guid: 794a8d733b0b45c44ba1b3b0241bc707
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8957324059118975939
-    second: images_0
+      213: 5305464500268525849
+    second: korone_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: images_0
+      name: korone_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 225
-        height: 225
+        width: 196
+        height: 190
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cbb8d916cece4c70800000000000000
-      internalID: 8957324059118975939
+      spriteID: 91963fa7adbc0a940800000000000000
+      internalID: 5305464500268525849
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0ef889f3ffa24684b9282ac97c20067c
+    spriteID: e183b7474dde316468329baee75042f6
     internalID: 0
     vertices: []
     indices: 

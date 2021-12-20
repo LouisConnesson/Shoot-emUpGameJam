@@ -8,4 +8,7 @@ public class dialogueOBJ : ScriptableObject
 {
     public string[] dialogue;
     public Sprite[] portrait;
+
+    public Sprite[] img;
+    public Sprite[] ennemies;
 }

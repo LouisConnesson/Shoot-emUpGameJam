@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 59e3104ac5b7b82439ae28c3e39d2e57
+guid: 2d32942c56d1b4c478700fc5ef22171d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6434934986913462899
-    second: campagne_0
+      213: 3059898287363294405
+    second: gura2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: campagne_0
+      name: gura2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 799
-        height: 595
+        width: 292
+        height: 271
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37ab5bfd64b7d4950800000000000000
-      internalID: 6434934986913462899
+      spriteID: 5c48d13c741f67a20800000000000000
+      internalID: 3059898287363294405
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 79fede0e1ef831b4092255413ceb30eb
+    spriteID: 4e04107680f6da349995d73d92fc4541
     internalID: 0
     vertices: []
     indices: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 861f5b1358c8b8948a95d847b5deb447
+guid: 611ea451402268144bd3410477dde208
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2710270540383107275
-    second: frame_068_0
+      213: -3933903092956741611
+    second: pekora_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: frame_068_0
+      name: pekora_0
       rect:
         serializedVersion: 2
-        x: 303
-        y: 440
-        width: 1551
-        height: 224
+        x: 0
+        y: 0
+        width: 389
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc8bdb462b0dc9520800000000000000
-      internalID: 2710270540383107275
+      spriteID: 510c08bcaf7f769c0800000000000000
+      internalID: -3933903092956741611
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 992b84b2ebc7d294395b7d1d2b0e7ffe
+    spriteID: e3f23c261ffc2c543961401c1970a098
     internalID: 0
     vertices: []
     indices: 
