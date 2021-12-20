@@ -220,11 +220,14 @@ MonoBehaviour:
   BossShieldMakerRight: {fileID: 5158611721746717283, guid: adec2639049f9904d91606d537e89183, type: 3}
   BossChan: {fileID: 5424878867849085263, guid: a4a566bc3c8131c46920f201ef028e12, type: 3}
   MobDestroyer: {fileID: 1003632485778441370, guid: 4eddec5e5a6ed514cb7704f25ab89890, type: 3}
+  BossAlterChan: {fileID: 1190063069398220935, guid: 82cf19664c877514aa2ab05b2a89d248, type: 3}
   target: {fileID: 331961971}
   dialogue: {fileID: 2051128025}
   imgFont: {fileID: 1812925824}
   zicManager: {fileID: 230877634}
+  dialogueGura: {fileID: 0}
   dialogueChan: {fileID: 1375317422}
+  dialogueAlterChan: {fileID: 0}
   dialogueChanEsquive: {fileID: 1203459501}
   userInterface: {fileID: 121658010}
 --- !u!4 &331961971
@@ -374,9 +377,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2051128023}
-    - target: {fileID: 154566666633722035, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: resetLevel
+    - target: {fileID: 6953097618320279147, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953097618320279147, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010258671516962631, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010258671516962631, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
@@ -1528,18 +1543,7 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1812925824 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8946205437429983783, guid: 09ab0db903d3f724383825708aa15cdf, type: 3}
-  m_PrefabInstance: {fileID: 8946205437093586855}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!21 &2023368527
+--- !u!21 &1737757533
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1615,6 +1619,17 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &1812925824 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8946205437429983783, guid: 09ab0db903d3f724383825708aa15cdf, type: 3}
+  m_PrefabInstance: {fileID: 8946205437093586855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2051128022
 GameObject:
   m_ObjectHideFlags: 0

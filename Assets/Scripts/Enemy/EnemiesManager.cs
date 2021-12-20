@@ -37,7 +37,7 @@ public class EnemiesManager : MonoBehaviour
     public Dialogue dialogueAlterChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
-    private int level = 3;
+    private int level = 1;
     private void Awake()
     {
         timer = new Stopwatch();
@@ -114,7 +114,7 @@ public class EnemiesManager : MonoBehaviour
                 {
                     StopAllCoroutines();
                     GameObject guramob = Instantiate(gura) as GameObject;
-                    guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player,dialogueGura, imgFont,userInterface);
+                    guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player,dialogueGura, imgFont, zicManager, userInterface);
                     //guramob.GetComponent<BossGura>().Initalize(player);
                     guramob.transform.position = new Vector3(-7, 19, -5);
                     flagGura = true;

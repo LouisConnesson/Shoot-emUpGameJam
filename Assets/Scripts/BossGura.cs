@@ -80,11 +80,15 @@ public class BossGura : Entity
     private bool flagDialogue = true;
     [SerializeField]
     private int flag0tmp;
+
+    public delegate void BossMusic();
+    public event BossMusic OnBossMusic;
+
     private void Awake()
     {
         //lifeBar.value = 1;
     }
-    public void Initalize(PlayerController player, Dialogue dialogue, Image imgFont, UserInterface userInterface)
+    public void Initalize(PlayerController player, Dialogue dialogue, Image imgFont, MusicManager zicManager, UserInterface userInterface)
     {
         OnKilledEnemy += player.OnBulletHit;
         OnInterfaceVictory += userInterface.setVictoryScene;
@@ -98,6 +102,10 @@ public class BossGura : Entity
 
         dialogueGura = dialogue;
         imageFont = imgFont;
+
+        OnBossMusic += zicManager.BossOnMap;
+        OnBossMusic?.Invoke();
+        OnBossMusic += zicManager.BossNoMoreOnMap;
     }
     // Start is called before the first frame update
     private void Start()
@@ -486,6 +494,7 @@ public class BossGura : Entity
 
         if (currentHealth <= 0)
         {
+            OnBossMusic?.Invoke();
             OnKilledEnemy?.Invoke();
             StartCoroutine("died");
             //Debug.Log("j'appelle levent");
@@ -498,10 +507,10 @@ public class BossGura : Entity
         isnotDied = false;
         couleur.r = 1f;
         GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
-        this.GetComponent<AudioSource>().PlayOneShot(explosion);
+        GetComponent<AudioSource>().PlayOneShot(explosion);
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
         OnInterfaceVictory?.Invoke();
+        Destroy(gameObject);
 
     }
     

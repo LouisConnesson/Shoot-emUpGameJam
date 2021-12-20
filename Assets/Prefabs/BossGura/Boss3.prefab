@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 4221975070675327215}
   - component: {fileID: 7828352057556715773}
   - component: {fileID: 4409320316040036353}
-  - component: {fileID: 5390725774507659354}
+  - component: {fileID: 7878111621733983701}
   m_Layer: 0
   m_Name: BoosGura
   m_TagString: enemy
@@ -457,6 +457,7 @@ MonoBehaviour:
   finishMove: 0
   pattern01Angles: 
   flagDialogue: 1
+  flag0tmp: 0
 --- !u!65 &4409320316040036353
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -470,7 +471,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.008778785, y: 0.010323012, z: 0.014308005}
   m_Center: {x: 0, y: 0.0000000012300608, z: 0.0016091831}
---- !u!82 &5390725774507659354
+--- !u!82 &7878111621733983701
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -480,9 +481,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a33f077bcd1039247859c43402766ac5, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -841,7 +842,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 105186530174530247, guid: 53e2e319fce7a6342b306c61a663ffea, type: 3}
       propertyPath: m_LocalScale.x
-      value: 11.789199
+      value: 5.4062905
       objectReference: {fileID: 0}
     - target: {fileID: 105186530174530247, guid: 53e2e319fce7a6342b306c61a663ffea, type: 3}
       propertyPath: m_LocalScale.y
@@ -873,7 +874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105186530174530247, guid: 53e2e319fce7a6342b306c61a663ffea, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -404
+      value: -146
       objectReference: {fileID: 0}
     - target: {fileID: 105186530174530247, guid: 53e2e319fce7a6342b306c61a663ffea, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -941,7 +942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3649889521268367611, guid: 53e2e319fce7a6342b306c61a663ffea, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 320
+      value: 267
       objectReference: {fileID: 0}
     - target: {fileID: 3649889521268367611, guid: 53e2e319fce7a6342b306c61a663ffea, type: 3}
       propertyPath: m_AnchoredPosition.y
