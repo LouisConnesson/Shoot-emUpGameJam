@@ -173,7 +173,7 @@ public class BossGura : Entity
         }
 
 
-        if (Time.timeScale == 1 && isnotDied)
+        if (Time.timeScale != 0 && isnotDied)
         {
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
 

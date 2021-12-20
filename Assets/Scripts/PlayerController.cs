@@ -191,7 +191,7 @@ public class PlayerController : Entity
 
 
 
-            if (Input.GetKey(KeyCode.Space) && Time.timeScale == 1 && currentAmmoPR > 0)
+            if (Input.GetKey(KeyCode.Space) && Time.timeScale !=0 && currentAmmoPR > 0)
 
             {
                 if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
@@ -215,7 +215,7 @@ public class PlayerController : Entity
                 }
             }
 
-            if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale == 1 && currentAmmoSD > 0)
+            if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale!=0 && currentAmmoSD > 0)
             {
                 if (timer2.ElapsedMilliseconds >= 1000 / (shootRate2*Time.timeScale))
                 {
@@ -256,7 +256,7 @@ public class PlayerController : Entity
 
                 }
             }
-            if (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale == 1)
+            if (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale !=0 )
             {
                 if (timer3.ElapsedMilliseconds >= cdShield)
                 {

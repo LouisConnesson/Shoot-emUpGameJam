@@ -123,54 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &230877633
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 230877635}
-  - component: {fileID: 230877634}
-  m_Layer: 0
-  m_Name: MusicManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &230877634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230877633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03525736dcbb38b4a96b985b674a2496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 1372030078}
-  bossMusic: {fileID: 768470325}
---- !u!4 &230877635
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230877633}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.163836, y: -1.425745, z: -26.044703}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1372030079}
-  - {fileID: 768470326}
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &288356669
+--- !u!21 &42518328
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -246,6 +199,53 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!1 &230877633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 230877635}
+  - component: {fileID: 230877634}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &230877634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230877633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03525736dcbb38b4a96b985b674a2496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 1372030078}
+  bossMusic: {fileID: 768470325}
+--- !u!4 &230877635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230877633}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.163836, y: -1.425745, z: -26.044703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1372030079}
+  - {fileID: 768470326}
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &331961969
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7477ff326ed534342ac962c49588300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gura: {fileID: 3017032679233258613, guid: 598548f96dfa59c41a1d60c467567ec1, type: 3}
+  gura: {fileID: 2921449062201508243, guid: 194625f3a83723f4988af7255dab794c, type: 3}
   Mob: {fileID: 4169938365287614162, guid: 84c1835bf7184514ca635ab91560f55b, type: 3}
   MobKamikaze: {fileID: 2384780250226706441, guid: 4b5feb7ce9e207641b1eec2de9fd1e5e, type: 3}
   MobTorp: {fileID: 4042246738707589214, guid: 6c7f889a80ef6ec4287c66898f941698, type: 3}
@@ -285,11 +285,14 @@ MonoBehaviour:
   BossShieldMakerRight: {fileID: 5158611721746717283, guid: adec2639049f9904d91606d537e89183, type: 3}
   BossChan: {fileID: 5424878867849085263, guid: a4a566bc3c8131c46920f201ef028e12, type: 3}
   MobDestroyer: {fileID: 1003632485778441370, guid: 4eddec5e5a6ed514cb7704f25ab89890, type: 3}
+  BossAlterChan: {fileID: 0}
   target: {fileID: 331961971}
   dialogue: {fileID: 2051128025}
   imgFont: {fileID: 1812925824}
   zicManager: {fileID: 230877634}
+  dialogueGura: {fileID: 0}
   dialogueChan: {fileID: 1375317422}
+  dialogueAlterChan: {fileID: 0}
   dialogueChanEsquive: {fileID: 1203459501}
   userInterface: {fileID: 1437110544}
 --- !u!4 &331961971
@@ -1782,6 +1785,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2051128023}
+    - target: {fileID: 6953097618320279147, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953097618320279147, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010258671516962631, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010258671516962631, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3221f635329d29f41ae4b218b8a24ca6, type: 3}
 --- !u!1001 &4157395780122279508

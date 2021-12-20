@@ -37,7 +37,7 @@ public class EnemiesManager : MonoBehaviour
     public Dialogue dialogueAlterChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
-    private int level = 1;
+    private int level = 4;
     private void Awake()
     {
         timer = new Stopwatch();
