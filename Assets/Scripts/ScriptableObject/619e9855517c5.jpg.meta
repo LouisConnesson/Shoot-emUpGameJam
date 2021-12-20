@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5f3e3c7fa6bfe62498721c101893bb5c
+guid: ceded1d0f6b7f8c469a8e5f6ecc23292
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8727846818597698954
-    second: survie_0
+      213: -7295558059818203116
+    second: 619e9855517c5_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: survie_0
+      name: 619e9855517c5_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 799
-        height: 592
+        width: 3840
+        height: 2160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67206738f8570e680800000000000000
-      internalID: -8727846818597698954
+      spriteID: 4184c4e1998f0ca90800000000000000
+      internalID: -7295558059818203116
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 76dc4b97769ed0045afb8fbcfbfe2407
+    spriteID: 8450a962179151b47ac6711dfc33d146
     internalID: 0
     vertices: []
     indices: 

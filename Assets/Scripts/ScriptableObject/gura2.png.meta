@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: eb41021c25922b44fb2b3718085a2c7c
+guid: 2d32942c56d1b4c478700fc5ef22171d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8115644005664255767
-    second: frame_001_0
+      213: 3059898287363294405
+    second: gura2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: frame_001_0
+      name: gura2_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 22
-        width: 108
-        height: 49
+        x: 0
+        y: 0
+        width: 292
+        height: 271
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71f6521893f80a070800000000000000
-      internalID: 8115644005664255767
+      spriteID: 5c48d13c741f67a20800000000000000
+      internalID: 3059898287363294405
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fb16d2fdf55a6a74a9c87c657494da06
+    spriteID: 4e04107680f6da349995d73d92fc4541
     internalID: 0
     vertices: []
     indices: 

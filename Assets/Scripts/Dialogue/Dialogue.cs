@@ -18,15 +18,32 @@ public class Dialogue : MonoBehaviour
         image.enabled = true;
         image.sprite = dialogueOBJ.portrait[currentDialogue];
         isOnDial = true;
+
+        int idStarship = PlayerPrefs.GetInt("Starship");
+        int idLevel = PlayerPrefs.GetInt("Level");
+
+        if (currentDialogue % 2 == 0)
+            image.sprite = dialogueOBJ.img[idStarship];
+        else
+            image.sprite = dialogueOBJ.ennemies[idLevel];
+
     }
 
     public void NextLine()
     {
-        if(isOnDial && currentDialogue != dialogueOBJ.dialogue.Length - 1)
+        int idStarship = PlayerPrefs.GetInt("Starship");
+        int idLevel = PlayerPrefs.GetInt("Level");
+
+        if (isOnDial && currentDialogue != dialogueOBJ.dialogue.Length - 1)
         {
             currentDialogue++;
             textBox.text = dialogueOBJ.dialogue[currentDialogue];
-            image.sprite = dialogueOBJ.portrait[currentDialogue];
+
+            if(currentDialogue%2 ==0)
+                image.sprite = dialogueOBJ.img[idStarship];
+            else
+                image.sprite = dialogueOBJ.ennemies[idLevel];
+
         }
         else if(isOnDial && currentDialogue == dialogueOBJ.dialogue.Length - 1)
         {

@@ -39,8 +39,7 @@ public class PlayerController : Entity
     private bool flameFlag = false;
     public Transform bulletSpawn;
 
-    [SerializeField]
-    private int p_score;
+    public int p_score;
 
     public GameObject muzzle;
     private float radius = 1f;
@@ -60,6 +59,7 @@ public class PlayerController : Entity
     private int currentAmmoSD=0;
 
     public int cdShield;
+    private int currMenuPoints;
     private void Awake()
     {
         cdShield = 10000;
@@ -99,11 +99,14 @@ public class PlayerController : Entity
 
         m_MainCamera = FindObjectOfType<Camera>();
         shieldTime = (2 + PlayerPrefs.GetInt("Shield") * 0.5f)*1000;
+        currMenuPoints = PlayerPrefs.GetInt("Points");
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayerPrefs.SetInt("Points", currMenuPoints + p_score);
         m_MainCamera = FindObjectOfType<Camera>();
 
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(target.position);

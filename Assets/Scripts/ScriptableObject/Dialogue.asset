@@ -7,7 +7,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d5da428a9c27cc48b4eba6b751ab203, type: 3}
   m_Name: Dialogue
@@ -22,3 +22,12 @@ MonoBehaviour:
   - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}
   - {fileID: 6319610070620318424, guid: 2a0e7a165c978d14696e2e4ca298e1c0, type: 3}
   - {fileID: 6319610070620318424, guid: 2a0e7a165c978d14696e2e4ca298e1c0, type: 3}
+  img:
+  - {fileID: -3933903092956741611, guid: 611ea451402268144bd3410477dde208, type: 3}
+  - {fileID: 5305464500268525849, guid: 794a8d733b0b45c44ba1b3b0241bc707, type: 3}
+  - {fileID: 3059898287363294405, guid: 2d32942c56d1b4c478700fc5ef22171d, type: 3}
+  ennemies:
+  - {fileID: 6319610070620318424, guid: 2a0e7a165c978d14696e2e4ca298e1c0, type: 3}
+  - {fileID: 527180684479159055, guid: a743aa1beb8451441a87f89df828efc9, type: 3}
+  - {fileID: -2939166644293162222, guid: 50d20bb436d2e3c44a78a8ef18bec451, type: 3}
+  - {fileID: 5904173226722142524, guid: a5845338d372e624da31f46aa7dd6503, type: 3}

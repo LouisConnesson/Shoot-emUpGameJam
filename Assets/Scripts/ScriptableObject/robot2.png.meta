@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 59e3104ac5b7b82439ae28c3e39d2e57
+guid: a743aa1beb8451441a87f89df828efc9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6434934986913462899
-    second: campagne_0
+      213: 527180684479159055
+    second: robot2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: campagne_0
+      name: robot2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 799
-        height: 595
+        x: 56
+        y: 37
+        width: 285
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37ab5bfd64b7d4950800000000000000
-      internalID: 6434934986913462899
+      spriteID: f0bd3d61a0ce05700800000000000000
+      internalID: 527180684479159055
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 79fede0e1ef831b4092255413ceb30eb
+    spriteID: 43a1fc3fc194ef5458ea7ad81897a13f
     internalID: 0
     vertices: []
     indices: 

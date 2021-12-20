@@ -37,11 +37,15 @@ public class EnemiesManager : MonoBehaviour
     public Dialogue dialogueAlterChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
+    [SerializeField]
     private int level = 4;
     private void Awake()
     {
         timer = new Stopwatch();
         timer.Start();
+
+        level =  PlayerPrefs.GetInt("Level");
+
     }
     // Start is called before the first frame update
     void Start()
@@ -110,7 +114,7 @@ public class EnemiesManager : MonoBehaviour
             {
                 timer.Start();
 
-                if (timer.ElapsedMilliseconds >= 35000 && flag == false && flagGura == false) //////////////////////BOSS
+                if (timer.ElapsedMilliseconds >= 1000 && flag == false && flagGura == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     GameObject guramob = Instantiate(gura) as GameObject;
