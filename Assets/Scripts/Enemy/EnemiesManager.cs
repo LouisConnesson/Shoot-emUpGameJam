@@ -37,7 +37,8 @@ public class EnemiesManager : MonoBehaviour
     public Dialogue dialogueAlterChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
-    private int level = 4;
+    private int level = 3;
+    private int difficultyFactor = 0;
     private void Awake()
     {
         timer = new Stopwatch();
@@ -138,13 +139,24 @@ public class EnemiesManager : MonoBehaviour
             {
                 timer.Start();
 
-                if (timer.ElapsedMilliseconds >= 35000 && flagChan == false) //////////////////////BOSS
+                if (timer.ElapsedMilliseconds >= 20000 && flagChan == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     EnemyBossAlterChan chan = Instantiate(BossAlterChan) as EnemyBossAlterChan;
                     chan.Initalize(player, dialogueAlterChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
                     chan.transform.position = new Vector3(2, 25, -5);
                     flagChan = true;
+                }
+            }
+            else if (level == 4)
+            {
+                timer.Start();
+
+                if (timer.ElapsedMilliseconds >= 3000 && flagChan == false) //////////////////////BOSS
+                {
+                    difficultyFactor += 1;
+                    print(difficultyFactor);
+                    timer.Restart();
                 }
             }
         }
@@ -310,7 +322,10 @@ public class EnemiesManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3.0f);
+            if (level == 4)
+                yield return new WaitForSeconds(4.0f - ((float)difficultyFactor * 0.05f));
+            else
+                yield return new WaitForSeconds(3.0f);
             spawnEnemy();
         }
     }
@@ -326,7 +341,9 @@ public class EnemiesManager : MonoBehaviour
     {
         while (true)
         {
-            if (level >=2) //Si on est au niveau 3 ou en mode survie, les torpilles spawn plus fréquement
+            if (level == 4)
+                yield return new WaitForSeconds(15.0f - ((float)difficultyFactor * 0.1f));
+            else if (level >= 2) //Si on est au niveau 3 ou + ou en mode survie, les torpilles spawn plus fréquement
                 yield return new WaitForSeconds(8.0f);
             else
                 yield return new WaitForSeconds(14.0f);

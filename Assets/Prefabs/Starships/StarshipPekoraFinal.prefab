@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 200
   currentHealth: 200
-  upReactor: {fileID: 6421584727087470638, guid: 79cb172f0ab089d4197f99f5d4785219, type: 3}
+  upReactor: {fileID: 4584062168107547642}
   downReactor: {fileID: 0}
   cc: {fileID: 2048485967667985418}
   hitBox: {fileID: 2580567793031003224}
@@ -405,7 +405,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3412322059399482279}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0e0c0cfdab5c58b48bc33d5963d78868, type: 2}
   m_CullingMode: 0
@@ -477,6 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79cb172f0ab089d4197f99f5d4785219, type: 3}
+--- !u!1 &4584062168107547642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6421584727087470638, guid: 79cb172f0ab089d4197f99f5d4785219, type: 3}
+  m_PrefabInstance: {fileID: 7386977647974425556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6785353044141171977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4083000887832889053, guid: 79cb172f0ab089d4197f99f5d4785219, type: 3}

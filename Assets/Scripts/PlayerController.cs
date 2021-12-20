@@ -358,7 +358,7 @@ public class PlayerController : Entity
         }
         if (other.gameObject.tag == "BonusHeal")
         {
-            currentHealth += 50;
+            currentHealth += 60;
             p_score += 1;
         }
         if (currentHealth <= 0)

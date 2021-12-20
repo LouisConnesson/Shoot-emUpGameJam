@@ -126,6 +126,16 @@ public class EnemyBossAlterChan : Entity
         {
             if (paternIndex == 1) //si le patern est à 1 on ne peut pas utiliser le patern 4 sinon on est obligé de se faire toucher
                 paternIndex = Random.Range(2, 4);
+            else if (paternIndex == 0)
+                paternIndex = Random.Range(1, 7);
+            else if (paternIndex == 2)
+                paternIndex = Random.Range(3, 7);
+            else if (paternIndex == 3)
+                paternIndex = Random.Range(0, 3);
+            else if (paternIndex == 4)
+                paternIndex = Random.Range(5, 7);
+            else if (paternIndex == 5)
+                paternIndex = Random.Range(0, 5);
             else if (paternIndex == 6)
                 paternIndex = Random.Range(0, 6);
             else
