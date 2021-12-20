@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - "Commandant : Je sens une pr\xE9sence..."
+  - 'Commandant : Je sens une presence...'
   - 'Commandant : J''ai comme un mauvais pressentiment UwU'
   - '??? : De..D..De..DeDeDeDe...Destruction...'
   - '??? : T''a la ref chakal ?'

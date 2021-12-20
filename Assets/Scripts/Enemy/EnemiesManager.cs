@@ -16,6 +16,8 @@ public class EnemiesManager : MonoBehaviour
     public EnemyBossShieldMaker BossShieldMaker;
     public EnemyBossShieldMaker BossShieldMakerRight;
     public EnemyBossChan BossChan;
+    public EnemyDestroyer MobDestroyer;
+    public EnemyBossAlterChan BossAlterChan;
 
     private Stopwatch timer;
     private bool flag = false;
@@ -30,9 +32,10 @@ public class EnemiesManager : MonoBehaviour
     PlayerController player;
     public MusicManager zicManager;
     public Dialogue dialogueChan;
+    public Dialogue dialogueAlterChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
-    private int level = 1;
+    private int level = 3;
     private void Awake()
     {
         timer = new Stopwatch();
@@ -57,13 +60,13 @@ public class EnemiesManager : MonoBehaviour
             if (player)
                 foundPlayer = true;
         }
-        if (Time.timeScale == 1 && player) 
+        if (Time.timeScale != 0 && player) 
         {
             if (level == 0)
             {
                 timer.Start();
 
-                if (timer.ElapsedMilliseconds >= 30000 && flag == false) //////////////////////BOSS
+                if (timer.ElapsedMilliseconds >= 35000 && flag == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     Time.timeScale = 0;
@@ -105,7 +108,7 @@ public class EnemiesManager : MonoBehaviour
             {
                 timer.Start();
 
-                if (timer.ElapsedMilliseconds >= 30000 && flag == false) //////////////////////BOSS
+                if (timer.ElapsedMilliseconds >= 35000 && flag == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     GameObject guramob = Instantiate(gura) as GameObject;
@@ -119,11 +122,24 @@ public class EnemiesManager : MonoBehaviour
             {
                 timer.Start();
 
-                if (timer.ElapsedMilliseconds >= 30000 && flagChan == false) //////////////////////BOSS
+                if (timer.ElapsedMilliseconds >= 35000 && flagChan == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
                     chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
+                    chan.transform.position = new Vector3(2, 25, -5);
+                    flagChan = true;
+                }
+            }
+            else if (level == 3)
+            {
+                timer.Start();
+
+                if (timer.ElapsedMilliseconds >= 35000 && flagChan == false) //////////////////////BOSS
+                {
+                    StopAllCoroutines();
+                    EnemyBossAlterChan chan = Instantiate(BossAlterChan) as EnemyBossAlterChan;
+                    chan.Initalize(player, dialogueAlterChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
                     chan.transform.position = new Vector3(2, 25, -5);
                     flagChan = true;
                 }
@@ -145,6 +161,7 @@ public class EnemiesManager : MonoBehaviour
     }
     private void spawnEnemy()
     {
+       
         if ((level != 0 && Random.Range(0f, 100f) < 50) || level == 0) //Probabilité de faire apparaitre un type de mob
         {
             Enemy m = Instantiate(Mob) as Enemy;
@@ -165,14 +182,22 @@ public class EnemiesManager : MonoBehaviour
             EnemyTorp m = Instantiate(MobTorp) as EnemyTorp;
             m.Initalize(player);
             m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
-
+            //
         }
     }
     private void spawnWave()
     {
-        if (waveFlag == 0)
+        if (waveFlag == 0 && (level == 1 || level > 2))
         {
-            if ((level == 2 && Random.Range(0f, 100f) < 50) || level < 2) //Probabilité de faire apparaitre un type de mob
+            EnemyDestroyer m = Instantiate(MobDestroyer) as EnemyDestroyer;
+            m.Initalize(player);
+            m.transform.position = new Vector3(Random.Range(-8, 9), 25, -5);
+            m.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            waveFlag++;
+        }
+        else if (waveFlag == 0)
+        {
+            if ((level >= 2 && Random.Range(0f, 100f) < 50) || level < 2) //Probabilité de faire apparaitre un type de mob
             {
                 for (int i = 0; i < 2; i++)
                 {
@@ -212,7 +237,7 @@ public class EnemiesManager : MonoBehaviour
         }
         else if (waveFlag == 1)
         {
-            if ((level == 2 && Random.Range(0f, 100f) < 50) || level < 2) //Probabilité de faire apparaitre un type de mob
+            if ((level >= 2 && Random.Range(0f, 100f) < 50) || level < 2) //Probabilité de faire apparaitre un type de mob
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -234,7 +259,7 @@ public class EnemiesManager : MonoBehaviour
         }
         else if (waveFlag == 2)
         {
-            if ((level == 2 && Random.Range(0f, 100f) < 50) || level <2) //Probabilité de faire apparaitre un type de mob
+            if ((level >= 2 && Random.Range(0f, 100f) < 50) || level <2) //Probabilité de faire apparaitre un type de mob
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -258,11 +283,23 @@ public class EnemiesManager : MonoBehaviour
 
     private void spawnWaveKamikaze()
     {
-        for (int i = 0; i < 5; i++)
+        if (level >= 2)//Si on est au niveau 3 ou en mode survie, les torpilles qui spawn sont plus nombreuses
+        { 
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
+                m.Initalize(player);
+                m.transform.position = new Vector3(Random.Range(-8, 9), Random.Range(20, 25), -5);
+            }
+        }
+        else
         {
-            EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
-            m.Initalize(player);
-            m.transform.position = new Vector3(Random.Range(-8, 9), Random.Range(20,25), -5);
+            for (int i = 0; i < 3; i++)
+            {
+                EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
+                m.Initalize(player);
+                m.transform.position = new Vector3(Random.Range(-8, 9), Random.Range(20, 25), -5);
+            }
         }
     }
         IEnumerator Spawner()
@@ -277,7 +314,7 @@ public class EnemiesManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(12.0f);
+            yield return new WaitForSeconds(14.0f);
             spawnWave();
         }
     }
@@ -285,7 +322,10 @@ public class EnemiesManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(6.0f);
+            if (level >=2) //Si on est au niveau 3 ou en mode survie, les torpilles spawn plus fréquement
+                yield return new WaitForSeconds(8.0f);
+            else
+                yield return new WaitForSeconds(14.0f);
             spawnWaveKamikaze();
         }
     }

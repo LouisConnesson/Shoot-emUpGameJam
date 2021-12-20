@@ -16,7 +16,9 @@ public class Enemy : Entity
     public Transform[] bulletSpawn = new Transform[3];
     public GameObject spikeball;
     public BonusScript bonus;
-
+    public BonusScript bonusFire;
+    public BonusScript bonusTime;
+    public BonusScript bonusHeal;
     private bool isnotDied = true;
 
    // public GameObject spike;
@@ -39,7 +41,7 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1 && isnotDied)
+        if (Time.timeScale != 0 && isnotDied)
         {
             Vector3 screenPos = Enemy.m_mainCamera.WorldToViewportPoint(target.position);
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
@@ -47,7 +49,7 @@ public class Enemy : Entity
             {
                 Destroy(gameObject);
             }
-            if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate*Time.timeScale))
             {
                 for (int i = 0; i < bulletSpawn.Length; i++) // on tire les 3 balles avec les deux sur les cotés qui changent d'angle
                 {
@@ -119,8 +121,28 @@ public class Enemy : Entity
         isnotDied = false;
         this.GetComponent<AudioSource>().Play();
         Destroy(spikeball);
-        BonusScript m = Instantiate(bonus) as BonusScript;
-        m.transform.position = target.position;
+        if (Random.Range(0, 10) <= 6)
+        {
+            BonusScript m = Instantiate(bonus) as BonusScript;
+            m.transform.position = target.position;
+        }
+        else if (Random.Range(0, 10) <= 2)
+        {
+            BonusScript m = Instantiate(bonusFire) as BonusScript;
+            m.transform.position = target.position;
+        }
+        else if (Random.Range(0, 10) <= 5)
+        {
+            BonusScript m = Instantiate(bonusTime) as BonusScript;
+            m.transform.position = target.position;
+        }
+        else
+        {
+            BonusScript m = Instantiate(bonusHeal) as BonusScript;
+            m.transform.position = target.position;
+        }
+
+
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

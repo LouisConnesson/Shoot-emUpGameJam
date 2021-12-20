@@ -13,6 +13,7 @@ public class EnemyKamikaze : Entity
     public float moveSpeed = 500f;
     private Rigidbody rb;
     [SerializeField]
+    public BonusScript bonusFire;
     private Vector2 movement;
 
 
@@ -41,7 +42,7 @@ public class EnemyKamikaze : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1 && isnotDied)
+        if (Time.timeScale != 0 && isnotDied)
         {
             if (m_player)
             {
@@ -75,12 +76,13 @@ public class EnemyKamikaze : Entity
 
     IEnumerator Hurt()
     {
+       
         couleur = this.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
-        couleur.r = 1f;
+        couleur.g = 0.0f;
 
         this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
         yield return new WaitForSeconds(0.15f);
-        couleur.r = 0.0f;
+        couleur.g = 0.868f;
         this.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
     }
     private void OnTriggerEnter(Collider other)
@@ -124,6 +126,11 @@ public class EnemyKamikaze : Entity
         this.GetComponent<AudioSource>().Play();
         this.GetComponent<MeshRenderer>().enabled = false;
         //Destroy(spikeball);
+        if (Random.Range(0, 10) <= 2)
+        {
+            BonusScript m = Instantiate(bonusFire) as BonusScript;
+            m.transform.position = transform.position;
+        }
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

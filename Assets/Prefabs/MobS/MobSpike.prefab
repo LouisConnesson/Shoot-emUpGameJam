@@ -217,6 +217,9 @@ MonoBehaviour:
   - {fileID: 1223774479456394885}
   spikeball: {fileID: 3971223427365414726}
   bonus: {fileID: 4157395779436269834, guid: f43ae9de9b7a0424a86c677e2042c662, type: 3}
+  bonusFire: {fileID: 4157395779436269834, guid: 9eebb38aba9d0b14ea44c7b89a2e7510, type: 3}
+  bonusTime: {fileID: 4157395779436269834, guid: cc229be9dea465c4eb9eacc31e20ac46, type: 3}
+  bonusHeal: {fileID: 4157395779436269834, guid: db5434b2dee4159478c5c44fa2af0a62, type: 3}
 --- !u!54 &-2249658616181081844
 Rigidbody:
   m_ObjectHideFlags: 0

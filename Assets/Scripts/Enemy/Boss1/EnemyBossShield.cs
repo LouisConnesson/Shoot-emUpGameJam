@@ -33,7 +33,7 @@ public class EnemyBossShield : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale != 0)
         {
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
             Vector3 screenPos = EnemyBossShield.m_mainCamera.WorldToViewportPoint(target.position);

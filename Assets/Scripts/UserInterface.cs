@@ -13,7 +13,9 @@ public class UserInterface : MonoBehaviour
     [SerializeField]
     private GameObject player;
     public TMP_Text scoreTxt;
+    public TMP_Text powerTxt;
     private int score;
+    private int power;
     [SerializeField]
     private PlayerController scriptPlayer;
     private int maxHealth;
@@ -40,6 +42,11 @@ public class UserInterface : MonoBehaviour
 
         score = scriptPlayer.getPlayerScore();
         scoreTxt.text = $"Score : {score} ";
+        power = scriptPlayer.getPlayerPower();
+        if (power == 10)
+            powerTxt.text = $"Power : MAX ";
+        else
+            powerTxt.text = $"Power : {power} ";
         currentHealth = scriptPlayer.getmcurrentHealth();
         lifeBar.value = ((float)currentHealth / (float)maxHealth);
 

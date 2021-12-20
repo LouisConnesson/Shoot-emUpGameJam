@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: -3279857184868784120}
   m_Layer: 0
   m_Name: StarshipKoroneFinal
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,8 +245,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.82755, y: 2.0046055, z: 234.43106}
-  m_Center: {x: 0.15496942, y: 0.04671537, z: 0.21015708}
+  m_Size: {x: 9.82755, y: 2.0046055, z: 2657.4585}
+  m_Center: {x: 0.15496942, y: 0.04671537, z: -1060.7798}
 --- !u!143 &5085150716062457130
 CharacterController:
   m_ObjectHideFlags: 0

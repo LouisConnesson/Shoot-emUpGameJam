@@ -22,9 +22,11 @@ public class PlayerController : Entity
     private float shootRate2 = 0;
     [SerializeField]
     private GameObject bulletPrefab;
+    private float shootRateSave = 0;
 
     [SerializeField]
     private GameObject bulletPrefab2;
+    private int p_power = 0;
 
     public Stopwatch timer;
     public Stopwatch timer2;
@@ -67,6 +69,7 @@ public class PlayerController : Entity
         bulletPrefab2 = FindObjectOfType<GameManager>().secondWeapons[second_id];
 
         shootRate = bulletPrefab.GetComponent<Bullet>().GetBulletRate();
+        shootRateSave = shootRate;
         shootRate2 = bulletPrefab2.GetComponent<Bullet>().GetBulletRate();
 
         m_MainCamera = FindObjectOfType<Camera>();
@@ -81,37 +84,59 @@ public class PlayerController : Entity
         m_MainCamera = FindObjectOfType<Camera>();
 
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(target.position);
+        
         X = (Input.GetAxis("Horizontal") * moveSpeed) * -1;
         Y = Input.GetAxis("Vertical") * moveSpeed;
 
         //On vérifie si le joueur quitte le champ d'action de la caméra et on l'en empêche
         if (screenPos.y > 1F)
         {
+            //this.transform.position += new Vector3(0f, -0.002f * moveSpeed, 0f);
             Y = -1;
         }
         else if (screenPos.y < 0F)
         {
+            //this.transform.position += new Vector3(0f, 0.002f * moveSpeed, 0f);
             Y = 1;
         }
         if (screenPos.x > 1F)
         {
+            //this.transform.position += new Vector3(0.002f * moveSpeed, 0f, 0f);
             X = 1;
         }
         else if (screenPos.x < 0F)
         {
+            //this.transform.position += new Vector3(-0.002f * moveSpeed, 0f, 0f);
             X = -1;
         }
-        // On remplie moveDir avant d'effectuer le mouvement
-        moveDir = new Vector3(X, Y, moveDir.z);
-
-        cc.Move(moveDir * Time.deltaTime);
+            // On remplie moveDir avant d'effectuer le mouvement
+            moveDir = new Vector3(X, Y, moveDir.z);
+            cc.Move(moveDir * Time.deltaTime);
+        
 
         //instancier les tirs
-        if (Time.timeScale == 1) //si le temps n'est pas en pause
+        if (Time.timeScale != 0) //si le temps n'est pas en pause
         {
+            /*
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                this.transform.position += new Vector3(0f,0.002f*moveSpeed,0f);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                this.transform.position += new Vector3(0.002f * moveSpeed, 0f, 0f);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                this.transform.position += new Vector3(0f, -0.002f * moveSpeed, 0f);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                this.transform.position += new Vector3(-0.002f * moveSpeed, 0f, 0f);
+            }*/
             if (Input.GetKey(KeyCode.Space))
             {
-                if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+                if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
                 {
                     Vector3 bulletpos = new Vector3(bulletSpawn.position.x, bulletSpawn.position.y, bulletSpawn.position.z+1);
                     GameObject bullet = Instantiate(bulletPrefab, bulletpos, Quaternion.Euler(-90f, 0f, 0f)) as GameObject;
@@ -128,7 +153,7 @@ public class PlayerController : Entity
 
             if (Input.GetKey(KeyCode.E) && PlayerPrefs.GetInt("SecondWeapon") != 0)
             {
-                if (timer2.ElapsedMilliseconds >= 1000 / shootRate2)
+                if (timer2.ElapsedMilliseconds >= 1000 / (shootRate2*Time.timeScale))
                 {
                     Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90f, 0f, 0f));
                     timer2.Restart();
@@ -169,6 +194,10 @@ public class PlayerController : Entity
     {
         return p_score;
     }
+    public int getPlayerPower()
+    {
+        return p_power;
+    }
     public int getmaxHealth()
     {
         return maxHealth;
@@ -191,12 +220,21 @@ public class PlayerController : Entity
             else
                 if (isShielEnable == false)
                     addDamage(50);
+            if (isShielEnable == false)
+            {
+                shootRate = shootRateSave;
+                p_power = 0;
+            }
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
             this.GetComponent<AudioSource>().Play();
-            if(isShielEnable == false)
+            if (isShielEnable == false)
+            {
                 currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
+                shootRate = shootRateSave;
+                p_power = 0;
+            }
         }
         if (other.gameObject.tag == "Bonus")
         {
@@ -205,6 +243,26 @@ public class PlayerController : Entity
         if (other.gameObject.tag == "BonusTorp")
         {
             p_score += 4;
+        }
+        if (other.gameObject.tag == "BonusFire")
+        {
+            if (p_power < 10)
+            {
+                shootRate = shootRate * 1.1f;
+                p_power += 1;
+            }
+            p_score += 1;
+        }
+        if (other.gameObject.tag == "BonusTime")
+        {
+            Time.timeScale = 0.65f;
+            StartCoroutine("TimeSlow");
+            p_score += 1;
+        }
+        if (other.gameObject.tag == "BonusHeal")
+        {
+            currentHealth += 50;
+            p_score += 1;
         }
         if (currentHealth <= 0)
             Destroy(gameObject);
@@ -217,5 +275,10 @@ public class PlayerController : Entity
     public void OnBulletHit()
     {
         p_score += 1;
+    }
+    IEnumerator TimeSlow()
+    {
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 1;
     }
 }

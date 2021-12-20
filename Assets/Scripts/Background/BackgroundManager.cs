@@ -51,7 +51,7 @@ public class BackgroundManager : MonoBehaviour
 
             if (timerplanet2.ElapsedMilliseconds >= (800) && flag2)
             {
-                Instantiate(planet2, new Vector3(Random.Range(-9f, 8f), 20f, -200F), Quaternion.Euler(45, 45, 0));
+                Instantiate(planet2, new Vector3(Random.Range(-9f, 8f), 20f, -150F), Quaternion.Euler(45, 45, 0));
                 timerplanet2.Restart();
                 flag2 = false;
             }

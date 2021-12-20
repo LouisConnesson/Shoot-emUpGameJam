@@ -9,6 +9,9 @@ public class EnemyTorp : Entity
     public Transform target;
     public Transform torpRotation;
     public BonusScript bonus;
+    public BonusScript bonusFire;
+    public BonusScript bonusTime;
+    public BonusScript bonusHeal;
 
     public delegate void KilledEnemy();
     public event KilledEnemy OnKilledEnemy;
@@ -41,7 +44,7 @@ public class EnemyTorp : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1 && isnotDied)
+        if (Time.timeScale != 0 && isnotDied)
         {
             Vector3 screenPos = EnemyTorp.m_mainCamera.WorldToViewportPoint(target.position);
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
@@ -49,7 +52,7 @@ public class EnemyTorp : Entity
             {
                 Destroy(gameObject);
             }
-            if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
             {
                 for (int i = 0; i < bulletSpawn.Length; i++) // on tire les 3 balles avec les deux sur les cotés qui changent d'angle
                 {
@@ -117,8 +120,26 @@ public class EnemyTorp : Entity
         this.GetComponent<MeshRenderer>().enabled = false;
         this.GetComponent<AudioSource>().Play();
         Destroy(torpedo);
-        BonusScript m = Instantiate(bonus) as BonusScript;
-        m.transform.position = target.position;
+        if (Random.Range(0, 10) <= 6)
+        {
+            BonusScript m = Instantiate(bonus) as BonusScript;
+            m.transform.position = target.position;
+        }
+        else if (Random.Range(0, 10) <= 2)
+        {
+            BonusScript m = Instantiate(bonusFire) as BonusScript;
+            m.transform.position = target.position;
+        }
+        else if (Random.Range(0, 10) <= 5)
+        {
+            BonusScript m = Instantiate(bonusTime) as BonusScript;
+            m.transform.position = target.position;
+        }
+        else
+        {
+            BonusScript m = Instantiate(bonusHeal) as BonusScript;
+            m.transform.position = target.position;
+        }
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

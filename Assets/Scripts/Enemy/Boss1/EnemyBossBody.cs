@@ -66,7 +66,7 @@ public class EnemyBossBody : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1 && isnotDied)
+        if (Time.timeScale != 0 && isnotDied)
         {
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
 
@@ -79,7 +79,7 @@ public class EnemyBossBody : Entity
             {
                 Destroy(gameObject);
             }
-            if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
             {
                 //ON ECHANGE LES PATERNES DE TIRS, le 2eme paterne doit jouer un certains nb de secondes
                 if (Random.Range(0, 10000) > 9700 && timerFlag == false)

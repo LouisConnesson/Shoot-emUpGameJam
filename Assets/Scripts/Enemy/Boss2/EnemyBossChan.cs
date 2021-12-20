@@ -104,7 +104,7 @@ public class EnemyBossChan : Entity
     void Update()
     {
         ///////////////////ON GERE LE DIALOGUE ET CELA ARRETE LE TEMPS
-        if (flagDialogue && Time.timeScale == 1)
+        if (flagDialogue && Time.timeScale != 0)
         {
             Time.timeScale = 0;
             dialogueChan.StartDialogue(); // On commence le dialogue du boss
@@ -121,7 +121,7 @@ public class EnemyBossChan : Entity
                 font.enabled = false;
             }
         }
-        if (flagDialogueEsquive && Time.timeScale == 1 && currentHealth < 900) //Le dialogue de l'esquive se lance peu après le début du combat
+        if (flagDialogueEsquive && Time.timeScale != 0 && currentHealth < 900) //Le dialogue de l'esquive se lance peu après le début du combat
         {
             Time.timeScale = 0;
             dialogueChanEsquive.StartDialogue(); // On commence le dialogue du boss
@@ -139,7 +139,7 @@ public class EnemyBossChan : Entity
             }
         }
         /////////////////////
-        if (Time.timeScale == 1 && isnotDied)
+        if (Time.timeScale != 0 && isnotDied)
         {
 
             if (m_player) //on fais bouger la cible sur le joueur
@@ -164,7 +164,7 @@ public class EnemyBossChan : Entity
                 timerLife.Restart();
             }
 
-            if (timer.ElapsedMilliseconds >= 1000 / shootRate)
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
             {
                 if (currentHealth > 800)//////////////////////////// les paternes du boss s'effectuent en fonction de sa vie
                 {

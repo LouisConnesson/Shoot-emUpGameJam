@@ -15,7 +15,6 @@ public class BulletEnemySphere : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 4;
         shootRate = 2f;
     }
 

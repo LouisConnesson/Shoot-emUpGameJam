@@ -14,7 +14,7 @@ public class BulletEnemy : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 20;
+        damage = 40;
         shootRate = 1.5f;
     }
 

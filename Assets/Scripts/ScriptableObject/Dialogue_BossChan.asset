@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - 'Commandant : C''est quoi ce truc ???'
-  - 'BossChan : UwU est ce que tu me gnoni ?'
+  - "BossChan : UwU tu vas pas partir d'ici comme \xE7a !"
   - 'Commandant : Jvais te percuter tu vas rien comprendre.'
-  - 'BossChan : Haha baka, regarde comment j''imite Bakugo...'
-  - 'Commandant : AAAAAAAAAAAAAAAAAAAAAAAAA'
+  - 'BossChan : OwO ...'
+  - 'Commandant : Prepare toi !'
   portrait:
   - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}
   - {fileID: -2939166644293162222, guid: 50d20bb436d2e3c44a78a8ef18bec451, type: 3}

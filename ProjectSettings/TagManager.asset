@@ -12,6 +12,9 @@ TagManager:
   - Starship
   - Bonus
   - BonusTorp
+  - BonusFire
+  - BonusTime
+  - BonusHeal
   layers:
   - Default
   - TransparentFX

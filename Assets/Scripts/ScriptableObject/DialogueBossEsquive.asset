@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: DialogueBossEsquive
   m_EditorClassIdentifier: 
   dialogue:
-  - "Commandant : Attend elle esquive toutes mes balles l\xE0 ?! Je ne peut pas la
-    toucher !"
+  - 'Commandant : Attend elle esquive toutes mes balles la ?! Je ne peut pas la toucher
+    !'
   - 'BossChan : Hahaha baka baka baka!'
-  - "Commandant : R\xE9sidu d'otaku merdeux, je vais t'apprendre \xE0 parler fran\xE7ais
-    !"
+  - 'Commandant : ...'
   - 'BossChan : Watashi ha Konnichiwa desu'
-  - "Commandant : T'es morte... (J'imagine qu'il faut que je gagne du temps, elle
-    vas forc\xE9ment  finir par s'\xE9puiser)"
+  - 'Commandant : hmm... (J''imagine qu''il faut que je gagne du temps, elle vas
+    forcement  finir par s''epuiser)'
   portrait:
   - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}
   - {fileID: -2939166644293162222, guid: 50d20bb436d2e3c44a78a8ef18bec451, type: 3}
