@@ -110,11 +110,7 @@ public class EnemiesManager : MonoBehaviour
             {
                 timer.Start();
 
-<<<<<<< HEAD
-                if (timer.ElapsedMilliseconds >= 35000 && flag == false) //////////////////////BOSS
-=======
-                if (timer.ElapsedMilliseconds >= 0 && flag == false && flagGura == false) //////////////////////BOSS
->>>>>>> origin/main
+                if (timer.ElapsedMilliseconds >= 35000 && flag == false && flagGura == false) //////////////////////BOSS
                 {
                     StopAllCoroutines();
                     GameObject guramob = Instantiate(gura) as GameObject;

@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 4507861739290028192}
   - component: {fileID: 3662536050815937134}
   - component: {fileID: 3100459773607170038}
+  - component: {fileID: 9006842868521602020}
   m_Layer: 0
   m_Name: StarshipGuraFinal
   m_TagString: Player
@@ -230,11 +231,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 200
   currentHealth: 200
+  upReactor: {fileID: 6421584727087470638, guid: 79cb172f0ab089d4197f99f5d4785219, type: 3}
+  downReactor: {fileID: 0}
   cc: {fileID: 3662536050815937134}
   hitBox: {fileID: 438219225557211785}
   target: {fileID: 2463667700613116186}
   m_MainCamera: {fileID: 0}
   moveSpeed: 25
+  X: 0
   shootRate: 0
   shootRate2: 0
   bulletPrefab: {fileID: 0}
@@ -244,6 +248,9 @@ MonoBehaviour:
   muzzle: {fileID: 8313131594746184350, guid: d1b185f6ed1a5204cba2f4a01e2197d8, type: 3}
   shield: {fileID: 3373496041935837028}
   shieldTime: 0
+  main_id: 0
+  second_id: 0
+  cdShield: 0
 --- !u!143 &3662536050815937134
 CharacterController:
   m_ObjectHideFlags: 0
@@ -358,6 +365,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &9006842868521602020
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2989092818528873376}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e0c0cfdab5c58b48bc33d5963d78868, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6528056008421151297
 GameObject:
   m_ObjectHideFlags: 0

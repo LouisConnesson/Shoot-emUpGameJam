@@ -90,15 +90,12 @@ public class PlayerController : Entity
         bulletPrefab2 = FindObjectOfType<GameManager>().secondWeapons[second_id];
 
         shootRate = bulletPrefab.GetComponent<Bullet>().GetBulletRate();
-<<<<<<< HEAD
+
         shootRateSave = shootRate;
-        shootRate2 = bulletPrefab2.GetComponent<Bullet>().GetBulletRate();
-=======
         if(second_id !=0 )
             shootRate2 = bulletPrefab2.GetComponent<Bullet>().GetBulletRate();
         else
             shootRate2 =0;
->>>>>>> origin/main
 
         m_MainCamera = FindObjectOfType<Camera>();
         shieldTime = (2 + PlayerPrefs.GetInt("Shield") * 0.5f)*1000;
@@ -161,7 +158,6 @@ public class PlayerController : Entity
         //instancier les tirs
         if (Time.timeScale != 0) //si le temps n'est pas en pause
         {
-<<<<<<< HEAD
             /*
             if (Input.GetKey(KeyCode.UpArrow))
             {
@@ -179,8 +175,6 @@ public class PlayerController : Entity
             {
                 this.transform.position += new Vector3(-0.002f * moveSpeed, 0f, 0f);
             }*/
-            if (Input.GetKey(KeyCode.Space))
-=======
             if (main_id == 0)
                 currentAmmoPR = 1;
             if (main_id == 1)
@@ -198,7 +192,7 @@ public class PlayerController : Entity
 
 
             if (Input.GetKey(KeyCode.Space) && Time.timeScale == 1 && currentAmmoPR > 0)
->>>>>>> origin/main
+
             {
                 if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
                 {

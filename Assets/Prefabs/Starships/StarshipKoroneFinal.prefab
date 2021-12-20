@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 5085150716062457130}
   - component: {fileID: 2954035321488251164}
   - component: {fileID: -3279857184868784120}
+  - component: {fileID: 2562164573871856151}
   m_Layer: 0
   m_Name: StarshipKoroneFinal
   m_TagString: Player
@@ -280,13 +281,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 200
   currentHealth: 200
-  upReactor: {fileID: 0}
+  upReactor: {fileID: 6421584727087470638, guid: 79cb172f0ab089d4197f99f5d4785219, type: 3}
   downReactor: {fileID: 0}
   cc: {fileID: 5085150716062457130}
   hitBox: {fileID: 5910841087866285770}
   target: {fileID: 7355362988682872225}
   m_MainCamera: {fileID: 0}
   moveSpeed: 25
+  X: 0
   shootRate: 0
   shootRate2: 0
   bulletPrefab: {fileID: 0}
@@ -296,6 +298,9 @@ MonoBehaviour:
   muzzle: {fileID: 8313131594746184350, guid: d1b185f6ed1a5204cba2f4a01e2197d8, type: 3}
   shield: {fileID: 8123925360076789668}
   shieldTime: 0
+  main_id: 0
+  second_id: 0
+  cdShield: 0
 --- !u!82 &-3279857184868784120
 AudioSource:
   m_ObjectHideFlags: 0
@@ -392,6 +397,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &2562164573871856151
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879239990214909723}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e0c0cfdab5c58b48bc33d5963d78868, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7214058319833642900
 PrefabInstance:
   m_ObjectHideFlags: 0
