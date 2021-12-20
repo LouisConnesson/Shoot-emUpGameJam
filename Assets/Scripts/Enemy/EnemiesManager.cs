@@ -37,13 +37,8 @@ public class EnemiesManager : MonoBehaviour
     public Dialogue dialogueAlterChan;
     public Dialogue dialogueChanEsquive;
     public UserInterface userInterface;
-<<<<<<< HEAD
-    private int level = 3;
+    private int level = 0;
     private int difficultyFactor = 0;
-=======
-    [SerializeField]
-    private int level = 4;
->>>>>>> origin/main
     private void Awake()
     {
         timer = new Stopwatch();
