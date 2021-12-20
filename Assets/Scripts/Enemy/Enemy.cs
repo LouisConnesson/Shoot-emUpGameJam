@@ -108,7 +108,7 @@ public class Enemy : Entity
             if (other.GetComponent<BulletFragment>())
             {
                 for (int i = 0; i < 8; i++)
-                    Instantiate(other.gameObject, tmpos, Quaternion.Euler(0, 0, i * 45));
+                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(i * 45, 90f,90f));
 
             }
 

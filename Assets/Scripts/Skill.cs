@@ -38,7 +38,7 @@ public class Skill : MonoBehaviour
         colorGreen.a = 0.8f;
 
         GetComponent<Image>().color = skillTree.skillLevels[id] >= skillTree.skillCaps[id] ? colorBlue :
-            skillTree.SkillPoint > skillTree.skillCost[id] ? colorGreen : colorWhite;
+            PlayerPrefs.GetInt("Points") > skillTree.skillCost[id] ? colorGreen : colorWhite;
 
         Color blackColor;
         ColorUtility.TryParseHtmlString("#131313", out blackColor);
@@ -64,10 +64,12 @@ public class Skill : MonoBehaviour
     }
     public void Buy()
     {
-        if (skillTree.skillLevels[id] >= skillTree.skillCaps[id] || skillTree.SkillPoint < skillTree.skillCost[id])
+        if (skillTree.skillLevels[id] >= skillTree.skillCaps[id] || PlayerPrefs.GetInt("Points") < skillTree.skillCost[id])
             return;
 
-        skillTree.SkillPoint -= skillTree.skillCost[id];
+        int pts = PlayerPrefs.GetInt("Points") - skillTree.skillCost[id];
+        PlayerPrefs.SetInt("Points", pts);
+        //skillTree.SkillPoint -= skillTree.skillCost[id];
         skillTree.skillLevels[id] += 1;
         skillTree.UpdateAllSkillUI();
     }

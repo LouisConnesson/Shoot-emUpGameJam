@@ -9,17 +9,19 @@ public class SceneManager : MonoBehaviour
     public void LaunchScene1()
     {
         print("laod scène 1");
+        PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene( 1);
     }
     public void LaunchScene2()
     {
         print("laod scène 2");
-
+        PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
     public void LaunchScene3()
     {
         print("laod scène 3");
+        PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene( 3);
     }
 }
