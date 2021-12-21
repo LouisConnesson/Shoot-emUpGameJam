@@ -36,7 +36,8 @@ public class MenuChoiceManager : MonoBehaviour
     public TMP_Text weaponNamePrTMP;
     public TMP_Text weaponNameSdTMP;
 
-
+    public Image currentPilote;
+    public Sprite[] pilotes;
     // Start is called before the first frame update
     void Start()
     {
@@ -133,6 +134,7 @@ public class MenuChoiceManager : MonoBehaviour
                 if (isStarshipEnable[i])
                 {
                     starships[i].GetComponent<MeshRenderer>().enabled = true;
+                    currentPilote.sprite = pilotes[i];
                 }
                 else
                 {

@@ -153,7 +153,6 @@ public class BossGura : Entity
     {
         if (flagDialogue && Time.timeScale == 1)
         {
-            print("1");
 
             Time.timeScale = 0;
             dialogueGura.StartDialogue(); // On commence le dialogue du boss
@@ -161,11 +160,9 @@ public class BossGura : Entity
         }
         else if (Time.timeScale == 0 && Input.GetKeyDown(KeyCode.Space) && flagDialogue) //si le boss a pop ET qu'on est en dialogue
         {
-            print("2");
             dialogueGura.NextLine();
             if(dialogueGura.currentDialogue == 0)
             {
-                print("3");
                 Time.timeScale = 1;
                 flagDialogue = false;
                 imageFont.enabled = false;
@@ -508,6 +505,8 @@ public class BossGura : Entity
         couleur.r = 1f;
         GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
         GetComponent<AudioSource>().PlayOneShot(explosion);
+        PlayerPrefs.SetInt("BossDead", 1);
+
         yield return new WaitForSeconds(2f);
         OnInterfaceVictory?.Invoke();
         Destroy(gameObject);

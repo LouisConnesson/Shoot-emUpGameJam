@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             list.Add(PlayerPrefs.GetInt("Score9"));
             list.Add(PlayerPrefs.GetInt("Score10"));
 
-            int newScore = starship.GetComponent<PlayerController>().p_score;
+            int newScore = PlayerPrefs.GetInt("ScoreTMP");
             list.Add(newScore);
             list.Sort();
             PlayerPrefs.SetInt("Score1", list[1]);
@@ -60,7 +60,47 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("Score9", list[9]);
             PlayerPrefs.SetInt("Score10", list[10]);
         }
-        
+
+        if (PlayerPrefs.GetInt("Level") == 0 && PlayerPrefs.GetInt("BossDead") == 1)
+        {
+            if (PlayerPrefs.GetInt("Success1") != -1)
+            {
+                print("GGGG");
+                PlayerPrefs.SetInt("Success1", 1);
+
+            }
+            print("c cool ");
+            PlayerPrefs.SetInt("BossDead", 0);
+        }
+
+
+        if (PlayerPrefs.GetInt("Level") == 1 && PlayerPrefs.GetInt("BossDead") == 1)
+        {
+            if (PlayerPrefs.GetInt("Success2") != -1)
+            {
+                print("GGGG");
+
+                PlayerPrefs.SetInt("Success2", 1);
+            }
+            print("c cool ");
+            PlayerPrefs.SetInt("BossDead", 0);
+
+        }
+
+
+        if (PlayerPrefs.GetInt("Level") == 2 && PlayerPrefs.GetInt("BossDead") == 1)
+        {
+            if (PlayerPrefs.GetInt("Success3") != -1)
+            {
+                print("GGGG");
+                PlayerPrefs.SetInt("Success3", 1);
+
+            }
+            print("c cool ");
+            PlayerPrefs.SetInt("BossDead", 0);
+
+        }
+
 
         PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);

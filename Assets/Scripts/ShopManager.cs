@@ -19,7 +19,7 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("MaxWeapon1", 100); //pen
+        PlayerPrefs.SetInt("MaxWeapon1", 200); //pen
         PlayerPrefs.SetInt("MaxWeapon2", 200); //multi
         PlayerPrefs.SetInt("MaxWeapon3", 100); //frag
         PlayerPrefs.SetInt("MaxWeapon4", 30); //aoe
