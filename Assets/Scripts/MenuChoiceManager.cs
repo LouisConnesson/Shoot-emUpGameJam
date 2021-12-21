@@ -144,7 +144,7 @@ public class MenuChoiceManager : MonoBehaviour
             }
             foreach (GameObject starship in starships)
             {
-                starship.transform.RotateAround(starship.transform.position, new Vector3(0, 1, 0), 1f);
+                starship.transform.RotateAround(starship.transform.position, new Vector3(0, 1, 0), 0.3f);
             }
         }
         

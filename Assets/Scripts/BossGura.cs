@@ -504,6 +504,7 @@ public class BossGura : Entity
         isnotDied = false;
         couleur.r = 1f;
         GetComponent<MeshRenderer>().material.SetColor("_BaseColor", couleur);
+        GetComponent<AudioSource>().volume = 0.03f;
         GetComponent<AudioSource>().PlayOneShot(explosion);
         PlayerPrefs.SetInt("BossDead", 1);
 

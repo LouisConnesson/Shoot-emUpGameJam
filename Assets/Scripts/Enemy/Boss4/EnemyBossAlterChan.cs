@@ -85,7 +85,7 @@ public class EnemyBossAlterChan : Entity
 
 
 
-        maxHealth = 8000;
+        maxHealth = 10000;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
         joueurHP = player;

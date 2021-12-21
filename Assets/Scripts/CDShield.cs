@@ -22,12 +22,12 @@ public class CDShield : MonoBehaviour
             if (m_player.GetComponent<PlayerController>().timer3.ElapsedMilliseconds <= m_player.GetComponent<PlayerController>().cdShield)
             {
                 Color color = new Color(191f, 4f, 17f);
-                shield.SetColor("_Frontcolor", color);
+                shield.SetColor("_Frontcolor", color * 0.2f);
             }
             else
             {
                 Color color = new Color(4, 191f, 163f);
-                shield.SetColor("_Frontcolor", color);
+                shield.SetColor("_Frontcolor", color * 2);
             }
         }
         

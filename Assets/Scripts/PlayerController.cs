@@ -261,7 +261,7 @@ public class PlayerController : Entity
             }
             if (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale !=0 )
             {
-                if (timer3.ElapsedMilliseconds >= 0)
+                if (timer3.ElapsedMilliseconds >= cdShield)
                 {
                     //Instantiate(shield, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f));
                     timer3.Restart();
@@ -314,18 +314,18 @@ public class PlayerController : Entity
             this.GetComponent<AudioSource>().Play();
             if(other.GetComponent<EnemyKamikaze>())
             {
-                if (isShielEnable == false)
+                if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
                     currentHealth -= other.GetComponent<EnemyKamikaze>().GetDamage();
             }
             else
-                if (isShielEnable == false)
+                if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
                     addDamage(50);
-            if (isShielEnable == false)
+            if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
             {
                 shootRate = shootRateSave;
                 p_power = 0;
             }
-            if (isShielEnable == false)
+            if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
             {
                 if (PlayerPrefs.GetInt("Level") == 0)
                     if (PlayerPrefs.GetInt("Success1") != 1)
@@ -347,13 +347,13 @@ public class PlayerController : Entity
         if (other.gameObject.tag == "bulletEnemy")
         {
             this.GetComponent<AudioSource>().Play();
-            if (isShielEnable == false)
+            if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
             {
                 currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
                 shootRate = shootRateSave;
                 p_power = 0;
             }
-            if (isShielEnable == false)
+            if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
             {
                 if (PlayerPrefs.GetInt("Level") == 0)
                     if (PlayerPrefs.GetInt("Success1") != 1)
