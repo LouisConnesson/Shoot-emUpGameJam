@@ -27,9 +27,11 @@ public class MenuChoiceManager : MonoBehaviour
     public int id_secondWeapon;
     public bool[] isisSecondWeaponAvailable;
 
+    //arbre de talent
     public bool isMenu = true;
     public SkillTree skillTree;
 
+    //textes, images
     public string[] weaponsNamePr;
     public string[] weaponsNameSd;
 
@@ -38,23 +40,21 @@ public class MenuChoiceManager : MonoBehaviour
 
     public Image currentPilote;
     public Sprite[] pilotes;
-    // Start is called before the first frame update
     void Start()
     {
+        //on recuperer le joueur choisi a travers le menu et les scenes
         //starship
         isStarshipEnable = new bool[starships.Length];
         id_starship = PlayerPrefs.GetInt("Starship");
-        //PlayerPrefs.SetInt("Starship", 0);
 
         //main weapon
         isMainWeaponEnable = new bool[2];
         id_mainWeapon = PlayerPrefs.GetInt("MainWeapon");
-        //PlayerPrefs.SetInt("MainWeapon", 0);
         //second weapon
         isSecondWeaponEnable = new bool[5];
         id_secondWeapon = PlayerPrefs.GetInt("SecondWeapon");
-        //PlayerPrefs.SetInt("SecondWeapon", 0);
 
+        //permet de savoir si les armes sont debloquees ou non 
         isMainWeaponAvailable = new bool[2] { true, false };
         isisSecondWeaponAvailable = new bool[5] { true, false, false, false, false };
 
@@ -65,12 +65,11 @@ public class MenuChoiceManager : MonoBehaviour
             "Plasma",
             };
 
-
+        //sprite des images a afficher
         currentMainWeapon.sprite = mainWeaponSprites[id_mainWeapon];
         currentSecondWeapon.sprite = secondWeaponSprites[id_secondWeapon];
     }
 
-    // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < 2; i++)
@@ -88,6 +87,7 @@ public class MenuChoiceManager : MonoBehaviour
         weaponNamePrTMP.text = weaponsNamePr[id_mainWeapon];
         weaponNameSdTMP.text = weaponsNameSd[id_secondWeapon];
     }
+    //affiche ou non les vaisseaux si on est dans le menu equipement
     public void setMenu()
     {
         isMenu = !isMenu;
@@ -100,6 +100,7 @@ public class MenuChoiceManager : MonoBehaviour
 
         isStarshipEnable[id_starship] = !isMenu;
     }
+    //selection de l'arme secondaire
     public void SelectSecondWeapon()
     {
         for (int i = 0; i < isSecondWeaponEnable.Length; i++)
@@ -110,6 +111,7 @@ public class MenuChoiceManager : MonoBehaviour
         }
 
     }
+    //selection de l'arme principale
     public void SelectMainWeapon()
     {
         for (int i = 0; i < isMainWeaponEnable.Length; i++)
@@ -122,6 +124,7 @@ public class MenuChoiceManager : MonoBehaviour
         }
 
     }
+    //tourne les vaisseaux sur eux memes
     public void RotateStarship()
     {
         if(isMenu)
@@ -149,6 +152,7 @@ public class MenuChoiceManager : MonoBehaviour
         }
         
     }
+    //boutton de selection des vaisseaux
     public void RightClickStarship()
     {
         isStarshipEnable[id_starship] = false;
@@ -157,6 +161,7 @@ public class MenuChoiceManager : MonoBehaviour
         PlayerPrefs.SetInt("Starship", id_starship);
 
     }
+    //boutton de selection des vaisseaux
     public void LeftClickStarship()
     {
         isStarshipEnable[id_starship] = false;
@@ -167,7 +172,7 @@ public class MenuChoiceManager : MonoBehaviour
         PlayerPrefs.SetInt("Starship", id_starship);
 
     }
-
+    //boutton de selection de l'arme principale
     public void mainWeaponRightClick()
     {
         
@@ -177,18 +182,15 @@ public class MenuChoiceManager : MonoBehaviour
         {
             isMainWeaponEnable[old_id] = false;
             isMainWeaponEnable[id_mainWeapon] = true;
-
         }
         else
         {
             id_mainWeapon = old_id;
         }
         PlayerPrefs.SetInt("MainWeapon", id_mainWeapon);
-
-        //isMainWeaponEnable[id_mainWeapon] = false;
-        //isMainWeaponEnable[id_mainWeapon] = true;
     }
 
+    //boutton de selection de l'arme principale
     public void mainWeaponleftClick()
     {
 
@@ -201,23 +203,15 @@ public class MenuChoiceManager : MonoBehaviour
         {
             isMainWeaponEnable[old_id] = false;
             isMainWeaponEnable[id_mainWeapon] = true;
-
         }
         else
         {
             id_mainWeapon = old_id;
         }
-        PlayerPrefs.SetInt("MainWeapon", id_mainWeapon);
-        /* isMainWeaponEnable[id_mainWeapon] = false;
-         id_mainWeapon = (id_mainWeapon -1) % (isMainWeaponEnable.Length);
-         if (id_mainWeapon < 0)
-             id_mainWeapon = isMainWeaponEnable.Length - 1;
-         isMainWeaponEnable[id_mainWeapon] = true;
-         PlayerPrefs.SetInt("MainWeapon", id_mainWeapon);*/
-  
+        PlayerPrefs.SetInt("MainWeapon", id_mainWeapon);  
     }
 
-    //second weapon
+    //boutton de selection de l'arme secondaire
     public void secondWeaponRightClick()
     {
         int old_id = id_secondWeapon;
@@ -226,7 +220,6 @@ public class MenuChoiceManager : MonoBehaviour
         {
             isSecondWeaponEnable[old_id] = false;
             isSecondWeaponEnable[id_secondWeapon] = true;
-
         }
         else
         {
@@ -236,11 +229,10 @@ public class MenuChoiceManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("SecondWeapon", id_secondWeapon);
-        /*isSecondWeaponEnable[id_secondWeapon] = false;
-        id_secondWeapon = (id_secondWeapon + 1) % (isSecondWeaponEnable.Length);
-        isSecondWeaponEnable[id_secondWeapon] = true;*/
+       
     }
 
+    //boutton de selection de l'arme secondaire
     public void secondWeaponleftClick()
     {
         int old_id = id_secondWeapon;
@@ -252,7 +244,6 @@ public class MenuChoiceManager : MonoBehaviour
         {
             isSecondWeaponEnable[old_id] = false;
             isSecondWeaponEnable[id_secondWeapon] = true;
-
         }
         else
         {
@@ -261,11 +252,7 @@ public class MenuChoiceManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("SecondWeapon", id_secondWeapon);
-        /*isSecondWeaponEnable[id_secondWeapon] = false;
-        id_secondWeapon = (id_secondWeapon - 1) % (isSecondWeaponEnable.Length);
-        if (id_secondWeapon < 0)
-            id_secondWeapon = isSecondWeaponEnable.Length - 1;
-        isSecondWeaponEnable[id_secondWeapon] = true;*/
+       
     }
 }
 

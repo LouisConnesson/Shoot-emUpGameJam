@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
     protected int damage;
 
@@ -18,6 +17,5 @@ public class Bullet : MonoBehaviour
     {
         return shootRate;
     }
-    // Update is called once per frame
 
 }

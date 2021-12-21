@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public TMP_Text[] scores;
 
     void Start()
     {
+        //on recupere les scores et on les affiche
         scores[9].text = PlayerPrefs.GetInt("Score1").ToString();
         scores[8].text = PlayerPrefs.GetInt("Score2").ToString();
         scores[7].text = PlayerPrefs.GetInt("Score3").ToString();

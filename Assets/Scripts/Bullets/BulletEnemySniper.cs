@@ -21,8 +21,6 @@ public class BulletEnemySniper : Bullet
     // Update is called once per frame
     void Update()
     {
-       // bulletMovment();
-
         Vector3 screenPos = m_MainCamera.WorldToViewportPoint(transform.position);
         if (screenPos.y < -0.5F || screenPos.y > 1.5F || screenPos.x > 1.5F || screenPos.x < -0.5F)
         {
@@ -33,7 +31,6 @@ public class BulletEnemySniper : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = transform.TransformDirection(new Vector3(this.transform.rotation.z, -speed, 0) * 0.007f);
 
     }
