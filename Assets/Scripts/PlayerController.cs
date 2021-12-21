@@ -222,16 +222,20 @@ public class PlayerController : Entity
             {
                 if (timer2.ElapsedMilliseconds >= 1000 / (shootRate2*Time.timeScale))
                 {
-                    if(second_id ==1 && currentAmmoSD >=3)
+                    if(second_id ==1)
                     {
-                        //Vector3 pos1 = new Vector3(bulletSpawn.position.x - 5, bulletSpawn.position.y, bulletSpawn.position.z);
-                        //Vector3 pos2 = new Vector3(bulletSpawn.position.x + 5, bulletSpawn.position.y, bulletSpawn.position.z);
-                        Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-110f, -90f, 90f));
-                        Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90, -90f, 90f));
-                        Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-70f, -90f, 90f));
-                        //Instantiate(bulletPrefab2, pos2, Quaternion.Euler(-90f, 0f, 0f));
-                        int curr = PlayerPrefs.GetInt("Current2")-3;
-                        PlayerPrefs.SetInt("Current2", curr);
+                        if(currentAmmoSD >= 3)
+                        {
+                            //Vector3 pos1 = new Vector3(bulletSpawn.position.x - 5, bulletSpawn.position.y, bulletSpawn.position.z);
+                            //Vector3 pos2 = new Vector3(bulletSpawn.position.x + 5, bulletSpawn.position.y, bulletSpawn.position.z);
+                            Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-110f, -90f, 90f));
+                            Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90, -90f, 90f));
+                            Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-70f, -90f, 90f));
+                            //Instantiate(bulletPrefab2, pos2, Quaternion.Euler(-90f, 0f, 0f));
+                            int curr = PlayerPrefs.GetInt("Current2") - 3;
+                            PlayerPrefs.SetInt("Current2", curr);
+                        }
+                       
                     }
                     else
                     {

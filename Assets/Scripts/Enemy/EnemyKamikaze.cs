@@ -110,9 +110,9 @@ public class EnemyKamikaze : Entity
 
             if (other.GetComponent<BulletFragment>())
             {
+                print("AHAHAHAHHAHAHAHAHHHHHHHHHHHHH");
                 for (int i = 0; i < 8; i++)
-                    Instantiate(other.gameObject, tmpos, Quaternion.Euler(0, 0, i * 45));
-
+                    Instantiate(other.gameObject, other.transform.position, Quaternion.Euler(i * 45, 90f, 90f));
             }
 
             //Debug.Log("j'appelle levent");
@@ -125,8 +125,11 @@ public class EnemyKamikaze : Entity
         isnotDied = false;
         this.GetComponent<AudioSource>().Play();
         this.GetComponent<MeshRenderer>().enabled = false;
-        //Destroy(spikeball);
-        if (Random.Range(0, 10) <= 2)
+        int currKilled = PlayerPrefs.GetInt("Success7")+1;
+        PlayerPrefs.SetInt("Success7", currKilled);
+
+            //Destroy(spikeball);
+            if (Random.Range(0, 10) <= 2)
         {
             BonusScript m = Instantiate(bonusFire) as BonusScript;
             m.transform.position = transform.position;
