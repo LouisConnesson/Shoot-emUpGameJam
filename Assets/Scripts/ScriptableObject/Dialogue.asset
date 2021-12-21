@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - 'Commandant : Je sens une presence...'
-  - 'Commandant : J''ai comme un mauvais pressentiment UwU'
-  - '??? : De..D..De..DeDeDeDe...Destruction...'
-  - '??? : T''a la ref chakal ?'
+  - '??? : agehjzevfjezfkhzrekher'
+  - "Commandant : Oh bordel (Je devrais d\xE9truire d'abord ses deux petites sondes
+    sur les c\xF4t\xE9s, elles ont l'air de renforcer son bouclier)"
+  - '??? : Uh Oh...'
   portrait:
   - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}
   - {fileID: -2821553815314235725, guid: eba6a42dc02e26e458afe24b92bfbf9f, type: 3}

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DialogueBossGura
   m_EditorClassIdentifier: 
   dialogue:
-  - Konpeko Konpeko Konpeko!
-  - ...
-  - Quoi encore ?!
-  - "Sale weeb d\xE9g\xE9n\xE9r\xE9 ! C'en est fini de toi !!"
+  - 'Commandant : C''est quoi ca, un airpod geant ?'
+  - 'ROBOCO : ...'
+  - 'Commandant : Quoi encore ?'
+  - 'ROBOCO : Never gonna give you up, never gonna let you down ...'
   portrait:
   - {fileID: 8957324059118975939, guid: 2085fba4b0f4b04458e2bed972c6eed9, type: 3}
   - {fileID: -2185472608353246101, guid: 1a36d7c1be37fa14d88961c595424433, type: 3}

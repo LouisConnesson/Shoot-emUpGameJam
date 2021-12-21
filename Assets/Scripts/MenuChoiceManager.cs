@@ -58,7 +58,7 @@ public class MenuChoiceManager : MonoBehaviour
         isMainWeaponAvailable = new bool[2] { true, false };
         isisSecondWeaponAvailable = new bool[5] { true, false, false, false, false };
 
-        weaponsNamePr = new string[2] { "Balles simples", "Balles penetrantes" };
+        weaponsNamePr = new string[2] { "Balles simples (Munitions infinies)", "Balles penetrantes" };
         weaponsNameSd = new string[5] {"", "Multi tir", 
             "Balles a fragmentation",
             "Balles a degats de zone",

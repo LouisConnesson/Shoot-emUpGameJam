@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogue:
   - 'Commandant : C''est quoi ce truc ???'
   - "BossChan : UwU tu vas pas partir d'ici comme \xE7a !"
-  - 'Commandant : Jvais te percuter tu vas rien comprendre.'
+  - 'Commandant : C''est ce qu''on vas voir !'
   - 'BossChan : OwO ...'
   - 'Commandant : Prepare toi !'
   portrait:

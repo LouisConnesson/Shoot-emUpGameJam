@@ -42,5 +42,5 @@ Material:
     - Color_45542b80aebe46c0b895801408a21750: {r: 1782.8876, g: 0, b: 793.1753, a: 1}
     - Color_f8498bce83ba4a1183a08b7a52154527: {r: 0, g: 3.8163762, b: 5.5908804, a: 1}
     - Vector3_6e3de21106c04bfebdfee21812c48c53: {r: 0.1, g: 0.1, b: 0.1, a: 0}
-    - _Frontcolor: {r: 8, g: 382, b: 326, a: 2}
+    - _Frontcolor: {r: 38.2, g: 0.8, b: 3.4, a: 0.2}
   m_BuildTextureStacks: []
