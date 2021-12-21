@@ -14,7 +14,7 @@ public class BulletFragment : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 10 + PlayerPrefs.GetInt("SecondWeaponWeaponLevel02") * 2;
+        damage = 20 + PlayerPrefs.GetInt("SecondWeaponWeaponLevel02") * 2;
         shootRate = 10f;
     }
 
