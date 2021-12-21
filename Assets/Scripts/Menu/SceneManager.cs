@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SceneManager : MonoBehaviour
 {
-
+    public void exitGame()
+    {
+        Application.Quit();
+    }
     public void LaunchScene1()
     {
         PlayerPrefs.SetInt("Level", 0);
