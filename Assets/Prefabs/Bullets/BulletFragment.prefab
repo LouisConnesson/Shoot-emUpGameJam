@@ -19423,3 +19423,4 @@ MonoBehaviour:
   damage: 500
   shootRate: 8
   speed: 3000
+  prefab: {fileID: 6774031187904593868}

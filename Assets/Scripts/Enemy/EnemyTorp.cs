@@ -102,14 +102,13 @@ public class EnemyTorp : Entity
         {
             this.GetComponent<BoxCollider>().enabled = false;
             OnKilledEnemy?.Invoke();
+            StartCoroutine("died");
             if (other.GetComponent<BulletFragment>())
             {
                 print("AHAHAHAHHAHAHAHAHHHHHHHHHHHHH");
                 for (int i = 0; i < 8; i++)
-                    Instantiate(other.gameObject, transform.position, Quaternion.Euler(0,90f,  i * 45));
+                    Instantiate(other.gameObject, other.transform.position, Quaternion.Euler(i * 45, 90f, 90f));
             }
-            StartCoroutine("died");
-
             //Debug.Log("j'appelle levent");
 
         }
@@ -141,6 +140,8 @@ public class EnemyTorp : Entity
             BonusScript m = Instantiate(bonusHeal) as BonusScript;
             m.transform.position = target.position;
         }
+        int currKilled = PlayerPrefs.GetInt("Success8") + 1;
+        PlayerPrefs.SetInt("Success8", currKilled);
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

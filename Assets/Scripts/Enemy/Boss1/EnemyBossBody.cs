@@ -29,6 +29,7 @@ public class EnemyBossBody : Entity
     public Slider lifeBar;
 
     public Stopwatch timer;
+    public Stopwatch timerDeath;
     private Stopwatch timerPatern;
     private bool timerFlag = false;
 
@@ -47,6 +48,9 @@ public class EnemyBossBody : Entity
         timerPatern = new Stopwatch();
         timerPatern.Start();
         lifeBar.value = 1;
+        timerDeath = new Stopwatch();
+
+        timerDeath.Start();
     }
 
     public void Initalize(PlayerController player, MusicManager zicManager, UserInterface userInterface)
@@ -213,6 +217,8 @@ public class EnemyBossBody : Entity
         this.GetComponent<AudioSource>().Play();
         Destroy(body);
         PlayerPrefs.SetInt("BossDead", 1);
+        if(timerDeath.ElapsedMilliseconds <= 20000)
+        PlayerPrefs.SetInt("Success9", 1);
 
         yield return new WaitForSeconds(1f);
         OnInterfaceVictory?.Invoke();

@@ -71,6 +71,13 @@ public class GameManager : MonoBehaviour
             }
             print("c cool ");
             PlayerPrefs.SetInt("BossDead", 0);
+
+            if (starship)
+            {
+                if (starship.GetComponent<PlayerController>().main_id == 0 && starship.GetComponent<PlayerController>().second_id == 0)
+                    PlayerPrefs.SetInt("Lv1WP1",1);
+
+            }
         }
 
 
@@ -84,6 +91,12 @@ public class GameManager : MonoBehaviour
             }
             print("c cool ");
             PlayerPrefs.SetInt("BossDead", 0);
+            if (starship)
+            {
+                if (starship.GetComponent<PlayerController>().main_id == 0 && starship.GetComponent<PlayerController>().second_id == 0)
+                    PlayerPrefs.SetInt("Lv1WP2", 1);
+
+            }
 
         }
 
@@ -98,11 +111,36 @@ public class GameManager : MonoBehaviour
             }
             print("c cool ");
             PlayerPrefs.SetInt("BossDead", 0);
+            if (starship)
+            {
+                if (starship.GetComponent<PlayerController>().main_id == 0 && starship.GetComponent<PlayerController>().second_id == 0)
+                    PlayerPrefs.SetInt("Lv1WP3", 1);
+
+            }
 
         }
+        if (PlayerPrefs.GetInt("Level") == 3 && PlayerPrefs.GetInt("BossDead") == 1)
+        {
+            if (starship)
+            {
+                if (PlayerPrefs.GetInt("Success4") != 1 && starship.GetComponent<PlayerController>().getmcurrentHealth() >0.8f * starship.GetComponent<PlayerController>().getmaxHealth())
+                {
+                    print("GGGG");
+                    PlayerPrefs.SetInt("Success4", 1);
+                }
+                if (starship.GetComponent<PlayerController>().main_id == 0 && starship.GetComponent<PlayerController>().second_id == 0)
+                    PlayerPrefs.SetInt("Lv1WP4", 1);
+            }
+        }
+        if (PlayerPrefs.GetInt("Level") == 4)
+        {
+            if(PlayerPrefs.GetInt("Success5") != 1 && starship.GetComponent<PlayerController>().p_score > 10000) 
+            {
+                PlayerPrefs.SetInt("Success5", 1);
 
-
-        PlayerPrefs.Save();
+            }
+        }
+            PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

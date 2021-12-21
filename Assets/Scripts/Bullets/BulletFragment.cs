@@ -9,8 +9,7 @@ public class BulletFragment : Bullet
     private float speed = 10f;
     private Camera m_MainCamera;
 
-
-
+    public GameObject prefab;
     private void Awake()
     {
         m_MainCamera = Camera.main;
@@ -41,7 +40,11 @@ public class BulletFragment : Bullet
     {
         if (other.gameObject.tag == "enemy")
         {
-            Destroy(gameObject);
+
+            //for (int i = 0; i < 8; i++)
+            // Instantiate(gameObject, transform.position, Quaternion.Euler(i * 45, 90f, 0f));
+            gameObject.SetActive(false);
+            Destroy(gameObject,0.3f);
 
         }
     }

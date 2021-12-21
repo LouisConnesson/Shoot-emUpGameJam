@@ -113,6 +113,17 @@ public class SkillTree : MonoBehaviour
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel04", skillLevels[5]);
         PlayerPrefs.SetInt("Shield", skillLevels[6]);
 
+        bool tmp = true;
+        for (int i = 0; i < 7; i++)
+            if (skillLevels[i] == 0)
+                tmp = false;
+
+        if (!tmp)
+            PlayerPrefs.SetInt("Success6", 0);
+        else
+            PlayerPrefs.SetInt("Success6", 1);
+
+
     }
     public void UpdateAllSkillUI()
     {

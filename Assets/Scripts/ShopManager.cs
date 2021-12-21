@@ -76,10 +76,12 @@ public class ShopManager : MonoBehaviour
             currentReserve[0] += nbAdd[0];
             int pts = PlayerPrefs.GetInt("Points")-cost[0];
             PlayerPrefs.SetInt("Points", pts);
-            PlayerPrefs.SetInt("Current1", currentReserve[0]);
 
             if (currentReserve[0] > maxReserve[0])
                 currentReserve[0] = maxReserve[0];
+
+            PlayerPrefs.SetInt("Current1", currentReserve[0]);
+
         }
     }
     public void BuyWeapon1()
@@ -89,9 +91,11 @@ public class ShopManager : MonoBehaviour
             currentReserve[1] += nbAdd[1];
             int pts = PlayerPrefs.GetInt("Points") - cost[1];
             PlayerPrefs.SetInt("Points", pts);
-            PlayerPrefs.SetInt("Current2", currentReserve[1]);
             if (currentReserve[1] > maxReserve[1])
                 currentReserve[1] = maxReserve[1];
+
+            PlayerPrefs.SetInt("Current2", currentReserve[1]);
+
         }
     }
     public void BuyWeapon2()
@@ -101,9 +105,11 @@ public class ShopManager : MonoBehaviour
             currentReserve[2] += nbAdd[2];
             int pts = PlayerPrefs.GetInt("Points") - cost[2];
             PlayerPrefs.SetInt("Points", pts);
-            PlayerPrefs.SetInt("Current3", currentReserve[2]);
             if (currentReserve[2] > maxReserve[2])
                 currentReserve[2] = maxReserve[2];
+
+            PlayerPrefs.SetInt("Current3", currentReserve[2]);
+
         }
     }
     public void BuyWeapon3()
@@ -113,9 +119,11 @@ public class ShopManager : MonoBehaviour
             currentReserve[3] += nbAdd[3];
             int pts = PlayerPrefs.GetInt("Points") - cost[3];
             PlayerPrefs.SetInt("Points", pts);
-            PlayerPrefs.SetInt("Current4", currentReserve[3]);
             if (currentReserve[3] > maxReserve[3])
                 currentReserve[3] = maxReserve[3];
+
+            PlayerPrefs.SetInt("Current4", currentReserve[3]);
+
         }
     }
     public void BuyWeapon4()
@@ -125,10 +133,12 @@ public class ShopManager : MonoBehaviour
             currentReserve[4] += nbAdd[4];
             int pts = PlayerPrefs.GetInt("Points") - cost[4];
             PlayerPrefs.SetInt("Points", pts);
-            PlayerPrefs.SetInt("Current5", currentReserve[4]);
 
             if (currentReserve[4] > maxReserve[4])
                 currentReserve[4] = maxReserve[4];
+
+            PlayerPrefs.SetInt("Current5", currentReserve[4]);
+
         }
     }
     

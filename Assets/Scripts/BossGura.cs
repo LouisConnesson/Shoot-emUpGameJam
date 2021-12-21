@@ -10,20 +10,16 @@ public class BossGura : Entity
     static Camera m_mainCamera;
     public Transform target;
 
+    //prefab du jouer et des balles
+    private GameObject m_player;
     public GameObject bulletPrefab;
     public GameObject bulletPrefab2;
     public GameObject bulletPrefab3;
 
     private Color couleur;
-   // public GameObject body;
 
-   // public Slider lifeBar;
-    public delegate void KilledEnemy();
-    public event KilledEnemy OnKilledEnemy;
 
-    private bool isnotDied = true;
-    private float angle = 0f;
-
+    //parametres des patterns 
     public Stopwatch timer;
     public Stopwatch timerPattern;
     public Stopwatch timerFlag;
@@ -31,17 +27,27 @@ public class BossGura : Entity
     private float shootRate = 300;
     private float[] shootRates;
     private int flagPattern;
+    private bool isnotDied = true;
 
+
+
+    //dialogue et infos bosse
+    [SerializeField]
+    private bool flagDialogue = true;
+    private Image imageFont;
+    private Dialogue dialogueGura;
     public Slider lifeBar;
 
-    [SerializeField]
-    private bool patternFlag = false;
+    //evenements
+    public delegate void KilledEnemy();
+    public event KilledEnemy OnKilledEnemy;
 
-    private bool[] firstmove;
-    [SerializeField]
-    private bool finishMove =false;
-    //pattern general
-    //public GameObject[] spawners;
+    public delegate void InterfaceVictory();
+    public event InterfaceVictory OnInterfaceVictory;
+
+    public delegate void BossMusic();
+    public event BossMusic OnBossMusic;
+
     //pattern1
     private int pattern01Step;
     private int pattern01StartAngle;
@@ -59,35 +65,11 @@ public class BossGura : Entity
     private float pattern03Angled;
 
     //patern04
-    private int isPattern04Active;
-    private GameObject m_player;
-
-    //patern05
     private float pattern05Angle;
     private float pattern05AngleNumber;
     private bool pattern05Dir = false;
 
-    private bool pattern06flag = false;
 
-    private IEnumerator coroutine;
-    private Image imageFont;
-    private Dialogue dialogueGura;
-
-    public delegate void InterfaceVictory();
-    public event InterfaceVictory OnInterfaceVictory;
-
-    [SerializeField]
-    private bool flagDialogue = true;
-    [SerializeField]
-    private int flag0tmp;
-
-    public delegate void BossMusic();
-    public event BossMusic OnBossMusic;
-
-    private void Awake()
-    {
-        //lifeBar.value = 1;
-    }
     public void Initalize(PlayerController player, Dialogue dialogue, Image imgFont, MusicManager zicManager, UserInterface userInterface)
     {
         OnKilledEnemy += player.OnBulletHit;
@@ -110,17 +92,22 @@ public class BossGura : Entity
     // Start is called before the first frame update
     private void Start()
     {
-        //InvokeRepeating("FirePattern01", 0f, 10f);
+        //Initialisation des timers
         timer = new Stopwatch();
         timer.Start();
+
         timerPattern = new Stopwatch();
-        timerFlag = new Stopwatch();
-        timerFlag.Start();
         timerPattern.Start();
 
+        timerFlag = new Stopwatch();
+        timerFlag.Start();
+
+        lifeBar.value = 1;
+
+        //parametres des patterns
         shootRates = new float[] { 300, 10, 10, 15 };
         flagPattern = 0;
-        firstmove = new bool[] { false, false, false, false };
+
         //patern01
         pattern01Step = Random.Range(3, 5);
         pattern01StartAngle = Random.Range(0, 360);
@@ -138,14 +125,9 @@ public class BossGura : Entity
         pattern03Anglec = 180f;
         pattern03Angled = 270f;
 
+        //pattern4
         pattern05Angle = 0f;
-        isPattern04Active = 0;
-
         pattern05AngleNumber = 4;
-
-        //coroutine = CiblePlayer(3.0f);
-        //InvokeRepeating("MoveSpawners", 20f, 0.2f);
-        lifeBar.value = 1;
     }
 
     // Update is called once per frame
@@ -181,7 +163,7 @@ public class BossGura : Entity
             {
                 Destroy(gameObject);
             }
-
+            //choix des patterns
             if(timerFlag.ElapsedMilliseconds >= 4000)
             {
                 flagPattern = Random.Range(0,100);
@@ -199,10 +181,11 @@ public class BossGura : Entity
                 timerFlag.Restart();
                 print(flagPattern);
             }
+            //execution des patterns
             if (timer.ElapsedMilliseconds >= 1000 / shootRate)
             {
 
-                //cercle
+                // pattern1 cercle
                 if(flagPattern == 0)
                 {
 
@@ -214,9 +197,7 @@ public class BossGura : Entity
                         for (int i = 0; i < pattern01Step; i++)
                             pattern01Angles[i] = (pattern01StartAngle + (360 / pattern01Step * i)) % 360;
 
-
-
-                        //print("else");
+                        //pattern en cercle
                         for (int i = 0; i < pattern01Step; i++)
                         {
                             float posX = transform.position.x + Mathf.Sin((pattern01Angles[i] * Mathf.PI) / 180);
@@ -233,7 +214,7 @@ public class BossGura : Entity
                 }
                
 
-                //pattern03 quadrpule spinner  shootRate = 200
+                //pattern2 quadrpule spinner
                 if (flagPattern == 1)
                 {
                     GameObject[] bullets = new GameObject[12];
@@ -267,26 +248,8 @@ public class BossGura : Entity
                     pattern03Angled += 4 % 360;
 
                 }
-                //pattern04
-                /*if (currentHealth <800)
-                {
-                    isPattern04Active = 1;
-                    timerPattern.Restart();
-  
-
-                    for (int i = 0; i < 4; i++)
-                    { 
-                        Vector3 dir = m_player.transform.position - spawners[i].transform.position;
-                        float mangle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                        Instantiate(bulletPrefab, spawners[i].transform.position, Quaternion.Euler(0f, 0f, 90+mangle));
-
-                    }
-
-                    // for (int i=0;i<4;i
-
-
-                }*/
-                //pattern05 quadruple sinusoides shootrate 200
+               
+                //pattern3 quadruple sinusoides shootrate 200
                 if (flagPattern == 2)
                 {
 
@@ -334,7 +297,7 @@ public class BossGura : Entity
 
 
                 }
-                //pattern02 rosace shootRate = 15;
+                //pattern4 rosace shootRate = 15;
                 if (flagPattern == 3)
                 {
 
@@ -385,117 +348,24 @@ public class BossGura : Entity
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
        
-
-       
-
-       
-
-        /*if (isPattern04Active == 0 && finishMove)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                //spawners[i].transform.position = transform.position + (spawners[i].transform.position - transform.position).normalized * 4;
-                spawners[i].transform.RotateAround(transform.position, new Vector3(0, 0, 1), Time.deltaTime * 20);
             }
-        }
-        if (isPattern04Active == 1)
-        {
-            int x = 0, y = 5, z = -5;
-            int ecart = 10;
-            Vector3 pos1 = new Vector3(x + ecart, y, z);
-            Vector3 pos2 = new Vector3(x - ecart, y, z);
-            Vector3 pos3 = new Vector3(x, y + ecart, z);
-            Vector3 pos4 = new Vector3(x, y - ecart, z);
-
-            spawners[0].transform.position = Vector3.MoveTowards(spawners[0].transform.position, pos1, Time.deltaTime * 10);
-            spawners[1].transform.position = Vector3.MoveTowards(spawners[1].transform.position, pos2, Time.deltaTime * 10);
-            spawners[2].transform.position = Vector3.MoveTowards(spawners[2].transform.position, pos3, Time.deltaTime * 10);
-            spawners[3].transform.position = Vector3.MoveTowards(spawners[3].transform.position, pos4, Time.deltaTime * 10);
-        }*/
-
-    }
-    /*void MoveSpawners()
-    {
-        print("jsuis dans la boucle");
-        Vector3 pos1a = new Vector3(transform.position.x - 5, transform.position.y, -5);
-        Vector3 pos2a = new Vector3(transform.position.x + 5, transform.position.y, -5);
-        Vector3 pos3a = new Vector3(transform.position.x, transform.position.y - 5, -5);
-        Vector3 pos4a = new Vector3(transform.position.x, transform.position.y + 5, -5);
-
- 
-            if (Vector3.Distance(pos1a, spawners[0].transform.position) > 0.2f)
-            {
-                spawners[0].transform.position = Vector3.MoveTowards(spawners[0].transform.position, pos1a, Time.deltaTime * 10);
-            }
-            else
-                firstmove[0] = true;
-
-            if (Vector3.Distance(pos2a, spawners[1].transform.position) > 0.2f)
-            {
-                spawners[1].transform.position = Vector3.MoveTowards(spawners[1].transform.position, pos2a, Time.deltaTime * 10);
-
-            }
-            else
-                firstmove[1] = true;
-
-
-            if (Vector3.Distance(pos3a, spawners[2].transform.position) > 0.2f)
-            {
-                spawners[2].transform.position = Vector3.MoveTowards(spawners[2].transform.position, pos3a, Time.deltaTime * 10);
-
-            }
-            else
-                firstmove[2] = true;
-            if (Vector3.Distance(pos4a, spawners[3].transform.position) > 0.2f)
-            {
-                spawners[3].transform.position = Vector3.MoveTowards(spawners[3].transform.position, pos4a, Time.deltaTime * 10);
-
-            }
-            else
-                firstmove[3] = true;
-
-            finishMove = true;
-            for (int i = 0; i < 4; i++)
-                if (firstmove[i] == false)
-                    finishMove = false;
-
-
-    }
-    private IEnumerator CiblePlayer(float waitTime)
-    {
-        print("routçe");
-        Vector3 playerPos = m_player.transform.position;
-        
-        while(spawners[0].transform.position != playerPos)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                spawners[i].transform.position = Vector3.MoveTowards(spawners[i].transform.position, playerPos, Time.deltaTime * 40);
-
-            }
-        }
-       
-        yield return new WaitForSeconds(waitTime);
-
-    }*/
+   
     private void OnTriggerEnter(Collider other)
     {
+        //touche par balle
         if (other.gameObject.tag == "Bullet")
         {
            if (isnotDied)
                StartCoroutine("Hurt");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
-            //Debug.Log("bullet");
 
         }
-
+        //mort
         if (currentHealth <= 0)
         {
             OnBossMusic?.Invoke();
             OnKilledEnemy?.Invoke();
             StartCoroutine("died");
-            //Debug.Log("j'appelle levent");
-
         }
 
     }

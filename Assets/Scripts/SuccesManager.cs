@@ -17,7 +17,7 @@ public class SuccesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         
+
 
         isOk = new bool[10];
 
@@ -56,10 +56,10 @@ public class SuccesManager : MonoBehaviour
         else
             PlayerPrefs.SetInt("Success6", 0);
 
-        if (PlayerPrefs.GetInt("Success7") == 100)
+        if (PlayerPrefs.GetInt("Success7") >= 100)
             isOk[6] = true;
 
-        if (PlayerPrefs.GetInt("Success8") == 100)
+        if (PlayerPrefs.GetInt("Success8") >= 100)
             isOk[7] = true;
 
         if (PlayerPrefs.GetInt("Success9") == 1)
@@ -67,13 +67,14 @@ public class SuccesManager : MonoBehaviour
         else
             PlayerPrefs.SetInt("Success9", 0);
 
+        if(PlayerPrefs.GetInt("Lv1WP1") == 1 && PlayerPrefs.GetInt("Lv1WP2") == 1 && PlayerPrefs.GetInt("Lv1WP3") == 1 && PlayerPrefs.GetInt("Lv1WP4") == 1)
+            PlayerPrefs.SetInt("Success10", 1);
+
 
         if (PlayerPrefs.GetInt("Success10") == 1)
             isOk[9] = true;
         else
             PlayerPrefs.SetInt("Success10", 0);
-
-
 
         names = new string[10]{
             "Reussir le monde 1 sans se faire toucher",
@@ -82,23 +83,24 @@ public class SuccesManager : MonoBehaviour
             "Reussir le monde 4 avec plus de 80% de sa vie",
             "Atteindre un score de 10 000 en survie",
             "Debloquer toutes les armes",
-            "Tuer 100 kamikazes",
-            "Tuer 100 mobs a torpilles",
+            $"Tuer 100 kamikazes {PlayerPrefs.GetInt("Success7")}/100",
+            $"Tuer 100 mobs a torpilles {PlayerPrefs.GetInt("Success8")}/100",
             "Vaincre le 1e boss en moins de 20sec",
             "Reussir tous les niveaux avec seulement l'arme de base"
 
         };
-
     }
-
     // Update is called once per frame
     void Update()
     {
-        for(int i =0;i<10;i++)
+        names[6] = $"Tuer 100 kamikazes {PlayerPrefs.GetInt("Success7")}/100";
+        names[7] = $"Tuer 100 mobs a torpilles {PlayerPrefs.GetInt("Success8")}/100";
+        
+
+        for (int i =0;i<10;i++)
         {
             if (isOk[i])
             {
-                print("ok");
                 images[i].GetComponent<Image>().sprite = green;
             }
             else
