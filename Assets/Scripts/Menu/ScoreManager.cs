@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        /*PlayerPrefs.SetInt("Score1", 0);
+       /* PlayerPrefs.SetInt("Score1", 0);
         PlayerPrefs.SetInt("Score2", 0);
         PlayerPrefs.SetInt("Score3", 0);
         PlayerPrefs.SetInt("Score4", 0);
