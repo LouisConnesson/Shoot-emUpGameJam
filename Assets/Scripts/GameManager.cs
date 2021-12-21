@@ -134,7 +134,8 @@ public class GameManager : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("Level") == 4)
         {
-            if(PlayerPrefs.GetInt("Success5") != 1 && starship.GetComponent<PlayerController>().p_score > 10000) 
+            
+            if (PlayerPrefs.GetInt("Success5") != 1 && PlayerPrefs.GetInt("ScoreTMP") > 10000) 
             {
                 PlayerPrefs.SetInt("Success5", 1);
 
