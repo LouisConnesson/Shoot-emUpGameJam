@@ -24,9 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SceneSurvivalMode.unity
     guid: 92c386a4208f6c74db9fca9a5adca9ca
   - enabled: 1
-    path: Assets/Scenes/SceneTheo 1.unity
+    path: Assets/Scenes/ScenePerso/SceneTheo 1.unity
     guid: eb495f8149bff114ca96c819a5b3717b
   - enabled: 1
-    path: Assets/Scenes/SceneLouis.unity
+    path: Assets/Scenes/ScenePerso/SceneLouis.unity
     guid: 68d4df18d7a6ee5488b7be6734415ea2
   m_configObjects: {}
