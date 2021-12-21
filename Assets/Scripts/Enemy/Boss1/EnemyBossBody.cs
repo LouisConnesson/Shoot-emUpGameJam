@@ -212,6 +212,8 @@ public class EnemyBossBody : Entity
         isnotDied = false;
         this.GetComponent<AudioSource>().Play();
         Destroy(body);
+        PlayerPrefs.SetInt("BossDead", 1);
+
         yield return new WaitForSeconds(1f);
         OnInterfaceVictory?.Invoke();
         Destroy(gameObject);

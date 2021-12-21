@@ -218,11 +218,11 @@ public class PlayerController : Entity
                 }
             }
 
-            if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale!=0 && currentAmmoSD >= 3)
+            if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale!=0 && currentAmmoSD > 0)
             {
                 if (timer2.ElapsedMilliseconds >= 1000 / (shootRate2*Time.timeScale))
                 {
-                    if(second_id ==1)
+                    if(second_id ==1 && currentAmmoSD >=3)
                     {
                         //Vector3 pos1 = new Vector3(bulletSpawn.position.x - 5, bulletSpawn.position.y, bulletSpawn.position.z);
                         //Vector3 pos2 = new Vector3(bulletSpawn.position.x + 5, bulletSpawn.position.y, bulletSpawn.position.z);
@@ -261,7 +261,7 @@ public class PlayerController : Entity
             }
             if (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale !=0 )
             {
-                if (timer3.ElapsedMilliseconds >= cdShield)
+                if (timer3.ElapsedMilliseconds >= 0)
                 {
                     //Instantiate(shield, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f));
                     timer3.Restart();
@@ -325,6 +325,24 @@ public class PlayerController : Entity
                 shootRate = shootRateSave;
                 p_power = 0;
             }
+            if (isShielEnable == false)
+            {
+                if (PlayerPrefs.GetInt("Level") == 0)
+                    if (PlayerPrefs.GetInt("Success1") != 1)
+                        PlayerPrefs.SetInt("Success1", -1);
+
+                if (PlayerPrefs.GetInt("Level") == 1)
+                    if (PlayerPrefs.GetInt("Success2") != 1)
+                        PlayerPrefs.SetInt("Success2", -1);
+
+                if (PlayerPrefs.GetInt("Level") == 2)
+                    if (PlayerPrefs.GetInt("Success3") != 1)
+                        PlayerPrefs.SetInt("Success3", -1);
+
+                print("TOUCHE");
+            }
+
+
         }
         if (other.gameObject.tag == "bulletEnemy")
         {
@@ -335,6 +353,23 @@ public class PlayerController : Entity
                 shootRate = shootRateSave;
                 p_power = 0;
             }
+            if (isShielEnable == false)
+            {
+                if (PlayerPrefs.GetInt("Level") == 0)
+                    if (PlayerPrefs.GetInt("Success1") != 1)
+                        PlayerPrefs.SetInt("Success1", -1);
+                if (PlayerPrefs.GetInt("Level") == 1)
+                    if (PlayerPrefs.GetInt("Success2") != 1)
+                        PlayerPrefs.SetInt("Success2", -1);
+
+                if (PlayerPrefs.GetInt("Level") == 2)
+                    if (PlayerPrefs.GetInt("Success3") != 1)
+                        PlayerPrefs.SetInt("Success3", -1);
+
+                print("TOUCHE");
+            }
+                
+
         }
         if (other.gameObject.tag == "Bonus")
         {
@@ -365,7 +400,11 @@ public class PlayerController : Entity
             p_score += 1;
         }
         if (currentHealth <= 0)
+        {
+            PlayerPrefs.SetInt("ScoreTMP", p_score);
             Destroy(gameObject);
+
+        }
     }
     private void addDamage(int dmg)
     {

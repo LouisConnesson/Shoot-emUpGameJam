@@ -45,6 +45,8 @@ public class EnemiesManager : MonoBehaviour
         timer.Start();
 
         level =  PlayerPrefs.GetInt("Level");
+        PlayerPrefs.SetInt("BossDead", 0);
+
 
     }
     // Start is called before the first frame update

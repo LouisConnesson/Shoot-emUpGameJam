@@ -17,18 +17,64 @@ public class SuccesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("Success1",0);
-        PlayerPrefs.SetInt("Success2",0);
-        PlayerPrefs.SetInt("Success3",0);
-        PlayerPrefs.SetInt("Success4",0);
-        PlayerPrefs.SetInt("Success5",0);
-        PlayerPrefs.SetInt("Success6", 0);
-        PlayerPrefs.SetInt("Success7", 0);
-        PlayerPrefs.SetInt("Success8", 0);
-        PlayerPrefs.SetInt("Success9", 0);
+         
+
+        isOk = new bool[10];
+
+        if (PlayerPrefs.GetInt("Success1") == 1)
+            isOk[0] = true;
+        else
+            PlayerPrefs.SetInt("Success1", 0);
 
 
-        isOk = new bool[10] { false, false, false, false, false, false, false,false,false,false };
+        if (PlayerPrefs.GetInt("Success2") == 1)
+            isOk[1] = true;
+        else
+            PlayerPrefs.SetInt("Success2", 0);
+
+
+        if (PlayerPrefs.GetInt("Success3") == 1)
+            isOk[2] = true;
+        else
+            PlayerPrefs.SetInt("Success3", 0);
+
+
+        if (PlayerPrefs.GetInt("Success4") == 1)
+            isOk[3] = true;
+        else
+            PlayerPrefs.SetInt("Success4", 0);
+
+
+        if (PlayerPrefs.GetInt("Success5") == 1)
+            isOk[4] = true;
+        else
+            PlayerPrefs.SetInt("Success5", 0);
+
+
+        if (PlayerPrefs.GetInt("Success6") == 1)
+            isOk[5] = true;
+        else
+            PlayerPrefs.SetInt("Success6", 0);
+
+        if (PlayerPrefs.GetInt("Success7") == 100)
+            isOk[6] = true;
+
+        if (PlayerPrefs.GetInt("Success8") == 100)
+            isOk[7] = true;
+
+        if (PlayerPrefs.GetInt("Success9") == 1)
+            isOk[8] = true;
+        else
+            PlayerPrefs.SetInt("Success9", 0);
+
+
+        if (PlayerPrefs.GetInt("Success10") == 1)
+            isOk[9] = true;
+        else
+            PlayerPrefs.SetInt("Success10", 0);
+
+
+
         names = new string[10]{
             "Reussir le monde 1 sans se faire toucher",
             "Reussir le monde 2 sans se faire toucher",
