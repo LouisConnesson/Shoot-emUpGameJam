@@ -19,6 +19,12 @@ public class CDShield : MonoBehaviour
     {
         if (m_player)
         {
+            if(PlayerPrefs.GetInt("Shield") ==0 )
+                gameObject.SetActive(false);
+            
+            else
+                gameObject.SetActive(true);
+
             if (m_player.GetComponent<PlayerController>().timer3.ElapsedMilliseconds <= m_player.GetComponent<PlayerController>().cdShield)
             {
                 Color color = new Color(191f, 4f, 17f);

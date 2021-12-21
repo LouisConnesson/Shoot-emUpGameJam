@@ -27,13 +27,13 @@ public class SkillTree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*PlayerPrefs.SetInt("MainWeaponWeaponLevel01", 0);
+        PlayerPrefs.SetInt("MainWeaponWeaponLevel01", 0);
         PlayerPrefs.SetInt("MainWeaponWeaponLevel02", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel01", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel02", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel03", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel04", 0);
-        PlayerPrefs.SetInt("Shield", 0);*/
+        PlayerPrefs.SetInt("Shield", 0);
 
         //niveau des skills
         skillLevels = new int[7];
