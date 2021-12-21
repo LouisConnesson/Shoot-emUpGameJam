@@ -18,9 +18,8 @@ public class SuccesManager : MonoBehaviour
     void Start()
     {
 
-
+        //liste des succes partages entre menu et scenes
         isOk = new bool[10];
-
         if (PlayerPrefs.GetInt("Success1") == 1)
             isOk[0] = true;
         else
@@ -56,20 +55,23 @@ public class SuccesManager : MonoBehaviour
         else
             PlayerPrefs.SetInt("Success6", 0);
 
+
         if (PlayerPrefs.GetInt("Success7") >= 100)
             isOk[6] = true;
 
+
         if (PlayerPrefs.GetInt("Success8") >= 100)
             isOk[7] = true;
+
 
         if (PlayerPrefs.GetInt("Success9") == 1)
             isOk[8] = true;
         else
             PlayerPrefs.SetInt("Success9", 0);
 
+
         if(PlayerPrefs.GetInt("Lv1WP1") == 1 && PlayerPrefs.GetInt("Lv1WP2") == 1 && PlayerPrefs.GetInt("Lv1WP3") == 1 && PlayerPrefs.GetInt("Lv1WP4") == 1)
             PlayerPrefs.SetInt("Success10", 1);
-
 
         if (PlayerPrefs.GetInt("Success10") == 1)
             isOk[9] = true;
@@ -90,7 +92,7 @@ public class SuccesManager : MonoBehaviour
 
         };
     }
-    // Update is called once per frame
+    // mis a jour des succes
     void Update()
     {
         names[6] = $"Tuer 100 kamikazes {PlayerPrefs.GetInt("Success7")}/100";

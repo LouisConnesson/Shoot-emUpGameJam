@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 public class PlayerController : Entity
 {
+    //parametres
     public GameObject upReactor;
     public GameObject downReactor;
     public CharacterController cc;
@@ -17,8 +18,9 @@ public class PlayerController : Entity
     private float X;
     private float Y;
     private Vector3 moveDir;
+    public int p_score;
 
-    //bullet
+    //armes
     [SerializeField]
     private float shootRate =0;
     [SerializeField]
@@ -26,11 +28,27 @@ public class PlayerController : Entity
     [SerializeField]
     private GameObject bulletPrefab;
     private float shootRateSave = 0;
-
     [SerializeField]
     private GameObject bulletPrefab2;
     private int p_power = 0;
+    public GameObject muzzle;
 
+    public GameObject shield;
+    private bool isShielEnable = false;
+    private bool isShielActivated = false;
+    public float shieldTime = 0f;
+
+    public int main_id;
+    [SerializeField]
+    public int second_id;
+    private Animator anim;
+
+    private int currentAmmoPR = 0;
+    private int currentAmmoSD = 0;
+
+    public int cdShield;
+    private int currMenuPoints;
+    //timers
     public Stopwatch timer;
     public Stopwatch timer2;
     public Stopwatch timer3;
@@ -39,27 +57,6 @@ public class PlayerController : Entity
     private bool flameFlag = false;
     public Transform bulletSpawn;
 
-    public int p_score;
-
-    public GameObject muzzle;
-    private float radius = 1f;
-
-    public GameObject shield;
-    private bool isShielEnable = false;
-    private bool isShielActivated = false;
-    public float shieldTime = 0f;
-    private int numberproj = 5;
-
-    public int main_id;
-    [SerializeField]
-    public int second_id;
-    private Animator anim;
-
-    private int currentAmmoPR=0;
-    private int currentAmmoSD=0;
-
-    public int cdShield;
-    private int currMenuPoints;
 
 
     private bool cheatShield = false;
@@ -84,29 +81,27 @@ public class PlayerController : Entity
 
         maxHealth = 500;
         currentHealth = maxHealth;
+
         //selection des armes
         main_id = PlayerPrefs.GetInt("MainWeapon");
         second_id = PlayerPrefs.GetInt("SecondWeapon");
         bulletPrefab = FindObjectOfType<GameManager>().mainWeapon[main_id];
-
-        
         bulletPrefab2 = FindObjectOfType<GameManager>().secondWeapons[second_id];
-
         shootRate = bulletPrefab.GetComponent<Bullet>().GetBulletRate();
-
         shootRateSave = shootRate;
         if(second_id !=0 )
             shootRate2 = bulletPrefab2.GetComponent<Bullet>().GetBulletRate();
         else
             shootRate2 =0;
 
-        m_MainCamera = FindObjectOfType<Camera>();
-        shieldTime = (0.5f + PlayerPrefs.GetInt("Shield") * 0.25f)*1000;
+        shieldTime = (0.5f + PlayerPrefs.GetInt("Shield") * 0.25f) * 1000;
         currMenuPoints = PlayerPrefs.GetInt("Points");
+
+        m_MainCamera = FindObjectOfType<Camera>();
+
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         PlayerPrefs.SetInt("Points", currMenuPoints + p_score);
@@ -138,49 +133,29 @@ public class PlayerController : Entity
         //On vérifie si le joueur quitte le champ d'action de la caméra et on l'en empêche
         if (screenPos.y > 1F)
         {
-            //this.transform.position += new Vector3(0f, -0.002f * moveSpeed, 0f);
             Y = -1;
         }
         else if (screenPos.y < 0F)
         {
-            //this.transform.position += new Vector3(0f, 0.002f * moveSpeed, 0f);
             Y = 1;
         }
         if (screenPos.x > 1F)
         {
-            //this.transform.position += new Vector3(0.002f * moveSpeed, 0f, 0f);
             X = 1;
         }
         else if (screenPos.x < 0F)
         {
-            //this.transform.position += new Vector3(-0.002f * moveSpeed, 0f, 0f);
             X = -1;
         }
-            // On remplie moveDir avant d'effectuer le mouvement
-            moveDir = new Vector3(X, Y, moveDir.z);
-            cc.Move(moveDir * Time.deltaTime);
+        // On remplie moveDir avant d'effectuer le mouvement
+        moveDir = new Vector3(X, Y, moveDir.z);
+        cc.Move(moveDir * Time.deltaTime);
         
 
         //instancier les tirs
         if (Time.timeScale != 0) //si le temps n'est pas en pause
         {
-            /*
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                this.transform.position += new Vector3(0f,0.002f*moveSpeed,0f);
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                this.transform.position += new Vector3(0.002f * moveSpeed, 0f, 0f);
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                this.transform.position += new Vector3(0f, -0.002f * moveSpeed, 0f);
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                this.transform.position += new Vector3(-0.002f * moveSpeed, 0f, 0f);
-            }*/
+           
             if (main_id == 0)
                 currentAmmoPR = 1;
             if (main_id == 1)
@@ -195,12 +170,13 @@ public class PlayerController : Entity
             if (second_id == 4)
                 currentAmmoSD = PlayerPrefs.GetInt("Current5");
 
+            //bouclier demo
             cheatShield = false;
             if (Input.GetKey(KeyCode.M))
                 cheatShield = true;
 
+            //tir arme principale
             if (Input.GetKey(KeyCode.Space) && Time.timeScale !=0 && currentAmmoPR > 0)
-
             {
                 if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
                 {
@@ -210,9 +186,9 @@ public class PlayerController : Entity
                     {
                         bullet.GetComponent<BulletDrone>().GetPlayer(this.gameObject);
                     }
-                    //Instantiate(bulletPrefab, bulletpos, Quaternion.Euler(-90f, 0f, 0f));
                     timer.Restart();
                     Destroy(Instantiate(muzzle, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f)),0.2f);
+                    //munitions
                     if (main_id == 1)
                     {
                         int curr = PlayerPrefs.GetInt("Current1") - 1;
@@ -222,25 +198,22 @@ public class PlayerController : Entity
 
                 }
             }
-
+            //tir arme secondaire
             if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale!=0 && currentAmmoSD > 0)
             {
                 if (timer2.ElapsedMilliseconds >= 1000 / (shootRate2*Time.timeScale))
                 {
-                    if(second_id ==1)
+                    //munitions
+                    if (second_id ==1)
                     {
                         if(currentAmmoSD >= 3)
                         {
-                            //Vector3 pos1 = new Vector3(bulletSpawn.position.x - 5, bulletSpawn.position.y, bulletSpawn.position.z);
-                            //Vector3 pos2 = new Vector3(bulletSpawn.position.x + 5, bulletSpawn.position.y, bulletSpawn.position.z);
                             Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-110f, -90f, 90f));
                             Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-90, -90f, 90f));
                             Instantiate(bulletPrefab2, bulletSpawn.position, Quaternion.Euler(-70f, -90f, 90f));
-                            //Instantiate(bulletPrefab2, pos2, Quaternion.Euler(-90f, 0f, 0f));
                             int curr = PlayerPrefs.GetInt("Current2") - 3;
                             PlayerPrefs.SetInt("Current2", curr);
                         }
-                       
                     }
                     else
                     {
@@ -264,10 +237,9 @@ public class PlayerController : Entity
 
                     }
                     timer2.Restart();
-
-
                 }
             }
+            //bouclier
             if ( (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale !=0) || Input.GetKey(KeyCode.M))
             {
                 int tmptime = 0;
@@ -278,12 +250,12 @@ public class PlayerController : Entity
 
                 if (timer3.ElapsedMilliseconds >= tmptime)
                 {
-                    //Instantiate(shield, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f));
                     timer3.Restart();
                     timer4.Restart();
                     isShielActivated = true;
                 }
             }
+            //hitbox
             if (Input.GetKey(KeyCode.Z))
             {
                 hitBox.GetComponent<MeshRenderer>().enabled = true;
@@ -291,6 +263,7 @@ public class PlayerController : Entity
             else
                 hitBox.GetComponent<MeshRenderer>().enabled = false;
 
+            //gestion du bouclier
             if(timer4.ElapsedMilliseconds >= shieldTime)
             {
                 shield.SetActive(false);
@@ -324,6 +297,7 @@ public class PlayerController : Entity
 
     private void OnTriggerEnter(Collider other)
     {
+        //impact ennemy
         if (other.gameObject.tag == "enemy" )
         {
             this.GetComponent<AudioSource>().Play();
@@ -340,6 +314,7 @@ public class PlayerController : Entity
                 shootRate = shootRateSave;
                 p_power = 0;
             }
+            //succes no hit
             if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
             {
                 if (PlayerPrefs.GetInt("Level") == 0)
@@ -354,11 +329,11 @@ public class PlayerController : Entity
                     if (PlayerPrefs.GetInt("Success3") != 1)
                         PlayerPrefs.SetInt("Success3", -1);
 
-                print("TOUCHE");
             }
 
 
         }
+        //impact balle ennemie
         if (other.gameObject.tag == "bulletEnemy")
         {
             this.GetComponent<AudioSource>().Play();
@@ -368,6 +343,7 @@ public class PlayerController : Entity
                 shootRate = shootRateSave;
                 p_power = 0;
             }
+            //succes no hit
             if (isShielEnable == false && PlayerPrefs.GetInt("BossDead") == 0)
             {
                 if (PlayerPrefs.GetInt("Level") == 0)
@@ -381,11 +357,9 @@ public class PlayerController : Entity
                     if (PlayerPrefs.GetInt("Success3") != 1)
                         PlayerPrefs.SetInt("Success3", -1);
 
-                print("TOUCHE");
             }
-                
-
         }
+        //bonus
         if (other.gameObject.tag == "Bonus")
         {
             p_score += 2;
@@ -423,7 +397,6 @@ public class PlayerController : Entity
     }
     private void addDamage(int dmg)
     {
-        print("bb");
         currentHealth -= dmg;
     }
     public void OnBulletHit()

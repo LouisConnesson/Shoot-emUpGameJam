@@ -15,7 +15,7 @@ public class BulletAOE2 : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 50 + +PlayerPrefs.GetInt("SecondWeaponWeaponLevel04") *2;
+        damage = 50 + +PlayerPrefs.GetInt("SecondWeaponWeaponLevel04") *2; //recuperation du niveau de l'arme pour augmenter les degats
         shootRate = 2f;
     }
 
@@ -34,7 +34,6 @@ public class BulletAOE2 : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, speed) * 0.007f);
 
     }
@@ -47,6 +46,7 @@ public class BulletAOE2 : Bullet
         }
         else
         {
+            //si une b alle la touche, enormes degats et on augmente la taille
             if(other.GetComponent<Bullet>() && onHit == false)
             {
                 damage = 250;
@@ -61,7 +61,6 @@ public class BulletAOE2 : Bullet
     }
     IEnumerator died() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
     {
-        //this.GetComponent<MeshRenderer>().enabled = false;
         GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);

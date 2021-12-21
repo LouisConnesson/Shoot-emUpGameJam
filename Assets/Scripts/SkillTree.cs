@@ -27,7 +27,7 @@ public class SkillTree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs.SetInt("Points", 300);
+        //niveau des skills
         skillLevels = new int[7];
         skillLevels[0] = PlayerPrefs.GetInt("MainWeaponWeaponLevel01");
         skillLevels[1] = PlayerPrefs.GetInt("MainWeaponWeaponLevel02");
@@ -38,9 +38,9 @@ public class SkillTree : MonoBehaviour
         skillLevels[6] = PlayerPrefs.GetInt("Shield");
 
 
-        skillCaps = new[] {4,5,5,2,10,10,4 };
-        skillCost = new[] {1,3,5,10,15,20,30};
-        skillNames = new[]
+        skillCaps = new[] {4,5,5,2,10,10,4 }; //max de niveau pour les skills
+        skillCost = new[] {1,3,5,10,15,20,30}; //cout
+        skillNames = new[] //noms
         {
             "Balles simples",
             "Balles penetrantes",
@@ -51,7 +51,7 @@ public class SkillTree : MonoBehaviour
             "Bouclier"
         };
 
-        skillDescriptions = new[]
+        skillDescriptions = new[] //description
         {
             "Balles sans effets ayant de bon degats",
             "Balles pouvant travers plusieurs ennemis",
@@ -72,8 +72,8 @@ public class SkillTree : MonoBehaviour
         for (int i = 0; i < skillList.Count; i++)
             skillList[i].id = i;
 
+        //liaison entre les skills
         skillList[0].connectedSkills = new[] { 1,2,6};
-        //skillList[1].connectedSkills = new[] {5};
         skillList[2].connectedSkills = new[] {3};
         skillList[3].connectedSkills = new[]  {4};
         skillList[4].connectedSkills = new[] {5};
@@ -97,6 +97,7 @@ public class SkillTree : MonoBehaviour
     {
         skillPointsText.text = $"Points : {PlayerPrefs.GetInt("Points")}"; 
 
+        //on met a jour les textes et les valeurs PlayerPrefs
         bonusText[0].text = $"+{skillLevels[0]} atq";
         bonusText[1].text = $"+{skillLevels[1]} atq";
         bonusText[2].text = $"+{skillLevels[2]} atq";
@@ -113,6 +114,7 @@ public class SkillTree : MonoBehaviour
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel04", skillLevels[5]);
         PlayerPrefs.SetInt("Shield", skillLevels[6]);
 
+        //succes deverouiller toutes les armes
         bool tmp = true;
         for (int i = 0; i < 7; i++)
             if (skillLevels[i] == 0)
@@ -125,6 +127,7 @@ public class SkillTree : MonoBehaviour
 
 
     }
+    //mis a jour des visuels
     public void UpdateAllSkillUI()
     {
         foreach(var skill in skillList)

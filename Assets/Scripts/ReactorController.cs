@@ -5,13 +5,11 @@ using UnityEngine.VFX;
 
 public class ReactorController : MonoBehaviour
 {
-    // Start is called before the first frame update
     public VisualEffect reactor;
 
-
-    // Update is called once per frame
     void Update()
     {
+        //si on avance on augmente la taille du reacteur
         if (Input.GetKey(KeyCode.UpArrow))
         {
             reactor.SetFloat("MinLife", 0.2f);

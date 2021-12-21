@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletPen : Bullet
 {
-    // Start is called before the first frame update
     [SerializeField]
     private float speed = 10f;
     private Camera m_MainCamera;
@@ -15,7 +14,7 @@ public class BulletPen : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 30 + PlayerPrefs.GetInt("MainWeaponWeaponLevel01") * 2;
+        damage = 30 + PlayerPrefs.GetInt("MainWeaponWeaponLevel01") * 2; //recuperation du niveau de l'arme pour augmenter les degats
         shootRate = 5f;
         pierce = 2;
     }
@@ -35,22 +34,20 @@ public class BulletPen : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, speed) * 0.007f);
 
     }
 
+    //on ne detruit la balle qu'apres avoir traverse plusieurs ennemis
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "enemy")
         {
             pierce -= 1;
-
         }
         if(pierce <=0)
         {
             Destroy(gameObject);
-
         }
 
     }

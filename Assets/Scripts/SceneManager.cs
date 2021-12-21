@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     public void LaunchScene1()
     {

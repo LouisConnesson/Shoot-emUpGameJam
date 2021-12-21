@@ -24,9 +24,7 @@ public class Skill : MonoBehaviour
         descriptionText.text = $"{skillTree.skillDescriptions[id]}";
         costText.text = $"-{skillTree.skillCost[id]}";
 
-        /*Color colorBlue = new Color(0.20f, 0.20f, 0.60f, 0.8f);
-        Color colorWhite = new Color(0.63f, 0.63f, 0.75f, 0.8f);
-        Color colorGreen = new Color(0.50f, 0.82f, 0.40f, 0.8f);*/
+        //couleur des cases selon le niveau d'achat
         Color colorBlue;
         Color colorWhite;
         Color colorGreen;
@@ -40,6 +38,7 @@ public class Skill : MonoBehaviour
         GetComponent<Image>().color = skillTree.skillLevels[id] >= skillTree.skillCaps[id] ? colorBlue :
             PlayerPrefs.GetInt("Points") > skillTree.skillCost[id] ? colorGreen : colorWhite;
 
+        //couleur connecteurs
         Color blackColor;
         ColorUtility.TryParseHtmlString("#131313", out blackColor);
         blackColor.a = 0.8f;
@@ -58,18 +57,17 @@ public class Skill : MonoBehaviour
             else
                 skillTree.connectorList[connectedSkill].GetComponent<Image>().color = blackColor;
 
-            //skillTree.skillList[connectedSkill].gameObject.SetActive(skillTree.skillLevels[id] > 0);
-            //skillTree.connectorList[connectedSkill].SetActive(skillTree.skillLevels[id] > 0);
         }
     }
+    //achat d'un skill
     public void Buy()
     {
+        //si pas assez
         if (skillTree.skillLevels[id] >= skillTree.skillCaps[id] || PlayerPrefs.GetInt("Points") < skillTree.skillCost[id])
             return;
 
         int pts = PlayerPrefs.GetInt("Points") - skillTree.skillCost[id];
         PlayerPrefs.SetInt("Points", pts);
-        //skillTree.SkillPoint -= skillTree.skillCost[id];
         skillTree.skillLevels[id] += 1;
         skillTree.UpdateAllSkillUI();
     }

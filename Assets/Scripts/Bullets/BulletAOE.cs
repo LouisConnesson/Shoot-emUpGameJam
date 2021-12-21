@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class BulletAOE : Bullet
 {
-    // Start is called before the first frame update
     [SerializeField]
     private float speed = 10f;
     private Camera m_MainCamera;
 
-
-
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 50  +PlayerPrefs.GetInt("SecondWeaponWeaponLevel03") * 2;
+        damage = 50  +PlayerPrefs.GetInt("SecondWeaponWeaponLevel03") * 2; //recuperation du niveau de l'arme pour augmenter les degats
         shootRate = 2f;
     }
 
@@ -33,7 +30,6 @@ public class BulletAOE : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, speed) * 0.007f);
 
     }
@@ -47,6 +43,7 @@ public class BulletAOE : Bullet
             Destroy(gameObject);
         }
     }
+    //fonction permettant de chercher les ennemis autour
     private void CheckForDestructibles()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position,8f);
@@ -58,7 +55,7 @@ public class BulletAOE : Bullet
                 Entity tmp = c.GetComponent<Entity>();
                 if (tmp != null)
                 {
-                    //Debug.Log("entity pas null");
+                    //on applique les degats a tous les ennemis
                     c.GetComponent<Entity>().TakeDamage(GetBulletDamage());
                 }
 

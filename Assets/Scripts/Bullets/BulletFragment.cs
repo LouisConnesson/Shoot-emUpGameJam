@@ -13,7 +13,7 @@ public class BulletFragment : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 40 + PlayerPrefs.GetInt("SecondWeaponWeaponLevel02") * 2;
+        damage = 40 + PlayerPrefs.GetInt("SecondWeaponWeaponLevel02") * 2; //recuperation du niveau de l'arme pour augmenter les degats
         shootRate = 10f;
     }
 
@@ -32,20 +32,15 @@ public class BulletFragment : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, speed) * 0.007f);
     }
 
+    //la fragmentation se fait du cote de l'ennemi
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "enemy")
         {
-
-            //for (int i = 0; i < 8; i++)
-            // Instantiate(gameObject, transform.position, Quaternion.Euler(i * 45, 90f, 0f));
-            
             Destroy(gameObject,0.01f);
-
         }
     }
 }

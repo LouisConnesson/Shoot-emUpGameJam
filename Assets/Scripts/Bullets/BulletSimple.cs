@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class BulletSimple : Bullet
 {
-    // Start is called before the first frame update
     [SerializeField]
     private float speed = 10f;
     private Camera m_MainCamera;
 
-
-
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 20 + PlayerPrefs.GetInt("MainWeaponWeaponLevel01")*2;
+        damage = 20 + PlayerPrefs.GetInt("MainWeaponWeaponLevel01")*2; //recuperation du niveau de l'arme pour augmenter les degats
         shootRate = 10f;
     }
     
@@ -33,7 +30,6 @@ public class BulletSimple : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0,1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
         rb.velocity = transform.TransformDirection(new Vector3(0, 0, speed) * 0.007f);
     }
 

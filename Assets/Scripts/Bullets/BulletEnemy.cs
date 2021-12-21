@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletEnemy : Bullet
 {
-    // Start is called before the first frame update
     [SerializeField]
     private float speed = 10f;
     private Camera m_MainCamera;
@@ -18,7 +17,6 @@ public class BulletEnemy : Bullet
         shootRate = 1.5f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         bulletMovment();
@@ -33,10 +31,7 @@ public class BulletEnemy : Bullet
     {
         Vector3 moveDir = new Vector3(0, 0, 1);
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(new Vector3(0,1,0) *0.5f * Time.deltaTime,ForceMode.Impulse);
-       
         rb.velocity = transform.TransformDirection(new Vector3(this.transform.rotation.z, -speed, 0) * 0.007f);
-        // rb.transform.position = new Vector3(rb.transform.position.x * Time.deltaTime, rb.transform.position.y * Time.deltaTime, rb.transform.position.z);
         
     }
 

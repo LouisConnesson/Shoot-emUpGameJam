@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
-    private int[] currentReserve;
-    private int[] maxReserve;
-    private int[] cost;
-    private int[] nbAdd;
+    private int[] currentReserve; //reserves de munitions
+    private int[] maxReserve; //max de munition 
+    private int[] cost; //cout d'achat
+    private int[] nbAdd; //paquet par achat
 
     public TMP_Text[] reserves;
     public TMP_Text[] costs;
@@ -25,11 +24,11 @@ public class ShopManager : MonoBehaviour
         PlayerPrefs.SetInt("MaxWeapon4", 30); //aoe
         PlayerPrefs.SetInt("MaxWeapon5", 20); //aoe2
 
-        /*PlayerPrefs.SetInt("Current1", 0); //aoe2
-        PlayerPrefs.SetInt("Current2", 0); //aoe2
-        PlayerPrefs.SetInt("Current3", 0); //aoe2
-        PlayerPrefs.SetInt("Current4", 0); //aoe2
-        PlayerPrefs.SetInt("Current5", 0); //aoe2*/
+        /*PlayerPrefs.SetInt("Current1", 0); 
+        PlayerPrefs.SetInt("Current2", 0);
+        PlayerPrefs.SetInt("Current3", 0); 
+        PlayerPrefs.SetInt("Current4", 0); 
+        PlayerPrefs.SetInt("Current5", 0); */
 
 
         currentReserve = new int[5];
@@ -69,8 +68,10 @@ public class ShopManager : MonoBehaviour
 
     }
 
+    //achat arme 0
     public void BuyWeapon0()
     {
+        //on verifie qu'on a assez et qu'on est pas deja au max de munitions
         if(currentReserve[0] < maxReserve[0] && PlayerPrefs.GetInt("Points") >= cost[0])
         {
             currentReserve[0] += nbAdd[0];
@@ -80,10 +81,12 @@ public class ShopManager : MonoBehaviour
             if (currentReserve[0] > maxReserve[0])
                 currentReserve[0] = maxReserve[0];
 
+            //on sauvegarde
             PlayerPrefs.SetInt("Current1", currentReserve[0]);
 
         }
     }
+    //achat arme 1
     public void BuyWeapon1()
     {
         if (currentReserve[1] < maxReserve[1] && PlayerPrefs.GetInt("Points") >= cost[1])
@@ -98,6 +101,7 @@ public class ShopManager : MonoBehaviour
 
         }
     }
+    //achat arme 2
     public void BuyWeapon2()
     {
         if (currentReserve[2] < maxReserve[2] && PlayerPrefs.GetInt("Points") >= cost[2])
@@ -112,6 +116,7 @@ public class ShopManager : MonoBehaviour
 
         }
     }
+    //achat arme 3
     public void BuyWeapon3()
     {
         if (currentReserve[3] < maxReserve[3] && PlayerPrefs.GetInt("Points") >=cost[3])
@@ -126,6 +131,7 @@ public class ShopManager : MonoBehaviour
 
         }
     }
+    //achat arme 4
     public void BuyWeapon4()
     {
         if (currentReserve[4] < maxReserve[4] && PlayerPrefs.GetInt("Points") >= cost[4])
