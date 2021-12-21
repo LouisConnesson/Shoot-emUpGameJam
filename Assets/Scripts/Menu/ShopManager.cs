@@ -18,7 +18,7 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        /*PlayerPrefs.SetInt("Current1", 0);
+       /* PlayerPrefs.SetInt("Current1", 0);
         PlayerPrefs.SetInt("Current2", 0);
         PlayerPrefs.SetInt("Current3", 0);
         PlayerPrefs.SetInt("Current4", 0);
