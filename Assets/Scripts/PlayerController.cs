@@ -60,6 +60,9 @@ public class PlayerController : Entity
 
     public int cdShield;
     private int currMenuPoints;
+
+
+    private bool cheatShield = false;
     private void Awake()
     {
         cdShield = 15000;
@@ -192,7 +195,9 @@ public class PlayerController : Entity
             if (second_id == 4)
                 currentAmmoSD = PlayerPrefs.GetInt("Current5");
 
-
+            cheatShield = false;
+            if (Input.GetKey(KeyCode.M))
+                cheatShield = true;
 
             if (Input.GetKey(KeyCode.Space) && Time.timeScale !=0 && currentAmmoPR > 0)
 
@@ -263,9 +268,15 @@ public class PlayerController : Entity
 
                 }
             }
-            if (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale !=0 )
+            if ( (Input.GetKey(KeyCode.A) && PlayerPrefs.GetInt("Shield") != 0 && Time.timeScale !=0) || Input.GetKey(KeyCode.M))
             {
-                if (timer3.ElapsedMilliseconds >= cdShield)
+                int tmptime = 0;
+                if (cheatShield)
+                    tmptime = 0;
+                else
+                    tmptime = cdShield;
+
+                if (timer3.ElapsedMilliseconds >= tmptime)
                 {
                     //Instantiate(shield, bulletSpawn.position, Quaternion.Euler(0f, 0f, 0f));
                     timer3.Restart();
