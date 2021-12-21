@@ -37,7 +37,7 @@ public class EnemyBossShield : Entity
         {
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
             Vector3 screenPos = EnemyBossShield.m_mainCamera.WorldToViewportPoint(target.position);
-            if (this.transform.position.y > 12)
+            if (this.transform.position.y > 12) // on fais stagner le boss à cette hauteur
             {
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
             }
@@ -49,15 +49,15 @@ public class EnemyBossShield : Entity
         
     }
 
-    public void ShieldMakerKilled()
+    public void ShieldMakerKilled()// on reçoit ce signal lorsqu'une sonde meurt, si la variable est à 0, toutes les sondes sont mortes
     {
         nbShieldMaker--;
     }
-    public void NoShieldEvent(EnemyBossBody boss)
+    public void NoShieldEvent(EnemyBossBody boss) 
     {
         OnNoShield += boss.NoShield;
     }
-    IEnumerator Hurt()
+    IEnumerator Hurt()//coroutine pour faire clignoter le monstre lorsqu'il subit des dégats
     {
         couleur = shield.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
         couleur.a = 0.300f;
@@ -73,7 +73,6 @@ public class EnemyBossShield : Entity
         {
             StartCoroutine("Hurt");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
-            //Debug.Log("bullet");
 
         }
 
@@ -82,7 +81,6 @@ public class EnemyBossShield : Entity
             OnNoShield?.Invoke();
             OnKilledEnemy?.Invoke();
             Destroy(gameObject);
-            //Debug.Log("j'appelle levent");
 
         }
 

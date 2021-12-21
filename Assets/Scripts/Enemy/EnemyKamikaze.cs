@@ -49,13 +49,9 @@ public class EnemyKamikaze : Entity
                 Vector3 direction = (m_player.transform.position - transform.position);
                 Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, 0));
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
-
                 movement = direction;
             }
-
         }
-
     }
     private void FixedUpdate()
     {
@@ -63,20 +59,16 @@ public class EnemyKamikaze : Entity
             Move(movement);
     }
 
-    private void Move(Vector2 direction)
+    private void Move(Vector2 direction) // on déplace le kamikaze dans la direction du joueur
     {
         
         float step = moveSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, m_player.transform.position, step);
-        //rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
-        
-
     }
 
 
-    IEnumerator Hurt()
+    IEnumerator Hurt()//coroutine pour faire clignoter le monstre lorsqu'il subit des dégats
     {
-       
         couleur = this.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
         couleur.g = 0.0f;
 
@@ -110,7 +102,6 @@ public class EnemyKamikaze : Entity
 
             if (other.GetComponent<BulletFragment>())
             {
-                print("AHAHAHAHHAHAHAHAHHHHHHHHHHHHH");
                 for (int i = 0; i < 8; i++)
                     Instantiate(other.gameObject, other.transform.position, Quaternion.Euler(i * 45, 90f, 90f));
                 other.gameObject.SetActive(false);

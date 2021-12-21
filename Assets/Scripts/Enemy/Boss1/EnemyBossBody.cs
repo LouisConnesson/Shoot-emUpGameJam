@@ -75,7 +75,7 @@ public class EnemyBossBody : Entity
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
 
             Vector3 screenPos = EnemyBossBody.m_mainCamera.WorldToViewportPoint(target.position);
-            if (this.transform.position.y > 12)
+            if (this.transform.position.y > 12) // on fais stagner le boss à cette hauteur
             {
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
             }
@@ -83,7 +83,7 @@ public class EnemyBossBody : Entity
             {
                 Destroy(gameObject);
             }
-            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale)) // on gère les tirs en fonction du shootRate
             {
                 //ON ECHANGE LES PATERNES DE TIRS, le 2eme paterne doit jouer un certains nb de secondes
                 if (Random.Range(0, 10000) > 9700 && timerFlag == false)
@@ -127,7 +127,7 @@ public class EnemyBossBody : Entity
                     }
                     Instantiate(bulletPrefab, bulletSpawn[0].position, Quaternion.Euler(0f, 0f, patern));
                 }
-                //ATTAQUE ULTIME DU BOSS
+                //ATTAQUE ULTIME DU BOSS SI IL EST A LA MOITIE DE SA VIE
                 if (currentHealth <= 500)
                 {
                     shootRate = 500F;
@@ -168,7 +168,7 @@ public class EnemyBossBody : Entity
         }
     }
 
-    IEnumerator Hurt()
+    IEnumerator Hurt()//coroutine pour faire clignoter le monstre lorsqu'il subit des dégats
     {
         if (isnotDied != false)
         {
@@ -194,7 +194,6 @@ public class EnemyBossBody : Entity
             if (isnotDied)
                 StartCoroutine("Hurt");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
-            //Debug.Log("bullet");
 
         }
 
@@ -206,7 +205,6 @@ public class EnemyBossBody : Entity
             OnBossMusic?.Invoke();
             ////////////
             StartCoroutine("died");
-            //Debug.Log("j'appelle levent");
 
         }
 

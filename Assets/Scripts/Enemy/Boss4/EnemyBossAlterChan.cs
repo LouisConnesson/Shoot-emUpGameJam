@@ -125,7 +125,7 @@ public class EnemyBossAlterChan : Entity
         if (timerPatern.ElapsedMilliseconds >= 4500 || (timerPatern.ElapsedMilliseconds >= 3000 && paternIndex == 1) || (timerPatern.ElapsedMilliseconds >= 3000 && paternIndex == 6)) //On change le patern des attaques à chaque laps de temps choisit
         {
             if (paternIndex == 1) //si le patern est à 1 on ne peut pas utiliser le patern 4 sinon on est obligé de se faire toucher
-                paternIndex = Random.Range(2, 4);
+                paternIndex = Random.Range(2, 4); // on fais en sorte qu'un même patern ne peut pas arriver deux fois de suite
             else if (paternIndex == 0)
                 paternIndex = Random.Range(1, 7);
             else if (paternIndex == 2)
@@ -146,24 +146,6 @@ public class EnemyBossAlterChan : Entity
             flagCoroutine[2] = false;
             timerPatern.Restart();
         }
-        /*if (flagDialogueEsquive && Time.timeScale != 0 && currentHealth < 900) //Le dialogue de l'esquive se lance peu après le début du combat
-        {
-            Time.timeScale = 0;
-            dialogueChanEsquive.StartDialogue(); // On commence le dialogue du boss
-            font.enabled = true;
-
-        }
-        else if (Time.timeScale == 0 && Input.GetKeyDown(KeyCode.Space) && flagDialogueEsquive && currentHealth < 900) //si le boss a pop ET qu'on est en dialogue
-        {
-            dialogueChanEsquive.NextLine();
-            if (dialogueChanEsquive.currentDialogue == 0) //si le dialogue est finit on remet le temps
-            {
-                Time.timeScale = 1;
-                flagDialogueEsquive = false;
-                font.enabled = false;
-            }
-        }*/
-        /////////////////////
         if (Time.timeScale != 0 && isnotDied)
         {
 
@@ -175,7 +157,7 @@ public class EnemyBossAlterChan : Entity
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
 
             Vector3 screenPos = EnemyBossAlterChan.m_mainCamera.WorldToViewportPoint(target.position);
-            if (this.transform.position.y > 12)
+            if (this.transform.position.y > 12) // on fais stagner le boss à cette hauteur
             {
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
             }
@@ -183,11 +165,6 @@ public class EnemyBossAlterChan : Entity
             {
                 Destroy(gameObject);
             }
-            /*if (timerLife.ElapsedMilliseconds >= 1000 / 8F && joueurHP.getmcurrentHealth() > 0) // on enlève la vie du boss au fil du temps tant que le joueur est encore en vie
-            {
-                currentHealth = currentHealth - 5;
-                timerLife.Restart();
-            }*/
 
             if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
             {
@@ -205,7 +182,7 @@ public class EnemyBossAlterChan : Entity
                     Instantiate(bulletPrefab, bulletSpawn[0].position, Quaternion.Euler(0f, 0f, Random.Range(-100, -10)));
                     Instantiate(bulletPrefab, bulletSpawn[1].position, Quaternion.Euler(0f, 0f, Random.Range(10, 100)));
                 }
-                else if (paternIndex == 1)////////////////////////////
+                else if (paternIndex == 1)//////////////////////////// 
                 {
                     PaternSound.volume = 0.1f;
                     shootRate = 150F;
@@ -242,7 +219,7 @@ public class EnemyBossAlterChan : Entity
                     Instantiate(bulletPrefab, bulletSpawn[0].position, Quaternion.Euler(0f, 0f, patern));
                     Instantiate(bulletPrefab, bulletSpawn[1].position, Quaternion.Euler(0f, 0f, patern2));
                 }
-                else if (paternIndex == 2)
+                else if (paternIndex == 2)// patern tourniquet
                 {
                     PaternSound.volume = 0.03f;
                     shootRate = 30F;
@@ -255,7 +232,7 @@ public class EnemyBossAlterChan : Entity
                         flagCoroutine[1] = true;
                     }
                 }
-                else if (paternIndex == 3)
+                else if (paternIndex == 3)//patern des cercles lents
                 {
                     PaternSound.volume = 0.2f;
                     shootRate = 1f;
@@ -268,7 +245,7 @@ public class EnemyBossAlterChan : Entity
                     CirclePatern();
 
                 }
-                else if (paternIndex == 4)
+                else if (paternIndex == 4) //patern de l'étoile de feu
                 {
                     shootRate = 10f;
                     PaternSound.volume = 0.15f;
@@ -277,14 +254,14 @@ public class EnemyBossAlterChan : Entity
 
                     CrossPatern();
                 }
-                else if (paternIndex == 5)
+                else if (paternIndex == 5) // patern avec bcp de cercles rapides
                 {
                     shootRate = 3f;
                     PaternSound.volume = 0.12f;
                     PaternSound.Play();
                     CirclePatern2();
                 }
-                else if (paternIndex == 6)
+                else if (paternIndex == 6) //patern en sablier avec des balles + ou - rapides
                 {
                     shootRate = 1.3f;
                     float value = Random.Range(0, 50);
@@ -305,7 +282,6 @@ public class EnemyBossAlterChan : Entity
             flagDead = false;
             OnBossMusic?.Invoke();
             StartCoroutine("died");
-            //Debug.Log("j'appelle levent");
         }
     }
 
@@ -313,8 +289,6 @@ public class EnemyBossAlterChan : Entity
     {
         if (other.gameObject.tag == "Bullet")
         {
-            //StartCoroutine("Hurt");
-            //Debug.Log("bullet");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
         }
     }

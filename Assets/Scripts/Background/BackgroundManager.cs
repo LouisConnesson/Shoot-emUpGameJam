@@ -22,16 +22,10 @@ public class BackgroundManager : MonoBehaviour
         timerplanet2 = new Stopwatch();
         timerplanet2.Start();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1) //On gère les instantiations des planètes et des rayons du background pour faire un fond dynamique 
         {
             if (timer.ElapsedMilliseconds >= (200))
             {

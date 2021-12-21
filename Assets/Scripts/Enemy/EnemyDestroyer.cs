@@ -44,14 +44,14 @@ public class EnemyDestroyer : Entity
         if (Time.timeScale != 0 && isnotDied)
         {
             Vector3 screenPos = EnemyDestroyer.m_mainCamera.WorldToViewportPoint(target.position);
-            if (this.transform.position.y > 10)
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
+            if (this.transform.position.y > 10) // on veut rester sur l'écran pour faire apparaitre des kamikazes
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z); // on gere les déplacements de haut en bas
 
             if (screenPos.y < 0.0F)
             {
                 Destroy(gameObject);
             }
-            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale)) // on fais pop des kamikazes à intervalle régulier
             {
                 EnemyKamikaze m = Instantiate(MobKamikaze) as EnemyKamikaze;
                 m.Initalize(playerActual);
@@ -61,7 +61,7 @@ public class EnemyDestroyer : Entity
         }
     }
 
-     IEnumerator Hurt()
+     IEnumerator Hurt() //coroutine pour faire clignoter le monstre lorsqu'il subit des dégats
      {
         couleur = this.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
         couleur.r = 1f;
@@ -74,16 +74,14 @@ public class EnemyDestroyer : Entity
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player") //si on percute un joueur, on pert des pv
         {
             currentHealth = currentHealth - 100;
-            //Debug.Log("player");
 
         }
-        if (other.gameObject.tag == "Bullet")
+        if (other.gameObject.tag == "Bullet") //si une balle nous touche, on perd des pv
         {
             StartCoroutine("Hurt");
-            //Debug.Log("bullet");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
 
         }
@@ -99,10 +97,7 @@ public class EnemyDestroyer : Entity
             {
                 for (int i = 0; i < 8; i++)
                     Instantiate(other.gameObject, tmpos, Quaternion.Euler(0, 0, i * 45));
-
             }
-
-            //Debug.Log("j'appelle levent");
 
         }
     }

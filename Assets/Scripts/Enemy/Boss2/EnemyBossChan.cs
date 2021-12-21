@@ -142,7 +142,7 @@ public class EnemyBossChan : Entity
         if (Time.timeScale != 0 && isnotDied)
         {
 
-            if (m_player) //on fais bouger la cible sur le joueur
+            if (m_player) //on fais bouger la cible sur le joueur si il existe
             {
                 Vector3 direction = (m_player.transform.position - cible.transform.position);
                 movement = direction;
@@ -150,7 +150,7 @@ public class EnemyBossChan : Entity
             lifeBar.value = ((float)currentHealth / (float)maxHealth);
 
             Vector3 screenPos = EnemyBossChan.m_mainCamera.WorldToViewportPoint(target.position);
-            if (this.transform.position.y > 12)
+            if (this.transform.position.y > 12) // on fais stagner le boss à cette hauteur
             {
                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
             }
@@ -261,13 +261,12 @@ public class EnemyBossChan : Entity
             }
 
         }
-        if (currentHealth <= 0 && flagDead)
+        if (currentHealth <= 0 && flagDead) //si le boss n'a plus de vie, on provoque sa mort
         {
             OnKilledEnemy?.Invoke();
             flagDead = false;
             OnBossMusic?.Invoke();
             StartCoroutine("died");
-            //Debug.Log("j'appelle levent");
         }
     }
     private void CirclePatern()

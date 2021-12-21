@@ -57,7 +57,7 @@ public class EnemyBossShieldMaker : Entity
         }
     }
 
-    IEnumerator Hurt()
+    IEnumerator Hurt()//coroutine pour faire clignoter le monstre lorsqu'il subit des dégats
     {
         if (isnotDied != false)
         {
@@ -88,8 +88,6 @@ public class EnemyBossShieldMaker : Entity
             OnKilledEnemy?.Invoke();
             sonde.GetComponent<SphereCollider>().enabled = false;
             StartCoroutine("died");
-            //Debug.Log("j'appelle levent");
-
         }
 
     }

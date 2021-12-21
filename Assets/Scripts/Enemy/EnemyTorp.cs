@@ -47,12 +47,12 @@ public class EnemyTorp : Entity
         if (Time.timeScale != 0 && isnotDied)
         {
             Vector3 screenPos = EnemyTorp.m_mainCamera.WorldToViewportPoint(target.position);
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z);
-            if (screenPos.y < 0.0F)
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - (5F * Time.deltaTime), this.transform.position.z); //on gere les déplacements
+            if (screenPos.y < 0.0F) // si il sort de l'écran il meurt
             {
                 Destroy(gameObject);
             }
-            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale))
+            if (timer.ElapsedMilliseconds >= 1000 / (shootRate * Time.timeScale)) // on gère les tirs de l'enemi
             {
                 for (int i = 0; i < bulletSpawn.Length; i++) // on tire les 3 balles avec les deux sur les cotés qui changent d'angle
                 {
@@ -70,9 +70,8 @@ public class EnemyTorp : Entity
         }
     }
 
-    IEnumerator Hurt()
+    IEnumerator Hurt()//coroutine pour faire clignoter le monstre lorsqu'il subit des dégats
     {
-        
         couleur = this.GetComponent<MeshRenderer>().material.GetColor("_BaseColor");
         couleur.r = 1f;
 
@@ -86,16 +85,12 @@ public class EnemyTorp : Entity
         if (other.gameObject.tag == "Player")
         {
             currentHealth = 0;
-            //Debug.Log("player");
-
         }
         if (other.gameObject.tag == "Bullet")
         {
             StartCoroutine("Hurt");
             currentHealth -= other.GetComponent<Bullet>().GetBulletDamage();
             UnityEngine.Debug.Log(other.GetComponent<Bullet>().GetBulletDamage());
-            //Debug.Log("bullet");
-
         }
 
         if (currentHealth <= 0)
@@ -105,7 +100,6 @@ public class EnemyTorp : Entity
             StartCoroutine("died");
             if (other.GetComponent<BulletFragment>())
             {
-                print("AHAHAHAHHAHAHAHAHHHHHHHHHHHHH");
                 for (int i = 0; i < 8; i++)
                     Instantiate(other.gameObject, other.transform.position, Quaternion.Euler(i * 45, 90f, 90f));
                 other.gameObject.SetActive(false);

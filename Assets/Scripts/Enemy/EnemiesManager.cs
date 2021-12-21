@@ -55,7 +55,7 @@ public class EnemiesManager : MonoBehaviour
         StartCoroutine(Spawner());
         StartCoroutine(SpawnerWave());
         if (level > 0)
-            StartCoroutine(SpawnerWaveKamikaze());
+            StartCoroutine(SpawnerWaveKamikaze()); 
 
     }
 
@@ -70,13 +70,13 @@ public class EnemiesManager : MonoBehaviour
         }
         if (Time.timeScale != 0 && player) 
         {
-            if (level == 0)
+            if (level == 0) // les boss apparaissent en fonction du niveau, ici c'est pour le niveau 1 donc on fait apparaitre le 1er boss
             {
                 timer.Start();
 
                 if (timer.ElapsedMilliseconds >= 35000 && flag == false) //////////////////////BOSS
                 {
-                    StopAllCoroutines();
+                    StopAllCoroutines(); //Il est important d'arrêter les coroutines pour le boss sinon il y aura pleins d'enemis à coté
                     Time.timeScale = 0;
                     dialogue.StartDialogue(); // On commence le dialogue du boss
                     EnemyBossBody m = Instantiate(BossBody) as EnemyBossBody;
@@ -97,28 +97,14 @@ public class EnemiesManager : MonoBehaviour
                     flag = true;
                     imgFont.enabled = true;
                 }
-                /*
-                GameObject guramob = Instantiate(gura) as GameObject;
-                guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player);
-                //guramob.GetComponent<BossGura>().Initalize(player);
-                guramob.transform.position = new Vector3(-7, 19, -5);*/
-
-                /*if (timer.ElapsedMilliseconds >= 50000 && flag == false && flagChan == false) //////////////////////BOSS
-                {
-                    StopAllCoroutines();
-                    EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
-                    chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
-                    chan.transform.position = new Vector3(2, 25, -5);
-                    flagChan = true;
-                }*/
             }
-            else if (level == 1)
+            else if (level == 1) // les boss apparaissent en fonction du niveau, ici c'est pour le niveau 2 donc on fait apparaitre le 2eme boss
             {
                 timer.Start();
 
                 if (timer.ElapsedMilliseconds >= 35000 && flag == false && flagGura == false) //////////////////////BOSS
                 {
-                    StopAllCoroutines();
+                    StopAllCoroutines();//Il est important d'arrêter les coroutines pour le boss sinon il y aura pleins d'enemis à coté
                     GameObject guramob = Instantiate(gura) as GameObject;
                     guramob.transform.GetChild(0).gameObject.GetComponent<BossGura>().Initalize(player,dialogueGura, imgFont, zicManager, userInterface);
                     //guramob.GetComponent<BossGura>().Initalize(player);
@@ -127,33 +113,33 @@ public class EnemiesManager : MonoBehaviour
 
                 }
             }
-            else if (level == 2)
+            else if (level == 2)// les boss apparaissent en fonction du niveau, ici c'est pour le niveau 3 donc on fait apparaitre le 3eme boss
             {
                 timer.Start();
 
                 if (timer.ElapsedMilliseconds >= 35000 && flagChan == false) //////////////////////BOSS
                 {
-                    StopAllCoroutines();
+                    StopAllCoroutines();//Il est important d'arrêter les coroutines pour le boss sinon il y aura pleins d'enemis à coté
                     EnemyBossChan chan = Instantiate(BossChan) as EnemyBossChan;
                     chan.Initalize(player, dialogueChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
                     chan.transform.position = new Vector3(2, 25, -5);
                     flagChan = true;
                 }
             }
-            else if (level == 3)
+            else if (level == 3)// les boss apparaissent en fonction du niveau, ici c'est pour le niveau 3 donc on fait apparaitre le 3eme boss
             {
                 timer.Start();
 
                 if (timer.ElapsedMilliseconds >= 20000 && flagChan == false) //////////////////////BOSS
                 {
-                    StopAllCoroutines();
+                    StopAllCoroutines();//Il est important d'arrêter les coroutines pour le boss sinon il y aura pleins d'enemis à coté
                     EnemyBossAlterChan chan = Instantiate(BossAlterChan) as EnemyBossAlterChan;
                     chan.Initalize(player, dialogueAlterChan, dialogueChanEsquive, imgFont, zicManager, userInterface);
                     chan.transform.position = new Vector3(2, 25, -5);
                     flagChan = true;
                 }
             }
-            else if (level == 4)
+            else if (level == 4)// Ici c'est le mode survie, toutes les 3 secondes, on incrémente une valeur qui influe sur la quantité de mobs qui peuvent apparaitre
             {
                 timer.Start();
 
@@ -165,7 +151,7 @@ public class EnemiesManager : MonoBehaviour
                 }
             }
         }
-        else if (flag == true && Input.GetKeyDown(KeyCode.Space)) //si le boss a pop ET qu'on est en dialogue
+        else if (flag == true && Input.GetKeyDown(KeyCode.Space)) //si le boss 1 a pop ET qu'on est en dialogue
         {
             dialogue.NextLine();
             if (dialogue.currentDialogue == 0) //si le dialogue est finit on remet le temps
@@ -175,12 +161,12 @@ public class EnemiesManager : MonoBehaviour
                 imgFont.enabled = false;
             }
         }
-        else //si le temps est arrêté on stop le temps du boss
+        else //si le temps est arrêté on stop le temps du 1er boss
         {
             timer.Stop();
         }
     }
-    private void spawnEnemy()
+    private void spawnEnemy() // fonction pour faire apparaitre des enemis à intervale régulié et aléatoirement en fonction du niveau ou de la durée passé ds le mode survie
     {
        
         if ((level != 0 && Random.Range(0f, 100f) < 50) || level == 0) //Probabilité de faire apparaitre un type de mob
@@ -206,7 +192,7 @@ public class EnemiesManager : MonoBehaviour
             //
         }
     }
-    private void spawnWave()
+    private void spawnWave() // fonction pour gérer les apparitions des waves, elles s'enchainent les unes après les autres et varie en fonction du niveau avec des monstres aléatoires
     {
         if (waveFlag == 0 && (level == 1 || level > 2))
         {
@@ -302,7 +288,7 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
-    private void spawnWaveKamikaze()
+    private void spawnWaveKamikaze() //fonction pour gérer les apparitions des enemis kamikazes
     {
         if (level >= 2)//Si on est au niveau 3 ou en mode survie, les torpilles qui spawn sont plus nombreuses
         { 
@@ -323,6 +309,8 @@ public class EnemiesManager : MonoBehaviour
             }
         }
     }
+
+    //////////////////////////COROUTINES POUR GERER LES INTERVALLES DES APPARITIONS DES MONSTRES
         IEnumerator Spawner()
     {
         while (true)
