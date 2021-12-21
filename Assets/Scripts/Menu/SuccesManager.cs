@@ -17,7 +17,7 @@ public class SuccesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("Success1", 0);
+        /*PlayerPrefs.SetInt("Success1", 0);
         PlayerPrefs.SetInt("Success2", 0);
         PlayerPrefs.SetInt("Success3", 0);
         PlayerPrefs.SetInt("Success4", 0);
@@ -26,7 +26,7 @@ public class SuccesManager : MonoBehaviour
         PlayerPrefs.SetInt("Success7", 0);
         PlayerPrefs.SetInt("Success8", 0);
         PlayerPrefs.SetInt("Success9", 0);
-        PlayerPrefs.SetInt("Success10", 0);
+        PlayerPrefs.SetInt("Success10", 0);*/
 
         //liste des succes partages entre menu et scenes
         isOk = new bool[10];

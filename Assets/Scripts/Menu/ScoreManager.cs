@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("Score1", 0);
+        /*PlayerPrefs.SetInt("Score1", 0);
         PlayerPrefs.SetInt("Score2", 0);
         PlayerPrefs.SetInt("Score3", 0);
         PlayerPrefs.SetInt("Score4", 0);
@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.SetInt("Score7", 0);
         PlayerPrefs.SetInt("Score8", 0);
         PlayerPrefs.SetInt("Score9", 0);
-        PlayerPrefs.SetInt("Score10", 0);
+        PlayerPrefs.SetInt("Score10", 0);*/
 
         //on recupere les scores et on les affiche
         scores[9].text = PlayerPrefs.GetInt("Score1").ToString();

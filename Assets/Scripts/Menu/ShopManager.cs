@@ -18,12 +18,12 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("Current1", 0);
+        /*PlayerPrefs.SetInt("Current1", 0);
         PlayerPrefs.SetInt("Current2", 0);
         PlayerPrefs.SetInt("Current3", 0);
         PlayerPrefs.SetInt("Current4", 0);
         PlayerPrefs.SetInt("Current5", 0);
-        PlayerPrefs.SetInt("Points", 50);
+        PlayerPrefs.SetInt("Points", 50);*/
 
         PlayerPrefs.SetInt("MaxWeapon1", 200); //pen
         PlayerPrefs.SetInt("MaxWeapon2", 200); //multi
