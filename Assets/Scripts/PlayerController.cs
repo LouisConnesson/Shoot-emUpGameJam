@@ -62,7 +62,7 @@ public class PlayerController : Entity
     private int currMenuPoints;
     private void Awake()
     {
-        cdShield = 10000;
+        cdShield = 15000;
         anim = GetComponent<Animator>();
 
         timer = new Stopwatch();
@@ -98,7 +98,7 @@ public class PlayerController : Entity
             shootRate2 =0;
 
         m_MainCamera = FindObjectOfType<Camera>();
-        shieldTime = (2 + PlayerPrefs.GetInt("Shield") * 0.5f)*1000;
+        shieldTime = (0.5f + PlayerPrefs.GetInt("Shield") * 0.25f)*1000;
         currMenuPoints = PlayerPrefs.GetInt("Points");
 
     }

@@ -85,7 +85,7 @@ public class EnemyBossAlterChan : Entity
 
 
 
-        maxHealth = 7000;
+        maxHealth = 8000;
         currentHealth = maxHealth;
         m_mainCamera = Camera.main;
         joueurHP = player;
@@ -201,7 +201,7 @@ public class EnemyBossAlterChan : Entity
                     }
                     PaternSound.volume = 0.03f;
                     PaternSound.Play();
-                    shootRate = 3F;
+                    shootRate = 4F;
                     Instantiate(bulletPrefab, bulletSpawn[0].position, Quaternion.Euler(0f, 0f, Random.Range(-100, -10)));
                     Instantiate(bulletPrefab, bulletSpawn[1].position, Quaternion.Euler(0f, 0f, Random.Range(10, 100)));
                 }
@@ -258,7 +258,7 @@ public class EnemyBossAlterChan : Entity
                 else if (paternIndex == 3)
                 {
                     PaternSound.volume = 0.2f;
-                    shootRate = 0.8f;
+                    shootRate = 1f;
                     if (flagCoroutine[2] == false)
                     {
                         StartCoroutine("sniping");

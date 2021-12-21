@@ -103,7 +103,7 @@ public class SkillTree : MonoBehaviour
         bonusText[3].text = $"+{skillLevels[3]} atq";
         bonusText[4].text = $"+{skillLevels[4]} atq";
         bonusText[5].text = $"+{skillLevels[5]} atq";
-        bonusText[6].text = $"+{skillLevels[6]/2} sec";
+        bonusText[6].text = $"+{skillLevels[6]/4} sec";
 
         PlayerPrefs.SetInt("MainWeaponWeaponLevel01", skillLevels[0]);
         PlayerPrefs.SetInt("MainWeaponWeaponLevel02", skillLevels[1]);

@@ -49,7 +49,7 @@ public class BulletAOE2 : Bullet
         {
             if(other.GetComponent<Bullet>() && onHit == false)
             {
-                damage = 1000;
+                damage = 250;
                 transform.localScale += new Vector3(8, 8, 8);
                 onHit = true;
                 Destroy(gameObject, 1f);
