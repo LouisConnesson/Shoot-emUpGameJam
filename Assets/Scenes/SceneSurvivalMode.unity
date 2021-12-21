@@ -1338,7 +1338,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1510126207
+--- !u!21 &1667813503
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1537,11 +1537,13 @@ MonoBehaviour:
   - {fileID: 2989092818528873376, guid: faef9339f401f5a4dbd28dea8408f856, type: 3}
   mainWeapon:
   - {fileID: 6712791512034576999, guid: b2f256a628f26244bbe2f9b4bebf059d, type: 3}
-  - {fileID: 1536599200798341356, guid: fc9dd0be169738245a9df8ed145ac1da, type: 3}
-  secondWeapons:
-  - {fileID: 1536599200798341356, guid: fc9dd0be169738245a9df8ed145ac1da, type: 3}
   - {fileID: 4517784122288293426, guid: 5b951f97729d3aa4d903b497b4f87c93, type: 3}
-  - {fileID: 6712791512034576999, guid: b2f256a628f26244bbe2f9b4bebf059d, type: 3}
+  secondWeapons:
+  - {fileID: 9174778856954807984, guid: 5bc61d2e8a38f974fb9adfaa8e44f597, type: 3}
+  - {fileID: 5903369213439099790, guid: 26f6b34ca9324cd43890992f464943aa, type: 3}
+  - {fileID: 6774031187904593868, guid: dc877d2a7c722ac4c95f82e1e81777da, type: 3}
+  - {fileID: 1536599200798341356, guid: fc9dd0be169738245a9df8ed145ac1da, type: 3}
+  - {fileID: 7631512810379162051, guid: 3897e5a7fe1b3ee44aa69beda05fa74c, type: 3}
 --- !u!4 &2051128024
 Transform:
   m_ObjectHideFlags: 0

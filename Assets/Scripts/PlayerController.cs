@@ -218,7 +218,7 @@ public class PlayerController : Entity
                 }
             }
 
-            if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale!=0 && currentAmmoSD > 0)
+            if (Input.GetKey(KeyCode.E) && second_id != 0 && Time.timeScale!=0 && currentAmmoSD >= 3)
             {
                 if (timer2.ElapsedMilliseconds >= 1000 / (shootRate2*Time.timeScale))
                 {

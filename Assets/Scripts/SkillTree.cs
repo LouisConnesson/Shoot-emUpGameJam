@@ -28,7 +28,16 @@ public class SkillTree : MonoBehaviour
     void Start()
     {
         //PlayerPrefs.SetInt("Points", 300);
-        skillLevels = new int[7] { 0, 0, 0, 0, 0 ,0,0};
+        skillLevels = new int[7];
+        skillLevels[0] = PlayerPrefs.GetInt("MainWeaponWeaponLevel01");
+        skillLevels[1] = PlayerPrefs.GetInt("MainWeaponWeaponLevel02");
+        skillLevels[2] = PlayerPrefs.GetInt("SecondWeaponWeaponLevel01");
+        skillLevels[3] = PlayerPrefs.GetInt("SecondWeaponWeaponLevel02");
+        skillLevels[4] = PlayerPrefs.GetInt("SecondWeaponWeaponLevel03");
+        skillLevels[5] = PlayerPrefs.GetInt("SecondWeaponWeaponLevel04");
+        skillLevels[6] = PlayerPrefs.GetInt("Shield");
+
+
         skillCaps = new[] {4,5,5,2,10,10,4 };
         skillCost = new[] {1,3,5,10,15,20,30};
         skillNames = new[]
@@ -71,13 +80,13 @@ public class SkillTree : MonoBehaviour
    
 
         UpdateAllSkillUI();
-        PlayerPrefs.SetInt("MainWeaponWeaponLevel01", 0);
+        /*PlayerPrefs.SetInt("MainWeaponWeaponLevel01", 0);
         PlayerPrefs.SetInt("MainWeaponWeaponLevel02", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel01", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel02", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel03", 0);
         PlayerPrefs.SetInt("SecondWeaponWeaponLevel04", 0);
-        PlayerPrefs.SetInt("Shield", 0);
+        PlayerPrefs.SetInt("Shield", 0);*/
 
 
 
