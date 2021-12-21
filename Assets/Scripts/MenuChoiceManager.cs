@@ -42,17 +42,17 @@ public class MenuChoiceManager : MonoBehaviour
     {
         //starship
         isStarshipEnable = new bool[starships.Length];
-        id_starship = 0;
-        PlayerPrefs.SetInt("Starship", 0);
+        id_starship = PlayerPrefs.GetInt("Starship");
+        //PlayerPrefs.SetInt("Starship", 0);
 
         //main weapon
         isMainWeaponEnable = new bool[2];
-        id_mainWeapon = 0;
-        PlayerPrefs.SetInt("MainWeapon", 0);
+        id_mainWeapon = PlayerPrefs.GetInt("MainWeapon");
+        //PlayerPrefs.SetInt("MainWeapon", 0);
         //second weapon
         isSecondWeaponEnable = new bool[5];
-        id_secondWeapon = 0;
-        PlayerPrefs.SetInt("SecondWeapon", 0);
+        id_secondWeapon = PlayerPrefs.GetInt("SecondWeapon");
+        //PlayerPrefs.SetInt("SecondWeapon", 0);
 
         isMainWeaponAvailable = new bool[2] { true, false };
         isisSecondWeaponAvailable = new bool[5] { true, false, false, false, false };
@@ -63,6 +63,10 @@ public class MenuChoiceManager : MonoBehaviour
             "Balles a degats de zone",
             "Plasma",
             };
+
+
+        currentMainWeapon.sprite = mainWeaponSprites[id_mainWeapon];
+        currentSecondWeapon.sprite = secondWeaponSprites[id_secondWeapon];
     }
 
     // Update is called once per frame
