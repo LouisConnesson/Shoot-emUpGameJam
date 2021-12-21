@@ -13,7 +13,7 @@ public class BulletFragment : Bullet
     private void Awake()
     {
         m_MainCamera = Camera.main;
-        damage = 20 + PlayerPrefs.GetInt("SecondWeaponWeaponLevel02") * 2;
+        damage = 40 + PlayerPrefs.GetInt("SecondWeaponWeaponLevel02") * 2;
         shootRate = 10f;
     }
 
@@ -43,8 +43,8 @@ public class BulletFragment : Bullet
 
             //for (int i = 0; i < 8; i++)
             // Instantiate(gameObject, transform.position, Quaternion.Euler(i * 45, 90f, 0f));
-            gameObject.SetActive(false);
-            Destroy(gameObject,0.3f);
+            
+            Destroy(gameObject,0.01f);
 
         }
     }

@@ -110,6 +110,7 @@ public class Enemy : Entity
                 print("AHAHAHAHHAHAHAHAHHHHHHHHHHHHH");
                 for (int i = 0; i < 8; i++)
                     Instantiate(other.gameObject, other.transform.position, Quaternion.Euler(i * 45, 90f, 90f));
+                other.gameObject.SetActive(false);
 
             }
 
